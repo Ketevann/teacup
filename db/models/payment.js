@@ -1,6 +1,6 @@
 'use strict'
-const Sequelize = require('sequelize')
-const db = require('../index.js')
+const Sequelize = require('sequelize');
+const db = require('../index.js');
 
 
 module.exports = db.define('payment', {
@@ -9,7 +9,7 @@ module.exports = db.define('payment', {
     allowNull: false
   },
   ExpirationDate: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   CCV: {
@@ -45,4 +45,4 @@ module.exports = db.define('payment', {
   zipCode: {
     type: Sequelize.INTEGER
   }
-})
+});
