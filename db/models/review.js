@@ -1,6 +1,6 @@
-'use strict';
-var Sequelize = require('sequelize')
-var db = require('../index.js');
+'use strict'
+const Sequelize = require('sequelize')
+const db = require('../index.js')
 
 module.exports = db.define('review', {
     content: {
@@ -13,5 +13,5 @@ module.exports = db.define('review', {
             min: 0,
             max: 5
         }
-    }
-});
+    },
+})
