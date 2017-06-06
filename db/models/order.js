@@ -1,6 +1,6 @@
 'use strict'
 const Sequelize = require('sequelize')
-var db = require('../index.js')
+const db = require('../index.js')
 
 module.exports = db.define('order', {
   status: {
