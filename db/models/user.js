@@ -22,7 +22,8 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaulValue: false
-  }
+  },
 })
 
 module.exports = User
+
