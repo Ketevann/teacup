@@ -32,6 +32,7 @@ prettyError.skipNodeFiles()
 // Skip all the trace lines about express' core and sub-modules.
 prettyError.skipPackage('express')
 
+//app dot use, chaining dot & creating app...
 module.exports = app
   // Session middleware - compared to express-session (which is what's used in the Auther workshop), cookie-session stores sessions in a cookie, rather than some other type of session store.
   // Cookie-session docs: https://www.npmjs.com/package/cookie-session
