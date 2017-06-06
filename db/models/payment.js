@@ -1,4 +1,4 @@
-// 'use strict'
+'use strict'
 const Sequelize = require('sequelize');
 const db = require('../index.js');
 
@@ -9,7 +9,7 @@ module.exports = db.define('payment', {
     allowNull: false
   },
   ExpirationDate: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   CCV: {
