@@ -7,7 +7,7 @@ module.exports = db.define('cartItem', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false
-  }
+  },
 })
 
 //??
