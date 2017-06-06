@@ -38,7 +38,7 @@ const data = {
   cartItems: [
     {name: 'Cinnamon Foobar', Price: '3.00', quantity: 5},
     {name: 'Almond Foobar', Price: '2.75', quantity: 9},
-  ]
+  ],
 
 }
 
