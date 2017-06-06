@@ -27,7 +27,11 @@ module.exports = db.define('order', {
     allowNull: false
   },
   zipCode: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    validator: {
+      min: 5,
+      max: 5
+    }
   },
 })
 
