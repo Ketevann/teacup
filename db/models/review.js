@@ -14,4 +14,4 @@ module.exports = db.define('review', {
             max: 5
         }
     },
-});
+})
