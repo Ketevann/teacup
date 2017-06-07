@@ -1,9 +1,9 @@
 'use strict'
 const Sequelize = require('sequelize')
-const db = require('../index.js')
+const db = require('./index.js')
 
 
-module.exports = db.define('payment', {
+module.exports = (db) => db.define('payment', {
   vendor: {
     type: Sequelize.ENUM('MasterCard', 'Visa', 'American Express', 'Discover'),
     allowNull: false

@@ -1,10 +1,13 @@
+
 const db = require('./index.js')
+console.log('***********', db)
 const Product = db.Product
 const User = db.User
 const Order = db.Order
 const Payment = db.Payment
 const Review = db.Review
 const CartItem = db.CartItem
+const Promise = require('bluebird');
 
 //note: I'm just going to write associations in postico
 

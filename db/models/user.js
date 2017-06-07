@@ -1,9 +1,9 @@
-'use strict';
-const Sequelize = require('sequelize');
-var db = require('../index.js');
+'use strict'
+const Sequelize = require('sequelize')
+var db = require('./index.js')
 
 
-const User = db.define('user', {
+module.exports = (db) => db.define('user', {
     name: {
         type: Sequelize.STRING,
         allowNull: false
@@ -22,7 +22,10 @@ const User = db.define('user', {
     isAdmin: {
         type: Sequelize.BOOLEAN,
         defaulValue: false
-    }
-});
+    },
+})
 
-module.exports = User;
+
+module.exports.associations = (User, {Order}) => {
+  User.hasMany(Order)
+}

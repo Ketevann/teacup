@@ -1,8 +1,8 @@
 'use strict';
-var db = require('../index.js');
+var db = require('./index.js');
 var Review = require('./review')
 
-module.exports = db.define('product', {
+module.exports = (db) => db.define('product', {
     name: {
         type: Sequelize.String,
         allowNull: false

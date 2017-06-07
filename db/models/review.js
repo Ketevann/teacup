@@ -1,8 +1,8 @@
 'use strict';
 var Sequelize = require('sequelize')
-var db = require('../index.js');
+var db = require('./index.js');
 
-module.exports = db.define('review', {
+module.exports = (db) => db.define('review', {
     content: {
         type: Sequelize.STRING,
         allowNull: false
@@ -13,5 +13,10 @@ module.exports = db.define('review', {
             min: 0,
             max: 5
         }
-    }
-});
+    },
+})
+
+module.exports.associations = (Review, {Product, User}) => {
+  Review.belongsTo(Product)
+  Review.belongsTo(User)
+}
