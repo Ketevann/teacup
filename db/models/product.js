@@ -1,10 +1,11 @@
-'use strict';
-var db = require('./index.js');
+'use strict'
+var db = require('./index.js')
 var Review = require('./review')
+const Sequelize = require('sequelize');
 
-module.exports = (db) => db.define('product', {
+module.exports = (db) => db.define('products', {
     name: {
-        type: Sequelize.String,
+        type: Sequelize.STRING,
         allowNull: false
     },
     price: {
@@ -16,34 +17,38 @@ module.exports = (db) => db.define('product', {
         defaultValue: true
     },
     inventory: {
-        type: Sequelize.INT,
+        type: Sequelize.INTEGER,
         defaultValue: 100
     },
     categories: {
-        type: Sequelize.ENUM('gluten free', 'vegan', 'Ketti\'s pick!', 'unhealthy', 'chocolate', 'spicy', 'kosher', 'pickled'),
+        type: Sequelize.ENUM('gluten free', 'vegan', 'Kettis pick!', 'unhealthy', 'chocolate', 'spicy', 'kosher', 'pickled'),
         defaultValue: 'unhealthy'
     },
     imageUrl: {
         type: Sequelize.STRING,
         defaultValue: 'http://www.clker.com/cliparts/J/t/k/l/1/I/granola-bar-transparent-b-g-hi.png'
-    }
+    },
 },{
     instanceMethods:{
         getRating: function(){
-            let ratingsNum = 0;
-            let reviewNum = 0;
+            let ratingsNum = 0
+            let reviewNum = 0
 
             Review.findAll({where: { 
                 id: this.id
             }})
             .then(reviews => reviews.forEach(review => {
-                ratingsNum += review.stars;
-                reviewNum++;
+                ratingsNum += review.stars
+                reviewNum++
             }))
             .then(() => {
                 return ratingsNum/reviewNum;
             })
-            .catch();
-        }
-    }
-});
+            .catch()
+        },
+    },
+})
+
+module.exports.associations = (Product, {CartItem, Order}) => {
+    Product.belongsToMany(Order, {through: CartItem})
+}

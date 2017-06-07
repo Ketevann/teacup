@@ -2,13 +2,13 @@
 var Sequelize = require('sequelize')
 var db = require('./index.js');
 
-module.exports = (db) => db.define('review', {
+module.exports = (db) => db.define('reviews', {
     content: {
         type: Sequelize.STRING,
         allowNull: false
     },
     stars: {
-        type: Sequelize.INT,
+        type: Sequelize.INTEGER,
         validate: {
             min: 0,
             max: 5

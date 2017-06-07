@@ -6,6 +6,10 @@ const db = require('./index.js')
 module.exports = (db) => db.define('cartItem', {
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
-  }
+   // allowNull: false
+  },
 })
+
+module.exports.associations = (CartItem, {Product}) => {
+  CartItem.belongsTo(Product)
+}
