@@ -1,6 +1,5 @@
 'use strict'
 var db = require('./index.js')
-var Review = require('./review')
 const Sequelize = require('sequelize');
 
 module.exports = (db) => db.define('products', {
@@ -28,27 +27,9 @@ module.exports = (db) => db.define('products', {
         type: Sequelize.STRING,
         defaultValue: 'http://www.clker.com/cliparts/J/t/k/l/1/I/granola-bar-transparent-b-g-hi.png'
     },
-},{
-    instanceMethods:{
-        getRating: function(){
-            let ratingsNum = 0
-            let reviewNum = 0
-
-            Review.findAll({where: { 
-                id: this.id
-            }})
-            .then(reviews => reviews.forEach(review => {
-                ratingsNum += review.stars
-                reviewNum++
-            }))
-            .then(() => {
-                return ratingsNum/reviewNum;
-            })
-            .catch()
-        },
-    },
 })
 
-module.exports.associations = (Product, {CartItem, Order}) => {
+module.exports.associations = (Product, {CartItem, Review, Order}) => {
     Product.belongsToMany(Order, {through: CartItem})
+    Product.hasMany(Review)
 }

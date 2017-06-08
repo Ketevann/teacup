@@ -41,9 +41,9 @@ const orders = seed(Order, {
 })
 
 const payment = seed(Payment, {
-  one: {vendor: 'Discover', ExpirationDate: 2020, Number: '1234567891', Name: 'Linus', Street: '123 Grace Hopper Boulevard', Apartment: '5B',
+  one: {CCV: 123, vendor: 'Discover', ExpirationDate: 2020, Number: '1111111111111', Name: 'Linus', Street: '123 Grace Hopper Boulevard', Apartment: '5B',
   State:'Alaska', City:'Hopperville', zipCode: 10021},
-  two: {vendor: 'Discover', ExpirationDate: 2090, Number: '1234537892', Name: 'Ana', Street: '246 Luisa Lane', Apartment: 'ES6',
+  two: {CCV: 123, vendor: 'Discover', ExpirationDate: 2090, Number: '2222222222222', Name: 'Ana', Street: '246 Luisa Lane', Apartment: 'ES6',
   State:'New York', City:'New York', zipCode: 10017},
 })
 

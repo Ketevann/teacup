@@ -6,7 +6,12 @@ const db = require('./index.js')
 module.exports = (db) => db.define('cartItem', {
   quantity: {
     type: Sequelize.INTEGER,
-   // allowNull: false
+    validation: {
+      min: 1
+    }
+  },
+  price: {
+    type: Sequelize.INTEGER
   },
 })
 
