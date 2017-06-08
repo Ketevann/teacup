@@ -37,9 +37,8 @@ module.exports = (db) => db.define('order', {
 
 module.exports.associations = (Order, {User, CartItem, Payment, Product}) => {
   Order.belongsTo(User)
-  //Order.belongsTo(Payment)
+  Order.hasMany(CartItem)
   Order.belongsToMany(Product, {through: CartItem})
+
 }
 
-
-//copy and paste the state, city, street, zipCode, etc here for Shipping Address.
