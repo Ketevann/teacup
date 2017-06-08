@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const Orders = require('../db/models/order');
+const Orders = require('../db/models/order')
 
 router.get('/orders',function(req,res,next){
 	Orders.findAll({}).then((orders)=>{res.send(orders)})
-		.catch(console.err)
+		.catch(next)
 })
 router.get('/order/:orderId',function(req,res,next){
 	Orders.findAll({
@@ -12,7 +12,7 @@ router.get('/order/:orderId',function(req,res,next){
 	    }
     })
     .then((orders)=>{res.send(orders)})
-    .catch(console.err)
+    .catch(next)
 })
 router.get('/order/:userId',function(req,res,next){
 	Orders.findAll({
@@ -21,5 +21,5 @@ router.get('/order/:userId',function(req,res,next){
 	    }
     })
     .then((orders)=>{res.send(orders)})
-    .catch(console.err)
+    .catch(next)
 })

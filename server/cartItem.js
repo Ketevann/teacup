@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Orders = require('../db/models/order'); 
+const Orders = require('../db/models/order') 
 
 
 //add post when do oauth 
@@ -9,7 +9,7 @@ router.get('/cartItems/:orderId',function(req,res,next){
 	    include:[Products]
 		})
 	    .then((items)=>res.send(items))
-	    .catch(console.err)
+	    .catch(next)
 
 
 })
