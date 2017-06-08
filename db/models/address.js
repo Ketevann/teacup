@@ -28,6 +28,7 @@ module.exports = (db) => db.define('address', {
 })
 
 module.exports.associations = (Address, {User, CartItem, Payment, Product}) => {
-    Address.hasMany(Order)
+    Address.belongsToMany(Order)
+    Address.belongsToMany(Payment)
 }
 

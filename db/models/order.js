@@ -13,18 +13,15 @@ module.exports = (db) => db.define('order', {
   },
   Street: {
     type: Sequelize.STRING,
-    allowNull: false
   },
   Apartment: {
     type: Sequelize.STRING,
-    allowNull: false
   },
   State: {
     type: Sequelize.ENUM('Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode')
   },
   City: {
     type: Sequelize.STRING,
-    allowNull: false
   },
   zipCode: {
     type: Sequelize.INTEGER,

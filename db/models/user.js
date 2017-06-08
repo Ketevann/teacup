@@ -1,5 +1,5 @@
 'use strict'
-
+const Sequelize = require('sequelize')
 // bcrypt docs: https://www.npmjs.com/package/bcrypt
 const bcrypt = require('bcryptjs')
     , {STRING, VIRTUAL} = require('sequelize')
@@ -11,6 +11,10 @@ module.exports = db => db.define('users', {
     validate: {
       isEmail: true,
       notEmpty: true,
+    },
+    isAdmin: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
     }
   },
 
