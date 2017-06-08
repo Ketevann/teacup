@@ -3,6 +3,7 @@ const Sequelize = require('sequelize')
 const db = require('./index.js')
 
 
+
 module.exports = (db) => db.define('payment', {
   vendor: {
     type: Sequelize.ENUM('MasterCard', 'Visa', 'American Express', 'Discover'),
@@ -43,8 +44,8 @@ module.exports = (db) => db.define('payment', {
   },
 })
 
+
 module.exports.associations = (Payment, {Order, User}) => {
   Payment.belongsTo(Order)
   Payment.belongsTo(User)
 }
-
