@@ -1,14 +1,20 @@
 'use strict'
 const Sequelize = require('sequelize')
-const db = require('../index.js')
+const db = require('./index.js')
 
 
-module.exports = db.define('cartItem', {
+module.exports = (db) => db.define('cartItem', {
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    validation: {
+      min: 1
+    }
+  },
+  price: {
+    type: Sequelize.INTEGER
   },
 })
 
-//??
-//Product.hasMany(Order,{through: cartItem});
+module.exports.associations = (CartItem, {Product}) => {
+  CartItem.belongsTo(Product)
+}

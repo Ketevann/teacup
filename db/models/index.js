@@ -3,25 +3,28 @@
 // Require our models. Running each module registers the model into sequelize
 // so any other part of the application could call sequelize.model('User')
 // to get access to the User model.
-
 const app = require('APP')
-    , debug = require('debug')(`${app.name}:models`)
+const debug = require('debug')(`${app.name}:models`)
     // Our model files export functions that take a database and return
     // a model. We call these functions "meta models" (they are models of
     // models).
     //
     // This lets us avoid cyclic dependencies, which can be hard to reason
     // about.
-    , metaModels = {
+    
+const metaModels = {
       OAuth: require('./oauth'),
+      Product: require('./product'),
       User: require('./user'),
-      Thing: require('./thing'),
-      Favorite: require('./favorite'),
-      Payment: require('./payment')
+      Order: require('./order'),
+      Payment: require('./payment'),
+      Review: require('./review'),
+      CartItem: require('./cartItem'),
       // ---------- Add new models here ----------
     }
-    , {mapValues} = require('lodash')
-
+ 
+const {mapValues} = require('lodash')
+console.log('running file?')
 module.exports = db => {
   // Create actual model classes by calling each meta model with the
   // database.
