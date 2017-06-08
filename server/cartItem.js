@@ -8,7 +8,14 @@ router.get('/cartItems/:orderId',function(req,res,next){
 		where: {order_Id : req.params.orderId},
 	    include:[Products]
 		})
-	    .then((items)=>res.send(items))
+	    .then((items)=>{
+	    	if(!items.length){
+	    		var error = new Error();
+	    		error.status = 404;
+	    		throw error;
+	    	}
+	    	res.send(items)
+	    })
 	    .catch(next)
 
 

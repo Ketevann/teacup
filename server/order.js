@@ -3,7 +3,14 @@ const Orders = require('../db/models/order')
 
 router.get('/orders',function(req,res,next){
 	Orders.findAll({})
-	    .then((orders)=>{res.send(orders)})
+	    .then((orders)=>{
+	    	if(!items.length){
+	    		var error = new Error();
+	    		error.status = 404;
+	    		throw error;
+	    	}
+	    	res.send(orders)
+	    })
 		.catch(next)
 })
 router.get('/order/:orderId',function(req,res,next){
@@ -12,7 +19,14 @@ router.get('/order/:orderId',function(req,res,next){
 			id: req.params.orderId
 	    }
     })
-    .then((orders)=>{res.send(orders)})
+    .then((orders)=>{
+    	if(!orders.length){
+	    		var error = new Error();
+	    		error.status = 404;
+	    		throw error;
+	    }
+    	res.send(orders)
+    })
     .catch(next)
 })
 router.get('/order/:userId',function(req,res,next){
@@ -21,6 +35,15 @@ router.get('/order/:userId',function(req,res,next){
 			user_Id: req.params.userId
 	    }
     })
-    .then((orders)=>{res.send(orders)})
+    .then((orders)=>{
+    	if(!items.length){
+	    		var error = new Error();
+	    		error.status = 404;
+	    		throw error;
+	    }
+    	res.send(orders)
+    })
     .catch(next)
 })
+
+
