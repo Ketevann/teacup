@@ -107,7 +107,8 @@ passport.use(new (require('passport-local').Strategy)(
           return done(null, false, { message: 'Login incorrect' })
         }
         return user.authenticate(password)
-          .then(ok => {
+      })
+      .then(ok => {
             if (!ok) {
               debug('authenticate user(email: "%s") did fail: bad password')
               return done(null, false, { message: 'Login incorrect' })
@@ -115,7 +116,6 @@ passport.use(new (require('passport-local').Strategy)(
             debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
             done(null, user)
           })
-      })
       .catch(done)
   }
 ))
@@ -123,7 +123,18 @@ passport.use(new (require('passport-local').Strategy)(
 auth.get('/whoami', (req, res) => res.send(req.user))
 
 // POST requests for local login:
+// maybe add a fail redirect to a signup page?
 auth.post('/login/local', passport.authenticate('local', {successRedirect: '/'}))
+
+auth.post('/signup', (req, res, next) => {
+  User.create({
+    email: req.body.email,
+    password: req.body.password
+  })
+  .then(user => req.logIn(user))
+  .then(() => res.redirect('/'))
+  .catch(next)
+})
 
 // GET requests for OAuth login:
 // Register this route as a callback URL with OAuth provider

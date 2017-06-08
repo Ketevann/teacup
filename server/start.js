@@ -7,6 +7,7 @@ const {resolve} = require('path')
 const passport = require('passport')
 const PrettyError = require('pretty-error')
 const finalHandler = require('finalhandler')
+require('../secrets')
 // PrettyError docs: https://www.npmjs.com/package/pretty-error
 
 // Bones has a symlink from node_modules/APP to the root of the app.
@@ -38,7 +39,7 @@ module.exports = app
   // Cookie-session docs: https://www.npmjs.com/package/cookie-session
   .use(require('cookie-session')({
     name: 'session',
-    keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
+    keys: [process.env.SESSION_SECRET || 'secretkey123'],
   }))
 
   // Body parsing middleware
