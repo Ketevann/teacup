@@ -1,47 +1,60 @@
-const api = require('express').Router()
+const router = require('express').Router()
 var Products = require('../db/models').product
 
 
 
-api.get('/products', (req, res, next){
+router.get('/products', (req, res, next) => {
   return Products.findAll({})
     .then((products) => {
-      if (!products)
-        res.status(404).send("Page not found")
-      else res.send(products)
+      if (!products.length) {
+        const error = new Error()
+        error.status = 404
+        throw error
+      } else res.send(products)
     })
-    .catch(console.error())
-}),
+    .catch(next)
+})
 
-api.get('/products/:id', (req, res, next) => {
-  Products.findById(req.params.id)
-    .then(product => {
-      if (!product) res.status(404).send("Page not found")
-      else res.send(product)
-    })
-    .catch(console.error())
-}),
+router.param('id', (req, res, next, productId) => {
+  Products.findById(productId)
+      .then((foundProductId) => {
+        if (!foundProductId) {
+          const error = new Error()
+          error.status = 404
+          throw error
+        }
+        req.id = foundProductId
+        next()
+      })
+      .catch(next)
+})
 
-api.get('/product', (req, res, next) => {
-  return Products.findOne({
+router.get('/products/:id', (req, res, next) => {
+  res.send(req.id)
+})
+
+
+router.get('/products/:category', (req, res, next) => {
+  return Products.findAll({
     where: {
-      name: req.body.name
+      categories: req.params.category
     }
   })
-    .then(product => {
-      if (!product) res.status(404).send("Page not found")
-      else res.send(product)
+    .then((products) => {
+      if (!products.length) {
+        const error = new Error()
+        error.status = 404
+        throw error
+      } else res.send(products)
     })
-    .catch(console.error())
-}),
-
-api.delete('/product/:id', (req, res, next) => {
-  Product.findById(req.params.id)
-    .then(product => {
-      return product.destroy({})
-    })
-    .then(() => {
-      res.send(204)
-    })
-    .catch(console.error())
+    .catch(next)
 })
+
+router.delete('/product/:id', (req, res, next) => {
+  return req.id.destroy({})
+    .then(() => {
+      res.sendStatus(204)
+    })
+    .catch(next)
+})
+
