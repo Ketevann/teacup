@@ -13,10 +13,10 @@ export const authenticated = user => ({
   type: AUTHENTICATED, user
 })
 
-export const login = (username, password) =>
+export const login = (email, password) =>
   dispatch =>
     axios.post('/api/auth/login/local',
-      {username, password})
+      {email, password})
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
 
@@ -24,13 +24,9 @@ export const login = (username, password) =>
 
 export const thirdPartyLogin = (provider) =>
   dispatch =>
-   { console.log('huzzah!')
      axios.get(`/api/auth/login/${provider}`)
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
-    }
-
-
 
 export const logout = () =>
   dispatch =>
