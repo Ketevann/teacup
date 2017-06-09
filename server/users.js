@@ -13,8 +13,8 @@ module.exports = require('express').Router()
     // If you want to only let admins list all the users, then you'll
     // have to add a role column to the users table to support
     // the concept of admin users.
-  
-  forbidden('listing users is not allowed'), 
+ 
+  forbidden('listing users is not allowed'),
     (req, res, next) =>
       User.findAll()
         .then(users => res.json(users))
@@ -30,3 +30,31 @@ module.exports = require('express').Router()
       User.findById(req.params.id)
       .then(user => res.json(user))
       .catch(next))
+  .delete('/:id', (req, res, next) => {
+    User.findbyId(req.params.id)
+          .destroy((arr) => {
+            if (Array.isArray(arr)) {
+              res.sendStatus(204)
+            } else res.status(500).send('Could not be destroyed')
+          })
+  })
+  .put('/promote/:id', (req, res, next) => {
+    User.findById(req.params.id)
+        .then((user) => {
+          return user.update({role: 'admin'})
+        })
+        .then((upUser) => {
+          if (upUser) res.sendStatus(200)
+          else res.status(404).send('Not successfully updated')
+        })
+  })
+  .put('/updatePassword/:userId', (req, res, next) => {
+    User.findById(req.params.id)
+        .then((user) => {
+          return user.authenticate(req.body)
+        })
+        .then((upUser) => {
+          if (upUser) res.sendStatus(200)
+          else res.status(404).send('Not successfully updated')
+        }) 
+  })

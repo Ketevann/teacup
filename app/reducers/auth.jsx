@@ -20,6 +20,10 @@ export const login = (username, password) =>
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
 
+
+const secondThunk = () => {
+  whoami
+}
 export const thirdPartyLogin = (provider) =>
   dispatch =>
    { console.log('huzzah!')
