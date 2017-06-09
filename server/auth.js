@@ -3,6 +3,7 @@ const debug = require('debug')(`${app.name}:auth`)
 const passport = require('passport')
 
 const {User, OAuth} = require('APP/db')
+console.log('*********', User)
 const auth = require('express').Router()
 
 /*************************
@@ -94,37 +95,63 @@ passport.deserializeUser(
 )
 
 // require.('passport-local').Strategy => a function we can use as a constructor, that takes in a callback
-passport.use(new (require('passport-local').Strategy)(
-  (email, password, done) => {
-    debug('will authenticate user(email: "%s")', email)
-    User.findOne({
+// passport.use(new (require('passport-local').Strategy)((email, password, done) => {
+//     console.log('email:', email, 'password:', password)
+//     debug('will authenticate user(email: "%s")', email)
+//     User.findOne({
+//       where: {email},
+//       attributes: {include: ['password_digest']}
+//     })
+//       .then(user => {
+//         if (!user) {
+//           debug('authenticate user(email: "%s") did fail: no such user', email)
+//           return done(null, false, { message: 'Login incorrect' })
+//         }
+//         return user.authenticate(password)
+//         .then(ok => {
+//             if (!ok) {
+//               debug('authenticate user(email: "%s") did fail: bad password')
+//               return done(null, false, { message: 'Login incorrect' })
+//             }
+//             debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
+//             done(null, user)
+//           })
+//       })
+//       .catch(done)
+//   }
+// ))
+
+auth.get('/whoami', (req, res) => res.send(req.user))
+
+// POST requests for local login:
+// maybe add a fail redirect to a signup page?
+auth.post('/login/local', (req, res, next) => {
+const {email, password} = req.body;
+    console.log('email:', email, 'password:', password)  
+   User.findOne({
       where: {email},
       attributes: {include: ['password_digest']}
     })
       .then(user => {
         if (!user) {
           debug('authenticate user(email: "%s") did fail: no such user', email)
-          return done(null, false, { message: 'Login incorrect' })
+          throw new Error('one')
         }
-        return user.authenticate(password)
-      })
-      .then(ok => {
+        return user.authenticate(password).then(ok => {
             if (!ok) {
               debug('authenticate user(email: "%s") did fail: bad password')
-              return done(null, false, { message: 'Login incorrect' })
+              throw new Error('two')
             }
             debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
-            done(null, user)
+            req.logIn(user, function(err) {
+              if (err) {throw next('three')}
+              return res.redirect('/')
+            })
           })
-      .catch(done)
-  }
-))
-
-auth.get('/whoami', (req, res) => res.send(req.user))
-
-// POST requests for local login:
-// maybe add a fail redirect to a signup page?
-auth.post('/login/local', passport.authenticate('local', {successRedirect: '/'}))
+      })
+      .catch(next)
+})
+auth.post('/login/local', () => passport.authenticate('local', {successRedirect: '/'}))
 
 auth.post('/signup', (req, res, next) => {
   User.create({
@@ -138,14 +165,17 @@ auth.post('/signup', (req, res, next) => {
 
 // GET requests for OAuth login:
 // Register this route as a callback URL with OAuth provider
-auth.get('/login/:strategy', (req, res, next) =>
-  passport.authenticate(req.params.strategy, {
+auth.get('/login/:strategy', (req, res, next) => {
+  console.log('in AUTH DOT GET')
+  passport.authenticate(req.params.strategy,  {
+    
     scope: 'email', // You may want to ask for additional OAuth scopes. These are
                     // provider specific, and let you access additional data (like
                     // their friends or email), or perform actions on their behalf.
     successRedirect: '/',
     // Specify other config here
   })(req, res, next)
+  }
 )
 
 auth.post('/logout', (req, res) => {
