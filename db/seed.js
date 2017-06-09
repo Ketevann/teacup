@@ -23,13 +23,13 @@ function seedEverything() {
 }
 
 const users = seed(User, {
- one: {name: 'Claire', email: 'claire@gmail.com', password: 'password123'},
- two: {name: 'Ketti', email: 'ketti@gmail.com', password: '321password'},
+ one: {name: 'Claire', email: 'claire@gmail.com', role: 'admin', password: 'password123'},
+ two: {name: 'Ketti', email: 'ketti@gmail.com', role: 'user', password: '321password'},
 })
 
 const products = seed(Product, {
-  one: {name: 'Granola Foobar', price: 2.25, category: 'vegan'}, 
-  two:  {name: 'Almond Foobar', price: 2.75, category: 'unhealthy'}, 
+  one: {name: 'Granola Foobar', price: 2.25, category: 'vegan'},
+  two:  {name: 'Almond Foobar', price: 2.75, category: 'unhealthy'},
   three:  {name: 'Cinnamon Foobar', price: 3.00, category: 'kosher'}
 })
 
