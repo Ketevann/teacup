@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Orders = require('../db/models/order')
 
 module.exports = require('express').Router()
- .get('/orders',
+ .get('/',
  (req, res, next) =>
   Orders.findAll({})
     .then((orders) => {
@@ -14,7 +14,7 @@ module.exports = require('express').Router()
       res.send(orders)
     })
    .catch(next))
- .get('/order/:orderId',
+ .get('/:orderId',
     (req, res, next) => {
       Orders.findAll({
         where: {
@@ -31,7 +31,7 @@ module.exports = require('express').Router()
  })
  .catch(next)
     })
- .get('/order/:userId',
+ .get('/:userId',
   (req, res, next) =>
   Orders.findAll({
     where: {
@@ -45,6 +45,34 @@ module.exports = require('express').Router()
      throw error
    }
    res.send(orders)
+ })
+ .catch(next))
+ .get('/:status',
+  (req, res, next) =>
+   Orders.findAll({
+     where: {
+       status: req.params.status
+     }
+   })
+ .then(orders => {
+   if (!orders.length) {
+     var error = new Error()
+     error.status = 404
+     throw error
+   }
+ })
+ .catch(next))
+  .put('/:status',
+  (req, res, next) =>
+   Orders.update({
+     status: req.params.status
+   })
+ .then(orders => {
+   if (!orders.length) {
+     var error = new Error()
+     error.status = 404
+     throw error
+   }
  })
  .catch(next))
 
