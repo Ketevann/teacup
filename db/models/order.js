@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 
 module.exports = (db) => db.define('order', {
   status: {
-    type: Sequelize.ENUM('pending', 'on its way', 'sent'),
+    type: Sequelize.ENUM('pending', 'on its way', 'sent', 'canceled', 'created'),
     defaultValue: 'pending'
   },
   shippingDate: {
