@@ -1,18 +1,18 @@
 'use strict'
 const api = require('express').Router()
-var Order = require('../db/models').order
-
+const db = require('APP/db')
+const Order = db.model('order')
 
 module.exports = require('express').Router()
-.get('/order',
+.get('/',
   (req, res, next) =>
    Order.findAll({})
     .then((orders) => {
-      if (!orders) res.status(404).send('page Not Found')
+      if (!orders.length) res.status(404).send('page Not Found')
       else res.send(orders)
     })
    .catch(console.error()))
-.get('/order/:id',
+.get('/:id',
  (req, res, next) =>
    Order.findById(req.params.id)
     .then((order) => {
@@ -20,29 +20,50 @@ module.exports = require('express').Router()
       else res.send(order)
     })
     .catch(console.error()))
- .get('/order/:userId',
+
+.get('/:userId',
  (req, res, next) =>
    Order.findAll({
      where: {
        user_id: req.params.userId
      }
    })
-    .then((orders) => {
+.then((orders) => {
       if (!orders) res.status(404).send('page Not Found')
       else res.send(orders)
     })
-    .catch(console.error()))
- .get('/order', (req, res, next) =>
-   Order.findAll({
-     where: {
-       user_id: req.body.userId
-     }
-   })
-    .then((orders) => {
-      if (orders === null) res.status(404).send('page Not Found')
-      else res.send(orders)
-    })
-    .catch(console.error()))
+    .catch(next))
 
 
+// const router = require('express').Router()
+// router.get('/order',
+//   (req, res, next) =>
+//    Order.findAll({})
+//     .then((orders) => {
+//       if (!orders.length) res.status(404).send('page Not Found')
+//       else res.send(orders)
+//     })
+//    .catch(console.error()))
+// router.get('/order/:id',
+//  (req, res, next) =>
+//    Order.findById(req.params.id)
+//     .then((order) => {
+//       if (!order) res.status(404).send('page Not Found')
+//       else res.send(order)
+//     })
+//     .catch(console.error()))
+// router.get('/order/:userId',
+//  (req, res, next) =>
+//    Order.findAll({
+//      where: {
+//        user_id: req.params.userId
+//      }
+//    })
+//   )
+// .then((orders) => {
+//       if (!orders) res.status(404).send('page Not Found')
+//       else res.send(orders)
+//     }
+//     .catch(next))
 
+// module.exports = router
