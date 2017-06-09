@@ -55,6 +55,19 @@ module.exports = require('express').Router()
         } else res.status(200).json(products)
       })
       .catch(next))
+  .post('/',
+     (req, res, next) =>
+       Products.create(req.body)
+      .then((products) => {
+        res.status(200).json(products)
+      })
+  .put('/',
+     (req, res, next) =>
+       Products.update(req.body)
+      .then((products) => {
+        res.status(200).json(products)
+      })
+      .catch(next))
   .delete('/:id',
      (req, res, next) =>
      req.product.destroy({})
