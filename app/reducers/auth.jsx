@@ -21,9 +21,7 @@ export const login = (username, password) =>
       .catch(() => dispatch(whoami()))
 
 
-const secondThunk = () => {
-  whoami
-}
+
 export const thirdPartyLogin = (provider) =>
   dispatch =>
    { console.log('huzzah!')
