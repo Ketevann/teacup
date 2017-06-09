@@ -20,7 +20,7 @@ module.exports = db => db.define('users', {
   },
   googleId: Sequelize.STRING,
     githubId: Sequelize.STRING,
-    facebook: Sequelize.STRING,
+    facebookid: Sequelize.STRING,
     role: {
       type: Sequelize.ENUM('user', 'admin')
     },
