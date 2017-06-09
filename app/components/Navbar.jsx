@@ -1,18 +1,14 @@
-// import React, { Component } from 'react'
+import React, { Component } from 'react'
 
-// export default class NavBar extends Component {
-//   componentDidMount() {
-//   }
+export default class NavBar extends Component {
+  componentDidMount() {
+  }
+  render() {
 
-//   answer = () =>
-//     this.setState({answered: true})
-
-//   render() {
-
-//     return (
-//       <div>
-//         <h1> Nav bar will be here??? </h1>
-//       </div>
-//     )
-//   }
-// }
+    return (
+      <div>
+        <h1> Nav bar will be here??? </h1>
+      </div>
+    )
+  }
+}

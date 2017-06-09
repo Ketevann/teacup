@@ -94,32 +94,6 @@ passport.deserializeUser(
   }
 )
 
-// require.('passport-local').Strategy => a function we can use as a constructor, that takes in a callback
-// passport.use(new (require('passport-local').Strategy)((email, password, done) => {
-//     console.log('email:', email, 'password:', password)
-//     debug('will authenticate user(email: "%s")', email)
-//     User.findOne({
-//       where: {email},
-//       attributes: {include: ['password_digest']}
-//     })
-//       .then(user => {
-//         if (!user) {
-//           debug('authenticate user(email: "%s") did fail: no such user', email)
-//           return done(null, false, { message: 'Login incorrect' })
-//         }
-//         return user.authenticate(password)
-//         .then(ok => {
-//             if (!ok) {
-//               debug('authenticate user(email: "%s") did fail: bad password')
-//               return done(null, false, { message: 'Login incorrect' })
-//             }
-//             debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
-//             done(null, user)
-//           })
-//       })
-//       .catch(done)
-//   }
-// ))
 
 auth.get('/whoami', (req, res) => res.send(req.user))
 
