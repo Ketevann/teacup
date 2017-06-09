@@ -1,60 +1,64 @@
-const router = require('express').Router()
-var Products = require('../db/models').product
+const db = require('APP/db')
+const Products = db.model('products')
+const Reviews = db.model('reviews')
 
 
-
-router.get('/products', (req, res, next) => {
-  return Products.findAll({})
-    .then((products) => {
-      if (!products.length) {
-        const error = new Error()
-        error.status = 404
-        throw error
-      } else res.send(products)
-    })
-    .catch(next)
-})
-
-router.param('id', (req, res, next, productId) => {
-  Products.findById(productId)
-      .then((foundProductId) => {
-        if (!foundProductId) {
+module.exports = require('express').Router()
+  .get('/categories/:category',
+   (req, res, next) =>
+     Products.findAll({
+       where: {
+         categoriezs: req.params.category
+       }
+     })
+      .then((products) => {
+        if (!products.length) {
+          console.log(products, "err")
+          const error = new Error()
+          error.status = 404
+          throw error
+        } else res.json(products)
+      })
+      .catch(next)
+  )
+  .param('id',
+  (req, res, next, productId) =>
+    Products.findById(productId, { include: [Reviews] })
+      .then((product) => {
+        if (!product) {
           const error = new Error()
           error.status = 404
           throw error
         }
-        req.id = foundProductId
+        req.product = product
+
+        req.product.dataValues.avgReview = product.reviews.reduce((total, val) => {
+          console.log("in reducer", total, val.stars)
+          return total + val.stars;
+        }, 0) / product.reviews.length;
         next()
       })
-      .catch(next)
-})
-
-router.get('/products/:id', (req, res, next) => {
-  res.send(req.id)
-})
-
-
-router.get('/products/:category', (req, res, next) => {
-  return Products.findAll({
-    where: {
-      categories: req.params.category
-    }
-  })
-    .then((products) => {
-      if (!products.length) {
-        const error = new Error()
-        error.status = 404
-        throw error
-      } else res.send(products)
+      .catch(next))
+  .get('/:id',
+    (req, res, next) => {
+      console.log('anything', req.product)
+      res.json(req.product)
     })
-    .catch(next)
-})
-
-router.delete('/product/:id', (req, res, next) => {
-  return req.id.destroy({})
-    .then(() => {
-      res.sendStatus(204)
-    })
-    .catch(next)
-})
-
+  .get('/',
+     (req, res, next) =>
+       Products.findAll({})
+      .then((products) => {
+        if (!products.length) {
+          const error = new Error()
+          error.status = 404
+          throw error
+        } else res.status(200).json(products)
+      })
+      .catch(next))
+  .delete('/:id',
+     (req, res, next) =>
+     req.product.destroy({})
+      .then(() => {
+        res.sendStatus(204)
+      })
+      .catch(next))

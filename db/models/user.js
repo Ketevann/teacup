@@ -15,8 +15,15 @@ module.exports = db => db.define('users', {
     isAdmin: {
       type: Sequelize.BOOLEAN,
       defaultValue: false
-    }
+    },
+
   },
+  googleId: Sequelize.STRING,
+    githubId: Sequelize.STRING,
+    facebookId: Sequelize.STRING,
+    role: {
+      type: Sequelize.ENUM('user', 'admin')
+    },
 
   // We support oauth, so users may or may not have passwords.
   password_digest: STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
