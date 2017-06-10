@@ -10,6 +10,9 @@ import NavBar from './components/Navbar'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
+import Orders from './components/Orders'
+import {getOrders} from './reducers/orders'
+
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -17,6 +20,7 @@ const ExampleApp = connect(
   ({ user, children }) =>
     <div>
       <nav>
+      <NavBar />
         {user ? <WhoAmI/> : <Login/>}
       </nav>
       {children}
@@ -29,6 +33,8 @@ render(
       <Route path="/" component={ExampleApp}>
         <IndexRedirect to="/foobar" />
         <Route path="/foobar" component={NavBar} />
+        <Route path="/orders" component={Orders} onEnter={getOrders} />
+
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
