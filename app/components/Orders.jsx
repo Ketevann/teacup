@@ -1,34 +1,35 @@
 import React, { Component } from 'react'
 import {} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
-import {getOrders} from '../reducers/orders'
+import { connect } from 'react-redux'
+import { loadOrders } from 'APP/app/reducers/orders'
 
-export const Orders = ({getOrders}, props) =>{
-    return (<div>{console.log(props, "props"}
-    Orders are here !!</div>)
+class Orders extends Component {
+    constructor(props){
+      super(props)
+    }
 
+    render () {
+      return (
+        <div>
+        <h1> User Orders </h1>
+          {this.props.orders.map((order, index) => {
+            return (<div><li key={index}> <h2> {order.status} </h2></li></div>)
+          })}
+        </div>
+
+      )
+    }
 }
 
 
-export default connect(
-  state => ({}),
-  {getOrders},
-)(Orders)
+const mapStateToProps = (state) => {
+  console.log(state)
+  console.log('state above')
 
-// export const Login = ({ login, thirdPartyLogin }) => (
-//   <div>
-//     <form onSubmit={evt => {
-//       evt.preventDefault()
-//       login(evt.target.username.value, evt.target.password.value)
-//     } }>
-//       <input name="username" />
-//       <input name="password" type="password" />
-//       <input type="submit" value="Login" />
-//     </form>
-//     <br/>
-//     <button onClick={evt => { thirdPartyLogin('google')}}>log in with google</button>
-//         <button onClick={evt => { thirdPartyLogin('github')}}>log in with github</button>
-//             <button onClick={evt => { thirdPartyLogin('facebook')}}>log in with facebook</button>
-//   </div>
-// )
+  return {
+      orders: state.orders.userOrders
+  }
 
+}
+
+export default connect(mapStateToProps)(Orders)

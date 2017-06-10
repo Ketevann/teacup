@@ -1,38 +1,29 @@
 import axios from 'axios'
 
-const initialState = {orders: []}
+const initialState = {userOrders: []}
 
 /*************ACTIONS **********************/
 
 const USER_ORDERS = 'USER_ORDERS'
-
-/*************ACTION CREATORS **********************/
-
-const userOrders = (orders) => ({type: USER_ORDERS, orders})
+export const userOrders = orders => ({
+  type: USER_ORDERS, orders
+})
 
 /*************REDUCER **********************/
-
-const reducer = (state=initialState, action) => {
-  let newState = Object.assign({}, state)
+const orders = (state=initialState, action) => {
   switch (action.type) {
   case USER_ORDERS:
-    [...newState.orders, action.orders]
+    state.userOrders = [...action.orders]
+    break;
   }
   return state
 }
 
+export const loadOrders = () => dispatch => {
+    axios.get('/api/orders/')
+      .then(orders => { dispatch(userOrders(orders.data))})
+      .catch(err => console.error)
+};
 
+export default orders
 
-
-/************* DISPATCHER ************** *********/
-
-
-
-export const getOrders = (userId) =>
-  dispatch =>
-  axios.get(`/api/order/${userId}`)
-  .then(orders => dispatch(userOrders(orders)))
-  .catch(err => console.error)
-
-
-export default reducer
