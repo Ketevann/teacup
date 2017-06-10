@@ -24,7 +24,7 @@ const reducer = (state=initialState, action) => {
 
 
 
-/************* DISPATCHER **********************/
+/************* DISPATCHER ************** *********/
 
 
 
