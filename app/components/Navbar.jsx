@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 export default class NavBar extends Component {
 render() {
     return (
+    <div>
     <nav className="navbar navbar-toggleable-xl navbar-light bg-faded">
       <div className="container-fluid">
         <div className="navbar-header">
@@ -16,6 +17,8 @@ render() {
         </ul>
       </div>
     </nav>
+    {this.props.children}
+    </div>
     )
   }
 }
