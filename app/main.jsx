@@ -11,6 +11,7 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Products from './components/Products'
+import Product from './components/Product'
 import {loadProducts} from 'APP/app/reducers/products'
 
 const ExampleApp = connect(
@@ -35,8 +36,9 @@ render(
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp}>
         <IndexRedirect to="/products" />
-        <Route path="/foobar" component={NavBar}>
-          <Route path="/products" onEnter={onProductsEnter} component={Products}/>
+        <Route path="/foobar" component={NavBar} onEnter={onProductsEnter}>
+          <Route path="/products" component={Products}/>
+          <Route path="/products/:productId" component={Product}/>
         </Route>
         <Route path="/"/>
       </Route>
