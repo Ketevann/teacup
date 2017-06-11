@@ -13,13 +13,15 @@ class Product extends React.Component {
     }
     return (
 
-      <div>
-          <h1>Product</h1>
-          <p>{product.name}</p>
-          <img style={stylePref} src={product.imageUrl}/>
-          <p>Price: {product.price}</p>
-          <button>Add Product to Cart</button>
-      </div>
+            <div>
+                <h1>Product</h1>
+                <p>{product.name}</p>
+                <img style={stylePref} src={product.imageUrl}/>
+                <p>Price: {product.price}</p>
+                <button>Add Product to Cart</button>
+            </div>
+         
+       
 
     )
   }
