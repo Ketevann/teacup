@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import {connect} from 'react-redux'
 
-import UserDisplay from './UserDisplay'
 
 import {deleteUser, updateUser} from '../reducers/users'
 
@@ -130,7 +129,7 @@ class SingleUser extends Component {
 
               <option >admin</option>
 
-              <option>uset</option>
+              <option>user</option>
 
               </select>
 
@@ -172,15 +171,15 @@ class SingleUser extends Component {
 
   }
 
-  SubmitHandler(evt, id) {
+  SubmitHandler(evt, user) {
 
     evt.preventDefault()
 
-    console.log("FSFS", evt.target.role.value)
+    //console.log("FSFS", evt.target.role.value)
 
     let credentials = {role: evt.target.role.value}
 
-    updateUser(id, credentials)
+    this.props.updateUser(user)
 
   }
 
@@ -190,7 +189,7 @@ const mapState = ({ users }, ownProps) => {
 
   const paramId = Number(ownProps.params.userId)
 
-  console.log('paramId', paramId, users)
+  //console.log('paramId', paramId, users)
 
   return {
 

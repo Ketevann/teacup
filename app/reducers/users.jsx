@@ -20,7 +20,7 @@ const getAllUsers = (users) => ({type: GET_USERS, users})
 
 const removeUser = (id) => ({type: DEL_USERS, id })
 
-const update = (id) => ({type:UPDATE, id })
+const update = (user) => ({type:UPDATE, user })
 
 /*************REDUCER **********************/
 
@@ -32,25 +32,23 @@ const userReducer = (users=initialState, action) => {
 
   case GET_USERS:
 
-    console.log('in reducer???')
+    //console.log('in reducer???')
 
     return action.users
 
   case DEL_USERS:
 
-  console.log("DEL", action.users, action, "&%&%&")
+  //console.log("DEL", action.users, action, "&%&%&")
 
     return users.filter(user => user.id !== action.id)
 
   case UPDATE:
 
+  console.log("update!!!!!!", users)
     return users.map(user => (
-
-       action.user.id === user.id ? action.user : user
-
-      ))
-
-  }
+        action.user.id === user.id ? action.user : user
+      ));
+   }
 
   return users
 
@@ -61,14 +59,12 @@ const userReducer = (users=initialState, action) => {
 // dispatch did not work.  only store.dispatch works
 
 export const fetchUsers = () =>
-
-  dispatch =>
-
+dispatch =>
     axios.get('/api/users')
 
       .then(response => {
 
-        console.log('fetching users?????')
+        console.log( dispatch)
 
         const users = response.data
 
@@ -86,7 +82,6 @@ export const deleteUser = (userId) =>
 
       .then(() => {
 
-        console.log("hahahha")
 
         dispatch(removeUser(userId))
 
@@ -94,19 +89,18 @@ export const deleteUser = (userId) =>
 
       .catch(err => console.error)
 
-      .catch(err => console.error)
 
-export const updateUser = (credentials, userId) =>
+export const updateUser = () =>
+dispatch =>
+    axios.get('/api/users')
 
-  dispatch =>
+      .then(response => {
 
-    axios.put(`/api/users/${userId}`, credentials)
+        console.log( dispatch)
 
-      .then(() => {
+        const users = response.data
 
-        console.log("hahahha")
-
-        dispatch(removeUser(userId))
+        store.dispatch(update(users))
 
       })
 

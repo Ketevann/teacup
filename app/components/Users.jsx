@@ -4,19 +4,20 @@ import {} from 'APP/app/reducers/auth'
 
 import {connect} from 'react-redux'
 
-import {fetchUsers} from '../reducers/users'
+import {fetchUsers, deleteUser} from '../reducers/users'
 
 import {Link} from 'react-router'
+
 
 // only the  user names are "links" because formatting kept getting messed up when i wrapped
 
 //each row (with email, role and name ) in Link tags.
 
-const Users = ({users, fetchUsers}, props) => {
-  console.log('!!!!!!!!!!!')
-  console.log('usr', users)
-  console.log('bla')
-  console.log('???')
+const Users = ({users}, props) => {
+  // console.log('!!!!!!!!!!!')
+  // console.log('usr', users)
+  // console.log('bla')
+  // console.log('???')
   if (users.role === 'user') {
 
     return <div>!</div>
@@ -69,7 +70,9 @@ const Users = ({users, fetchUsers}, props) => {
 
                   <td>{user.role}</td>
 
-                  <button className="glyphicon glyphicon-remove"></button>
+                  <button  onClick={()=> ClickHandler
+
+                      (user.id)}className="glyphicon glyphicon-remove"></button>
 
                   <button className="glyphicon glyphicon-edit"></button>
 
@@ -83,9 +86,24 @@ const Users = ({users, fetchUsers}, props) => {
 
       </table>
 
+
      </div>)
 
 }
+
+
+const ClickHandler = (userId)  => {
+
+    //console.log(userId, 'UserId', deleteUser)
+
+    console.log("DSDS")
+
+    deleteUser(userId)
+
+    console.log("invoked")
+
+  }
+
 
 export default connect(
 
