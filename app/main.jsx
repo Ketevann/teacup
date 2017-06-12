@@ -16,7 +16,8 @@ import {loadProducts} from 'APP/app/reducers/products'
 import Users from './components/Users'
 import SingleUser from './components/SingleUser'
 import {fetchUsers} from './reducers/users'
-
+import Orders from './components/Orders'
+import {loadOrders} from './reducers/orders'
 
 
 const ExampleApp = connect(
@@ -47,6 +48,7 @@ render(
           <Route path="/products/:productId" component={Product}/>
           <Route path="/users" component={Users} />
           <Route path="/users/:userId" component={SingleUser} />
+          <Route path="/orders" component={Orders} onEnter={loadOrders()}/>
         </Route>
         <Route path="/"/>
       </Route>
