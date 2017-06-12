@@ -13,6 +13,11 @@ import NotFound from './components/NotFound'
 import Products from './components/Products'
 import Product from './components/Product'
 import {loadProducts} from 'APP/app/reducers/products'
+import Users from './components/Users'
+import SingleUser from './components/SingleUser'
+import {fetchUsers} from './reducers/users'
+
+
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -30,15 +35,18 @@ const onProductsEnter = () => {
   store.dispatch(loadProducts())
 }
 
+
 render(
 
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
+      <Route path="/" component={ExampleApp} onEnter={fetchUsers()}>
         <IndexRedirect to="/products" />
         <Route path="/foobar" component={NavBar} onEnter={onProductsEnter}>
           <Route path="/products" component={Products}/>
           <Route path="/products/:productId" component={Product}/>
+          <Route path="/users" component={Users} />
+          <Route path="/users/:userId" component={SingleUser} />
         </Route>
         <Route path="/"/>
       </Route>
