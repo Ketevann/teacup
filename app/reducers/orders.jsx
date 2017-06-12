@@ -28,8 +28,7 @@ const orders = (state=initialState, action) => {
     return newstate
   default:
     return newstate
-  }
-  
+  } 
 }
 
 export const loadOrders = () => dispatch => {
@@ -47,7 +46,7 @@ export const loadOrders = () => dispatch => {
         .catch(err => console.error(err))
   console.log('GETTING ID', gettingId)
   const gettingOrders = (userId) =>
-  axios.get(`/api/orders/${userId}`)
+  axios.get(`/api/orders/user/${userId}`)
       .then(orders => {
         console.log('THIS IS ORDERS', orders)
         console.log('THIS IS ORDERS data', orders.data)

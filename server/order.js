@@ -31,7 +31,7 @@ module.exports = require('express').Router()
  })
  .catch(next)
     })
- .get('/:userId',
+ .get('/users/:userId',
   (req, res, next) =>
   Orders.findAll({
     where: {

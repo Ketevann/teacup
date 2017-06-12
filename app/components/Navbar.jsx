@@ -14,7 +14,7 @@ render() {
           <li className="active"><Link to="/">Home</Link></li>
           <li><Link to='/'>Cart 0</Link></li>
           <li><Link to='/'>All Orders</Link></li>
-          <li><Link to='/orders'>My Orders</Link></li>
+          <li><Link to='/currentUserOrders'>My Orders</Link></li>
         </ul>
       </div>
     </nav>

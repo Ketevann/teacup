@@ -48,7 +48,7 @@ render(
           <Route path="/products/:productId" component={Product}/>
           <Route path="/users" component={Users} />
           <Route path="/users/:userId" component={SingleUser} />
-          <Route path="/orders" component={Orders} onEnter={loadOrders()}/>
+          <Route path="/currentUserOrders" component={Orders} onEnter={loadOrders()}/>
         </Route>
         <Route path="/"/>
       </Route>
