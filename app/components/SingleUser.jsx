@@ -8,7 +8,7 @@ import {deleteUser, updateUser} from '../reducers/users'
 
 import _ from 'lodash'
 
-console.log(deleteUser)
+
 
 class SingleUser extends Component {
 
@@ -24,7 +24,6 @@ class SingleUser extends Component {
 
   render(){
 
- {console.log(this.props, "props", this.props.user, '**')}
 
     if (!this.props.user) return <div />
 
@@ -161,23 +160,12 @@ class SingleUser extends Component {
   }
 
   ClickHandler(userId) {
-
-    console.log(userId, 'UserId', deleteUser)
-
-    console.log("DSDS")
-
     this.props.deleteUser(userId)
-
-    console.log("invoked")
-
   }
 
   SubmitHandler(evt, id) {
 
     evt.preventDefault()
-
-    console.log("FSFS", evt.target.role.value)
-
     let credentials = {role: evt.target.role.value}
 
     updateUser(id, credentials)

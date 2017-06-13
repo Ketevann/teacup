@@ -10,7 +10,6 @@ import {Link} from 'react-router'
 
 const UserDisplay = (props) => {
 
-  {console.log(props, "props", props.user, '**')}
 
   if (!props.user) return <div />
 
@@ -93,8 +92,6 @@ const ClickHandler = () => {
 const mapState = ({ users }, ownProps) => {
 
   const paramId = Number(ownProps.params.userId)
-
-  console.log('paramId', paramId, users)
 
   return {
 

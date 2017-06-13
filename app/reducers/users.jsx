@@ -32,13 +32,9 @@ const userReducer = (users=initialState, action) => {
 
   case GET_USERS:
 
-    console.log('in reducer???')
-
     return action.users
 
   case DEL_USERS:
-
-  console.log("DEL", action.users, action, "&%&%&")
 
     return users.filter(user => user.id !== action.id)
 
@@ -68,7 +64,6 @@ export const fetchUsers = () =>
 
       .then(response => {
 
-        console.log('fetching users?????')
 
         const users = response.data
 
@@ -86,13 +81,9 @@ export const deleteUser = (userId) =>
 
       .then(() => {
 
-        console.log("hahahha")
-
         dispatch(removeUser(userId))
 
       })
-
-      .catch(err => console.error)
 
       .catch(err => console.error)
 

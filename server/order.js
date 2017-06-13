@@ -1,5 +1,9 @@
 //const router = require('express').Router()
-const Orders = require('../db/models/order')
+const db = require('APP/db')
+const Product = db.model('products')
+const CartItem = db.model('cartItem')
+const Orders = db.model('order')
+const Promise = require('bluebird')
 
 module.exports = require('express').Router()
  .get('/',
@@ -35,7 +39,7 @@ module.exports = require('express').Router()
   (req, res, next) =>
   Orders.findAll({
     where: {
-      user_Id: req.params.userId
+      user_id: req.params.userId
     }
   })
  .then((orders) => {
@@ -75,5 +79,16 @@ module.exports = require('express').Router()
    }
  })
  .catch(next))
+ .get('/current/:userId',
+  (req, res, next) => {
+    Orders.findOrCreate({where: {
+      user_id: req.params.userId,
+      status: 'pending'
+    }})
+    .then(order => {
+      res.send(order)
+    })
+  .catch(next)
+  })
 
 

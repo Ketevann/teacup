@@ -23,8 +23,6 @@ class Orders extends Component {
 
 
 const mapStateToProps = (state) => {
-  console.log(state)
-  console.log('state above')
 
   return {
       orders: state.orders.userOrders

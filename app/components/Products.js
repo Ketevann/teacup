@@ -6,9 +6,7 @@ class Products extends React.Component {
     super(props)
   }
   render() {
-    console.log('in products?????')
     let products = this.props.products
-    console.log(products)
     let stylePref = {
       width: '100px',
       height: '100px'
@@ -19,14 +17,14 @@ class Products extends React.Component {
           <div className="col-md-4">
             <h1>Sidebar</h1>
              <form action="">
-                <input type="checkbox" name="vehicle" value="Bike"/> Chocolate <br/>
-                <input type="checkbox" name="vehicle" value="Bike"/> Gluten Free <br/>
-                <input type="checkbox" name="vehicle" value="Bike"/> Ketti's Pick! <br/>
-                <input type="checkbox" name="vehicle" value="Bike"/> Kosher <br/>
-                <input type="checkbox" name="vehicle" value="Bike"/> Pickled <br/>
-                <input type="checkbox" name="vehicle" value="Bike"/> Spicy <br/>
-                <input type="checkbox" name="vehicle" value="Bike"/> Unhealthy <br/>
-                <input type="checkbox" name="vehicle" value="Bike"/> Vegan
+                <input type="checkbox"/> Chocolate <br/>
+                <input type="checkbox"/> Gluten Free <br/>
+                <input type="checkbox"/> Ketti's Pick! <br/>
+                <input type="checkbox"/> Kosher <br/>
+                <input type="checkbox"/> Pickled <br/>
+                <input type="checkbox"/> Spicy <br/>
+                <input type="checkbox"/> Unhealthy <br/>
+                <input type="checkbox"/> Vegan
              </form>
           </div>
           <div className="col-md-8">

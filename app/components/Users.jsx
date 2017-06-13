@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
-
 import {} from 'APP/app/reducers/auth'
-
 import {connect} from 'react-redux'
-
 import {fetchUsers} from '../reducers/users'
-
 import {Link} from 'react-router'
 
 // only the  user names are "links" because formatting kept getting messed up when i wrapped
@@ -13,10 +9,7 @@ import {Link} from 'react-router'
 //each row (with email, role and name ) in Link tags.
 
 const Users = ({users, fetchUsers}, props) => {
-  console.log('!!!!!!!!!!!')
-  console.log('usr', users)
-  console.log('bla')
-  console.log('???')
+
   if (users.role === 'user') {
 
     return <div>!</div>
