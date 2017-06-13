@@ -17,7 +17,8 @@ import Users from './components/Users'
 import SingleUser from './components/SingleUser'
 import {fetchUsers} from './reducers/users'
 import Orders from './components/Orders'
-import {loadOrders} from './reducers/orders'
+import AllOrders from './components/AllOrders'
+import {loadOrders, loadAllOrders} from './reducers/orders'
 
 
 const ExampleApp = connect(
@@ -35,7 +36,13 @@ const ExampleApp = connect(
 const onProductsEnter = () => {
   store.dispatch(loadProducts())
 }
-
+const onOrdersEnter = () => {
+  console.log('GIVE UP')
+  store.dispatch(loadOrders())
+}
+const onAllOrdersEnter = () => {
+  store.dispatch(loadAllOrders())
+}
 
 render(
 
@@ -48,7 +55,8 @@ render(
           <Route path="/products/:productId" component={Product}/>
           <Route path="/users" component={Users} />
           <Route path="/users/:userId" component={SingleUser} />
-          <Route path="/currentUserOrders" component={Orders} onEnter={loadOrders()}/>
+          <Route path="/currentUserOrders" component={Orders} onEnter={onOrdersEnter}/>
+          <Route path="/allOrders" component={Orders} onEnter={onAllOrdersEnter}/>
         </Route>
         <Route path="/"/>
       </Route>

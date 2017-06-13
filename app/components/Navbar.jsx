@@ -18,7 +18,7 @@ render() {
         <ul className="nav navbar-nav">
           <li className="active"><Link to="/">Home</Link></li>
           <li><Link to='/'>Cart 0</Link></li>
-          {this.props.authUser && this.props.authUser.role && <li><Link to='/'>All Orders</Link></li>}
+          {this.props.authUser && this.props.authUser.role==='admin' && <li><Link to='/allOrders'>All Orders</Link></li>}
           <li><Link to='/currentUserOrders'>My Orders</Link></li>
         </ul>
       </div>

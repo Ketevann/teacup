@@ -30,7 +30,14 @@ const orders = (state=initialState, action) => {
     return newstate
   } 
 }
-
+export const loadAllOrders = () => dispatch => {
+  console.log('?????????loadAllOrders')
+  axios.get('/api/orders')
+        .then(orders => {
+          console.log('LOADING ALL ORDERS??????', orders)
+          dispatch(userOrders(orders.data))
+        })
+}
 export const loadOrders = () => dispatch => {
   console.log('GETTING INTO LOAD ORDERS')
   const gettingId =
@@ -45,21 +52,21 @@ export const loadOrders = () => dispatch => {
         })
         .catch(err => console.error(err))
   console.log('GETTING ID', gettingId)
-  const gettingOrders = (userId) =>
+  const gettingOrders = (userId) => dispatch =>
   axios.get(`/api/orders/user/${userId}`)
       .then(orders => {
         console.log('THIS IS ORDERS', orders)
         console.log('THIS IS ORDERS data', orders.data)
-        store.dispatch(userOrders(orders.data))
+        dispatch(userOrders(orders.data))
       })
-      .catch(console.err)
+      .catch(console.error)
 
   Promise.all([gettingId])
     .spread(function(userId) {
       console.log('THIS IS userId', userId)
-      return gettingOrders(userId)
+      return dispatch(gettingOrders(userId))
     })
-    .catch(console.err)
+    .catch(console.error)
 }
 
 export default orders
