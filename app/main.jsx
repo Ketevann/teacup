@@ -18,7 +18,9 @@ import Users from './components/Users'
 import SingleUser from './components/SingleUser'
 import Cart from './components/Cart'
 import {fetchUsers} from './reducers/users'
-
+import Orders from './components/Orders'
+import AllOrders from './components/AllOrders'
+import {loadOrders, loadAllOrders} from './reducers/orders'
 
 
 const ExampleApp = connect(
@@ -40,12 +42,19 @@ const onProductsEnter = () => {
 const onCartEnter = () => {
   store.dispatch(loadCartItems())
 }
+const onOrdersEnter = () => {
+  store.dispatch(loadOrders())
+}
+const onAllOrdersEnter = () => {
+  store.dispatch(loadAllOrders())
+
+}
 
 render(
 
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp} onEnter={fetchUsers()}>
+      <Route path="/" component={ExampleApp}  >
         <IndexRedirect to="/products" />
         <Route path="/foobar" component={NavBar} onEnter={onCartEnter} >
           <Route path="/products" component={Products} onEnter={onProductsEnter}/>
@@ -53,6 +62,9 @@ render(
           <Route path="/users" component={Users} />
           <Route path="/users/:userId" component={SingleUser} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
+          <Route path="/currentUserOrders" component={Orders} onEnter={onOrdersEnter}/>
+          <Route path="/allOrders" component={Orders} onEnter={onAllOrdersEnter}/>
+
         </Route>
         <Route path="/"/>
       </Route>

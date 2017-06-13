@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {} from 'APP/app/reducers/auth'
 import { connect } from 'react-redux'
-import { loadOrders } from 'APP/app/reducers/orders'
+import { loadOrders, loadSingleUserOrders } from 'APP/app/reducers/orders'
 
 class Orders extends Component {
     constructor(props){
@@ -9,13 +9,58 @@ class Orders extends Component {
     }
 
     render () {
+      var orders = this.props.orders
       return (
-        <div>
-        <h1> User Orders </h1>
-          {this.props.orders.map((order, index) => {
-            return (<div><li key={index}> <h2> {order.status} </h2></li></div>)
-          })}
-        </div>
+         <div>
+
+        <table className="table">
+
+          <thead className="thead-inverse">
+
+            <tr>
+
+
+              <th>Order ID</th>
+
+              <th>Status</th>
+
+              <th>Destination</th>
+
+
+            </tr>
+
+          </thead>
+
+          {orders.length ? orders.map((order) => {
+
+            return (
+
+              <tbody>
+
+                <tr>
+
+                  <th scope="row">{order.id}</th>
+
+                    <td >{order.status}</td>
+
+                    <td >{order.Apartment} {order.Street}, {order.City}, {order.State}</td>
+
+
+                  <button className="glyphicon glyphicon-remove"></button>
+
+                  <button className="glyphicon glyphicon-edit"></button>
+
+                </tr>
+
+              </tbody>)
+
+          })
+
+          : null}
+
+      </table>
+
+     </div>
 
       )
     }
@@ -30,4 +75,6 @@ const mapStateToProps = (state) => {
 
 }
 
-export default connect(mapStateToProps)(Orders)
+const mapDispatch = null
+
+export default connect(mapStateToProps,mapDispatch)(Orders)

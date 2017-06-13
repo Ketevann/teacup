@@ -12,16 +12,7 @@ module.exports = require('express').Router()
       else res.send(orders)
     })
    .catch(console.error()))
-.get('/:id',
- (req, res, next) =>
-   Order.findById(req.params.id)
-    .then((order) => {
-      if (!order) res.status(404).send('page Not Found')
-      else res.send(order)
-    })
-    .catch(console.error()))
-
-.get('user/:userId',
+.get('/user/:userId',
  (req, res, next) =>
    Order.findAll({
      where: {
@@ -33,3 +24,13 @@ module.exports = require('express').Router()
       else res.send(orders)
     })
     .catch(next))
+
+.get('/:id',
+ (req, res, next) =>
+   Order.findById(req.params.id)
+    .then((order) => {
+      if (!order) res.status(404).send('page Not Found')
+      else res.send(order)
+    })
+    .catch(console.error()))
+
