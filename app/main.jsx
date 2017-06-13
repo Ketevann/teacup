@@ -13,8 +13,10 @@ import NotFound from './components/NotFound'
 import Products from './components/Products'
 import Product from './components/Product'
 import {loadProducts} from 'APP/app/reducers/products'
+import {loadCartItems} from 'APP/app/reducers/cartItems'
 import Users from './components/Users'
 import SingleUser from './components/SingleUser'
+import Cart from './components/Cart'
 import {fetchUsers} from './reducers/users'
 
 
@@ -35,6 +37,9 @@ const onProductsEnter = () => {
   store.dispatch(loadProducts())
 }
 
+const onCartEnter = () => {
+  store.dispatch(loadCartItems())
+}
 
 render(
 
@@ -42,11 +47,12 @@ render(
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp} onEnter={fetchUsers()}>
         <IndexRedirect to="/products" />
-        <Route path="/foobar" component={NavBar} onEnter={onProductsEnter}>
-          <Route path="/products" component={Products}/>
-          <Route path="/products/:productId" component={Product}/>
+        <Route path="/foobar" component={NavBar} onEnter={onCartEnter} >
+          <Route path="/products" component={Products} onEnter={onProductsEnter}/>
+          <Route path="/products/:productId" component={Product} />
           <Route path="/users" component={Users} />
           <Route path="/users/:userId" component={SingleUser} />
+          <Route path="/cart" component={Cart} onEnter={onCartEnter} />
         </Route>
         <Route path="/"/>
       </Route>
