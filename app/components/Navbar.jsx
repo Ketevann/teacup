@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 
-export default class NavBar extends Component {
+class NavBar extends Component {
+  constructor(props){
+    super(props)
+  }
 render() {
+
     return (
     <div>
     <nav className="navbar navbar-toggleable-xl navbar-light bg-faded">
@@ -13,7 +18,7 @@ render() {
         <ul className="nav navbar-nav">
           <li className="active"><Link to="/">Home</Link></li>
           <li><Link to='/'>Cart 0</Link></li>
-          <li><Link to='/'>All Orders</Link></li>
+          {this.props.authUser && this.props.authUser.role && <li><Link to='/'>All Orders</Link></li>}
           <li><Link to='/currentUserOrders'>My Orders</Link></li>
         </ul>
       </div>
@@ -23,3 +28,9 @@ render() {
     )
   }
 }
+const mapStateToProps = (state) => {
+  console.log('STATE',state)
+  return {authUser: state.auth}
+}
+export default connect(mapStateToProps,null)(NavBar)
+
