@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { addToCart } from '../reducers/cartItems'
+import { getOrMakeOrder } from '../reducers/cartItems'
 import { connect } from 'react-redux'
 
 class Product extends React.Component {
@@ -16,10 +16,10 @@ class Product extends React.Component {
 
 
   handleSubmitItem = function(event){
-    console.log(this.props, 'propz')
     event.preventDefault()
-    let itemInfo = {quantity: this.state.quantity, productId: this.props.product.id, price: Number(this.props.product.price)}
-    this.props.addToCart(itemInfo)
+    console.log(this.props, 'propzzz')
+    let itemInfo = {quantity: this.state.quantity, productId: this.props.product.id, price: Number(this.props.product.price), userId: 1}
+    this.props.getOrMakeOrder(itemInfo)
   }
 
   handleQuantityChange = function(event){
@@ -80,5 +80,5 @@ const filterProducts = (products, productId) => {
 
 export default connect(
   (state, ownProps) => ({product: filterProducts(state.products, ownProps.routeParams.productId)}),
-  {addToCart},
+  {getOrMakeOrder},
 )(Product)

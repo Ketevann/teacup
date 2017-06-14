@@ -86,7 +86,6 @@ module.exports = require('express').Router()
       status: 'pending'
     }})
     .then(order => {
-      console.log("****** ORDER: ", order)
       res.send(order[0])
     })
   .catch(next)

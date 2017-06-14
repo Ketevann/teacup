@@ -12,10 +12,8 @@ class Cart extends React.Component {
   }
   
   handleCheckout = function(evt){
-      console.log('handling checkout')
       evt.preventDefault()
       this.props.checkOut()
-      this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   render() {

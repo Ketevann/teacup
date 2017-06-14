@@ -45,14 +45,29 @@ export const checkoutCart = () => ({
 
 export const addToCart = (itemInfo) => 
     dispatch => {
-      let userId = 1 //will be SENT as this.props.auth.userId eventually
       axios.post('/api/cartitem/', itemInfo)
       .then(item => {
         dispatch(newCartItem(item.data))
-        .catch(console.err)
+        .catch(console.error)
       })
 
   }
+
+export const getOrMakeOrder = (itemInfo) => 
+  dispatch => {
+    console.log(itemInfo, 'ITEM INFO!!')
+    let userId = itemInfo.userId
+    console.log('user id is: ', userId)
+    axios.get(`/api/order/${userId}`)
+    .then(order => {itemInfo.orderId = order.id
+    return itemInfo})
+    .then(itemInfo => dispatch(addToCart(itemInfo)))
+    .catch(console.error)
+  }
+
+export const justGetOrder () => {
+
+}
 
 export const loadCartItems = () => 
     dispatch => {
@@ -61,7 +76,7 @@ export const loadCartItems = () =>
         .then((items) => {
           dispatch(getCart(items.data)) 
           return items.data})
-        .catch(console.err)}
+        .catch(console.error)}
 
 
 
@@ -70,7 +85,7 @@ export const checkOut = () =>
     let orderId = 1
     axios.put(`/api/cartitem/checkout/${orderId}`)
     .then(() => dispatch(checkoutCart()))
-    .catch(console.err)
+    .catch(console.error)
   }
 
 export default reducer
