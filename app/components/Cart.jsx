@@ -51,8 +51,8 @@ class Cart extends React.Component {
                       <tr>
              
                     <th scope="row">{index + 1}</th>
-                    <td> Quantity: {product.quantity} </td>
-                    <td> Total Cost: ${product.price * product.quantity}</td>
+                    <td> {product.quantity} </td>
+                    <td> ${product.price * product.quantity}</td>
                
                    </tr>
             </tbody>
@@ -70,7 +70,7 @@ class Cart extends React.Component {
                     } </h1>
 
         <form onSubmit={this.handleCheckout}>
-            <button type="submit"> check out</button>
+            <button className="btn-success" type="submit"> check out</button>
         </form>
       </div>
       </div>

@@ -27,7 +27,7 @@ class Products extends React.Component {
     return (
       <div className="container">
         <div className="row">
-          <div className="col-lg-2">
+          <div className="col-sm-2">
             <h1>Sidebar</h1>
              <form action="">
                 <input type="checkbox" name="" value="chocolate" onClick={(evt) => this.clickHandler(evt)} /> Chocolate <br/>
@@ -40,7 +40,7 @@ class Products extends React.Component {
                 <input type="checkbox" name="" value="vegan" onClick={(evt) => this.clickHandler(evt)}/> Vegan
              </form>
           </div>
-          <div className="col-lg-2">
+          <div className="col-sm-2">
           <h1>Products</h1>
           {
             products.length && products.map((product) => {

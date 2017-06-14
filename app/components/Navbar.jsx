@@ -14,9 +14,6 @@ class NavBar extends Component {
       <div>
       <nav className="navbar navbar-toggleable-xl navbar-light bg-faded">
         <div className="container-fluid">
-          <div className="navbar-header">
-            <Link className="navbar-brand" to="/">Foobars</Link>
-          </div>
           <ul className="nav navbar-nav">
             <li className="active"><Link to="/">Home</Link></li>
             <li><Link to='/cart'>Cart ({cart.length})</Link></li>

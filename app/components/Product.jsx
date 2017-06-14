@@ -17,7 +17,6 @@ class Product extends React.Component {
 
   handleSubmitItem = function(event){
     event.preventDefault()
-    console.log(this.props, 'propzzz')
     let itemInfo = {quantity: this.state.quantity, productId: this.props.product.id, price: Number(this.props.product.price), userId: 1}
     this.props.getOrMakeOrder(itemInfo)
   }
@@ -25,15 +24,6 @@ class Product extends React.Component {
   handleQuantityChange = function(event){
     this.setState({quantity: Number(event.target.value)})
   }
-
-  // onReviewSubmit(event) {
-  //   event.preventDefault()
-  //   let reviewInfo = {
-  //     username: event.target.name.value,
-  //     content: event.target.content.value
-  //   }
-  //   this.props.addReview(reviewInfo)
-  // }
 
 
   render() {
