@@ -11,6 +11,7 @@ class SingleUser extends Component {
     this.SubmitHandler = this.SubmitHandler.bind(this)
   }
   render(){
+    {console.log(this.props, 'props')}
     if (!this.props.user) return <div />
     return (
       <div className="container">
