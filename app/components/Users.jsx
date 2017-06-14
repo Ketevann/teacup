@@ -30,7 +30,7 @@ const Users = ({users, fetchUsers}, props) => {
               <tbody>
                 <tr>
                   <th scope="row">{index+1}</th>
-                  <Link to={`/users/${user.id}`}>
+                  <Link to={`/admin/users/${user.id}`}>
                     <td ></td>
                     <td >{user.name}</td>
                   </Link>

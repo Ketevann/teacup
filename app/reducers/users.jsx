@@ -8,20 +8,24 @@ const UPDATE = 'UPDATE'
 /*************ACTION CREATORS **********************/
 const getAllUsers = (users) => ({type: GET_USERS, users})
 const removeUser = (id) => ({type: DEL_USERS, id })
-const update = (user) => ({type:UPDATE, user })
+const update = (user) => {
+
+console.log("udududu")
+
+return {type:UPDATE, user }
+}
 /*************REDUCER **********************/
 // [...newState.users, action.users]  did not work so returning action.users
 const userReducer = (users=initialState, action) => {
   switch (action.type) {
   case GET_USERS:
-
-    //console.log('in reducer???')
-
     return action.users
+
   case DEL_USERS:
     return users.filter(user => user.id !== action.id)
+
   case UPDATE:
-  console.log("update!!!!!!", users)
+  console.log(action, "*dsdr252*")
     return users.map(user => (
         action.user.id === user.id ? action.user : user
       ));
@@ -35,23 +39,21 @@ dispatch =>
     axios.get('/api/users')
       .then(response => {
         const users = response.data
-        store.dispatch(getAllUsers(users))
+        dispatch(getAllUsers(users))
       })
       .catch(err => console.error)
 export const deleteUser = (userId) =>
   dispatch =>
     axios.delete(`/api/users/${userId}`)
       .then(() => {
-        dispatch(removeUser(userId))
+        dispatch(removeUser(userId), status)
       })
       .catch(err => console.error)
-export const updateUser = () =>
+export const updateUser = (userId, status) =>
 dispatch =>
-    axios.get('/api/users')
-      .then(response => {
-        console.log( dispatch)
-        const users = response.data
-        store.dispatch(update(users))
+    axios.put(`/api/users/promote/${userId}`, status)
+      .then(user => {
+        dispatch(update(user.data))
       })
       .catch(err => console.error)
 export default userReducer
