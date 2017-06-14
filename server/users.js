@@ -12,7 +12,7 @@ const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 //         .catch(next))
 module.exports = require('express').Router()
   .get('/', (req, res, next) => {
-    if (req.user.role === 'admin') {
+    //if (req.user.role === 'admin') {
       User.findAll({
         include: [Payment, Orders, Reviews]
       })
@@ -22,7 +22,7 @@ module.exports = require('express').Router()
       res.send(users)
     })
     .catch(next)
-    }
+    //}
   })
     // The forbidden middleware will fail *all* requests to list users.
     // Remove it if you want to allow anyone to list all users on the site.

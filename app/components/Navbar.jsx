@@ -25,7 +25,7 @@ class NavBar extends Component {
              <li><Link to='/allOrders'>All Orders</Link></li>
              : null}
               {this.props.authUser && this.props.authUser.role==='admin' ?
-              <li><Link to='/users'>All Users</Link></li>
+              <li><Link to='admin/users'>All Users</Link></li>
              : null}
             <li><Link to='/currentUserOrders'>My Orders</Link></li>
              {this.props.authUser ?  <li><Link to={`users/${this.props.authUser.id}`}>My Profile</Link></li> : null}

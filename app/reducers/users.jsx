@@ -8,7 +8,12 @@ const UPDATE = 'UPDATE'
 /*************ACTION CREATORS **********************/
 const getAllUsers = (users) => ({type: GET_USERS, users})
 const removeUser = (id) => ({type: DEL_USERS, id })
-const update = (user) => ({type:UPDATE, user })
+const update = (user) => {
+
+console.log("udududu")
+
+{type:UPDATE, user }
+}
 /*************REDUCER **********************/
 // [...newState.users, action.users]  did not work so returning action.users
 const userReducer = (users=initialState, action) => {
@@ -49,8 +54,7 @@ export const updateUser = (userId, status) =>
 dispatch =>
     axios.put(`/api/users/promote/${userId}`, status)
       .then(response => {
-        console.log( "DSDSDSDS")
-        const users = response.data
+        console.log("response", response)
         dispatch(update(users))
       })
       .catch(err => console.error)

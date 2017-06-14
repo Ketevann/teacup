@@ -21,6 +21,8 @@ import {fetchUsers} from './reducers/users'
 import Orders from './components/Orders'
 import AllOrders from './components/AllOrders'
 import {loadOrders, loadAllOrders} from './reducers/orders'
+import Userprofile from './components/Userprofile'
+
 
 
 const ExampleApp = connect(
@@ -54,19 +56,18 @@ const onUsersEnter = () => {
   store.dispatch(fetchUsers())
 }
 
-
-
 render(
 
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp}  >
         <IndexRedirect to="/products" />
-        <Route path="/foobar" component={NavBar} onEnter={onCartEnter} >
+        <Route path="/foobar" component={NavBar} onEnter={onCartEnter} onEnter={onUsersEnter} >
           <Route path="/products" component={Products} onEnter={onProductsEnter}/>
           <Route path="/products/:productId" component={Product} />
-          <Route path="/users" component={Users} onEnter={onUsersEnter}/>
-          <Route path="/users/:userId" component={SingleUser} />
+          <Route path="/admin/users" component={Users} onEnter={onUsersEnter}/>
+          <Route path="/admin/users/:userId" component={SingleUser} />
+          <Route path="/users/:userId" component={Userprofile} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
           <Route path="/currentUserOrders" component={Orders} onEnter={onOrdersEnter}/>
           <Route path="/allOrders" component={Orders} onEnter={onAllOrdersEnter}/>
