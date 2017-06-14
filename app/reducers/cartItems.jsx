@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const initialState = {currentOrder: {}, cart: [], total: 0}
+const initialState = {currentOrder: {}, cart: []}
 
 
 const reducer = (state=initialState, action) => {
@@ -12,6 +12,8 @@ const reducer = (state=initialState, action) => {
     return nextState.cart = [...action.cartItems]
   case CART_TOTAL:
     return nextState.total = action.total  
+  case CHECKOUT_ORDER:
+    return nextState.cart = []    
   default:
     return state
   }
@@ -35,6 +37,11 @@ export const cartTotal = (total) => ({
   type: CART_TOTAL, total
 })
 
+const CHECKOUT_ORDER = 'CHECKOUT_ORDER'
+
+export const checkoutCart = () => ({
+  type: CHECKOUT_ORDER
+})
 
 export const addToCart = () => 
     dispatch => {
@@ -58,10 +65,13 @@ export const loadCartItems = () =>
 
 
 
-export const checkOut = () => {
-
-
-}
+export const checkOut = () => 
+  dispatch => {
+    let orderId = 1
+    axios.put(`/api/cartitem/checkout/${orderId}`)
+    .then(() => dispatch(checkoutCart()))
+    .catch(console.err)
+  }
 
 export default reducer
 

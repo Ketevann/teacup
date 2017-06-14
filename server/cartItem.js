@@ -26,3 +26,10 @@ module.exports = require('express').Router()
 		.then(items => res.send(items))
 		.catch(next)
 	})
+	.put('/checkout/:orderId', (req,res,next) => {
+		let orderId = req.params.orderId
+		Order.findById(orderId)
+		.then(order => order.setStatus('sent'))
+		.then(items => res.send(items))
+		.catch(next)
+	})
