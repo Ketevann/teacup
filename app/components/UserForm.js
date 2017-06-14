@@ -16,7 +16,7 @@ class Userform extends Component {
     return (
       <div className="container">
         <div className="row">
-          <h2>Create your snippet's HTML, CSS and Javascript in the editor tabs</h2>
+
           <div className="col-md-7 ">
             <div className="panel panel-default">
               <div className="panel-heading">  <h4>User Profile</h4></div>
@@ -95,7 +95,6 @@ class Userform extends Component {
   }
 }
 const mapState = ({ users, auth }, ownProps) => {
-  //const paramId = Number(ownProps.params.userId)
 
   return {
     auth
