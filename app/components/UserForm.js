@@ -11,7 +11,6 @@ class Userform extends Component {
     this.SubmitHandler = this.SubmitHandler.bind(this)
   }
   render(){
-    {console.log(this.props, 'props')}
     if (!this.props) return <div />
     return (
       <div className="container">

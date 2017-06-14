@@ -17,8 +17,6 @@ module.exports = require('express').Router()
         include: [Payment, Orders, Reviews]
       })
     .then(users => {
-      console.log(req.user.role)
-      //console.log(users)
       res.send(users)
     })
     .catch(next)
@@ -42,7 +40,6 @@ module.exports = require('express').Router()
       .then(user => res.json(user))
       .catch(next))
   .delete('/:id', (req, res, next) => {
-    console.log('in delete!!')
     User.findById(req.params.id)
           .then(user =>{
            return user.destroy()
@@ -51,8 +48,7 @@ module.exports = require('express').Router()
          })
   })
   .put('/promote/:id', (req, res, next) => {
-    console.log("prmotoo", req.body.role)
-    User.findById(req.params.id)
+       User.findById(req.params.id)
         .then((user) => {
           if (req.body.role === 'user')
            return user.update({role: 'user'})
@@ -60,8 +56,7 @@ module.exports = require('express').Router()
           return user.update({role: 'admin'})
         })
         .then((upUser) => {
-          console.log(upUser, "upUSer")
-          if (upUser) res.sendStatus(200)
+          if (upUser) res.send(upUser)
           else res.status(404).send('Not successfully updated')
         })
   })

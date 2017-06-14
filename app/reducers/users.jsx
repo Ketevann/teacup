@@ -12,21 +12,20 @@ const update = (user) => {
 
 console.log("udududu")
 
-{type:UPDATE, user }
+return {type:UPDATE, user }
 }
 /*************REDUCER **********************/
 // [...newState.users, action.users]  did not work so returning action.users
 const userReducer = (users=initialState, action) => {
   switch (action.type) {
   case GET_USERS:
-
-    //console.log('in reducer???')
-
     return action.users
+
   case DEL_USERS:
     return users.filter(user => user.id !== action.id)
+
   case UPDATE:
-  console.log("update!!!!!!", users)
+  console.log(action, "*dsdr252*")
     return users.map(user => (
         action.user.id === user.id ? action.user : user
       ));
@@ -40,7 +39,7 @@ dispatch =>
     axios.get('/api/users')
       .then(response => {
         const users = response.data
-        store.dispatch(getAllUsers(users))
+        dispatch(getAllUsers(users))
       })
       .catch(err => console.error)
 export const deleteUser = (userId) =>
@@ -53,9 +52,8 @@ export const deleteUser = (userId) =>
 export const updateUser = (userId, status) =>
 dispatch =>
     axios.put(`/api/users/promote/${userId}`, status)
-      .then(response => {
-        console.log("response", response)
-        dispatch(update(users))
+      .then(user => {
+        dispatch(update(user.data))
       })
       .catch(err => console.error)
 export default userReducer
