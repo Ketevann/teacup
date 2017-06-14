@@ -87,8 +87,8 @@ class SingleUser extends Component {
   SubmitHandler(evt, userId) {
     evt.preventDefault()
 
-    let credentials = {role: evt.target.role.value}
-    this.props.updateUser(userId)
+    let status = {role: evt.target.role.value}
+    this.props.updateUser(userId, status)
   }
 }
 const mapState = ({ users, auth }, ownProps) => {
