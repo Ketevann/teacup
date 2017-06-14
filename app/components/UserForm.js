@@ -42,16 +42,16 @@ class Userform extends Component {
                     <div className="bot-border" />
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Last Name:</div><div className="col-sm-7"> we don't have it</div>
+                    <div className="col-sm-5 col-xs-6 tital ">Last Name:</div><div className="col-sm-7"> N/A</div>
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Orders</div><div className="col-sm-7">{this.props.orders.length} links to orders ???</div>
+                    <div className="col-sm-5 col-xs-6 tital ">Orders</div><div className="col-sm-7">{this.props.orders.length} </div>
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Payment</div><div className="col-sm-7">{this.props.payment ? this.props.payment.Name : null} has to link to all payments??</div>
+                    <div className="col-sm-5 col-xs-6 tital ">Payment</div><div className="col-sm-7">{this.props.payment ? this.props.payment.Name : null} N/A</div>
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Reviwes</div><div className="col-sm-7">some Reviews here and links to reviews??</div>
+                    <div className="col-sm-5 col-xs-6 tital ">Reviwes</div><div className="col-sm-7">N/A Link</div>
 
                     <div className="clearfix" />
                     <div className="bot-border" />
