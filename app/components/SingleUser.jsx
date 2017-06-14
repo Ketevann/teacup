@@ -10,7 +10,7 @@ const SingleUser = (props) => {
   if (!props.user ) return null
   return(
   <Userform  id={props.user.id} name={props.user.name} email={props.user.email} orders={props.user.orders} reviews={props.user.reviews} payment={props.user.payment}
-  role={props.user.role} auth={props.user.auth}/>)
+  role={props.user.role} />)
 
   }
 const mapState = ({ users, auth }, ownProps) => {
