@@ -19,7 +19,7 @@ class NavBar extends Component {
           </div>
           <ul className="nav navbar-nav">
             <li className="active"><Link to="/">Home</Link></li>
-            <li><Link to='/cart'>Cart {cart.length}</Link></li>
+            <li><Link to='/cart'>Cart ({cart.length})</Link></li>
              {this.props.authUser && this.props.authUser.role==='admin' && <li><Link to='/allOrders'>All Orders</Link></li>}
             <li><Link to='/currentUserOrders'>My Orders</Link></li>
           </ul>

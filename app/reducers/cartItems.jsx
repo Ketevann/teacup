@@ -57,7 +57,6 @@ export const getOrMakeOrder = (itemInfo) =>
   dispatch => {
     console.log(itemInfo, 'ITEM INFO!!')
     let userId = itemInfo.userId
-    console.log('user id is: ', userId)
     axios.get(`/api/order/${userId}`)
     .then(order => {itemInfo.orderId = order.id
     return itemInfo})
@@ -65,9 +64,6 @@ export const getOrMakeOrder = (itemInfo) =>
     .catch(console.error)
   }
 
-export const justGetOrder () => {
-
-}
 
 export const loadCartItems = () => 
     dispatch => {
@@ -90,4 +86,44 @@ export const checkOut = () =>
 
 export default reducer
 
+
+
+/*
+what i wanted to do to find or create a new pending order
+lol :(
+
+//first...
+export const getUserIdThenCart = () => 
+
+  dispatch => {
+    axios.get('/api/auth/whoami')
+      .then(who => {
+        const user = who.data
+        dispatch(getOrMakeLoader(user))
+      })
+      .catch(console.error)}   
+    
+  
+
+//then...
+export const getOrMakeLoader = (user) => 
+  dispatch => {   
+    let userId = user.id
+    axios.get(`/api/order/${userId}`)
+      .then(order => dispatch(loadCartItems(order)))
+      .catch(console.error)
+  }
+
+
+//finally... 
+export const loadCartItems = (order) => 
+    dispatch => { 
+      let orderId = order.data[0].id
+      axios.get(`/api/cartitem/all/${orderId}`)
+        .then((items) => {
+          dispatch(getCart(items.data)) 
+          return items.data})
+        .catch(console.error)}
+
+*/
 
