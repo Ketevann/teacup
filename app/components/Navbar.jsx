@@ -22,13 +22,13 @@ class NavBar extends Component {
             <li className="active"><Link to="/">Home</Link></li>
             <li><Link to='/cart'>Cart {cart.length}</Link></li>
              {this.props.authUser && this.props.authUser.role==='admin' ?
-             <li>
              <li><Link to='/allOrders'>All Orders</Link></li>
-
-             <li><Link to='/users'>All Users</Link></li>
-            </li> :null}
+             : null}
+              {this.props.authUser && this.props.authUser.role==='admin' ?
+              <li><Link to='/users'>All Users</Link></li>
+             : null}
             <li><Link to='/currentUserOrders'>My Orders</Link></li>
-             {this.props.authUser ?  <li><Link to={`users/${this.props.authUser.id}`}>My Profile</Link></li> : NaN}
+             {this.props.authUser ?  <li><Link to={`users/${this.props.authUser.id}`}>My Profile</Link></li> : null}
 
 
           </ul>

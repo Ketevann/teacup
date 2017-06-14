@@ -51,15 +51,16 @@ module.exports = require('express').Router()
          })
   })
   .put('/promote/:id', (req, res, next) => {
-    console.log("prmotoo", req.body)
+    console.log("prmotoo", req.body.role)
     User.findById(req.params.id)
         .then((user) => {
-          if (req.body.statu === 'user')
+          if (req.body.role === 'user')
            return user.update({role: 'user'})
-          else
+          else if  (req.body.role === 'admin')
           return user.update({role: 'admin'})
         })
         .then((upUser) => {
+          console.log(upUser, "upUSer")
           if (upUser) res.sendStatus(200)
           else res.status(404).send('Not successfully updated')
         })
