@@ -43,10 +43,10 @@ export const checkoutCart = () => ({
   type: CHECKOUT_ORDER
 })
 
-export const addToCart = () => 
+export const addToCart = (itemInfo) => 
     dispatch => {
       let userId = 1 //will be SENT as this.props.auth.userId eventually
-      axios.post('/api/cartitem/')
+      axios.post('/api/cartitem/', itemInfo)
       .then(item => {
         dispatch(newCartItem(item.data))
         .catch(console.err)

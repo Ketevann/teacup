@@ -11,7 +11,7 @@ module.exports = (db) => db.define('cartItem', {
     }
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.DECIMAL(10, 2),
   },
 })
 

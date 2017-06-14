@@ -6,24 +6,35 @@ import { connect } from 'react-redux'
 class Product extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      quantity: 1,
+      productId: 1
+    }
     this.handleSubmitItem = this.handleSubmitItem.bind(this)
-  }
+    this.handleQuantityChange = this.handleQuantityChange.bind(this)
+}
 
 
   handleSubmitItem = function(event){
+    console.log(this.props, 'propz')
     event.preventDefault()
-    this.props.addToCart()
+    let itemInfo = {quantity: this.state.quantity, productId: this.props.product.id, price: Number(this.props.product.price)}
+    this.props.addToCart(itemInfo)
   }
 
-
-  onReviewSubmit(event) {
-    event.preventDefault()
-    let reviewInfo = {
-      username: event.target.name.value,
-      content: event.target.content.value
-    }
-    this.props.addReview(reviewInfo)
+  handleQuantityChange = function(event){
+    this.setState({quantity: Number(event.target.value)})
   }
+
+  // onReviewSubmit(event) {
+  //   event.preventDefault()
+  //   let reviewInfo = {
+  //     username: event.target.name.value,
+  //     content: event.target.content.value
+  //   }
+  //   this.props.addReview(reviewInfo)
+  // }
+
 
   render() {
     let product = this.props.product
@@ -38,23 +49,24 @@ class Product extends React.Component {
                   <p>{product.name}</p>
                   <img style={stylePref} src={product.imageUrl}/>
                   <p>Price: {product.price}</p>
-                  <p> Quantity: <input type="text" name="quantity"/> </p>
+                  <p> Quantity: <input type="text" onChange={this.handleQuantityChange}/> </p>
                   <button type="submit">Add Product to Cart</button>
                 </form>
-        <div className="row col-lg-4">
-            <form action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">User Name:</label>
-              <input size="20" className="form-control" type="text" id="name" name="username"/>
-            </div>
-            <div className="form-group">
-              <label htmlFor="textContent">Your Review:</label>
-              <input className="form-control" type="text" id="textContent"style={{width: '30em', height: '5em'}} />
-            </div>
-              <button className="btn btn-default" type="submit">Add New Review</button>
-            </form>
-          </div>
-            </div>
+
+                <div className="row col-lg-4">
+                    <form action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="name">User Name:</label>
+                      <input size="20" className="form-control" type="text" id="name" name="username"/>
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="textContent">Your Review:</label>
+                      <input className="form-control" type="text" id="textContent"style={{width: '30em', height: '5em'}} />
+                    </div>
+                      <button className="btn btn-default" type="submit">Add New Review</button>
+                    </form>
+                  </div>
+                    </div>
 
     )
   }
