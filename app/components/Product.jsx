@@ -23,7 +23,7 @@ class Product extends React.Component {
     event.preventDefault()
     this.props.addToCart()
   }
-   
+
   componentWillMount() {
     console.log("NEED PRODUCT ID", this.props)
     axios.get(`/api/reviews/${this.props.routeParams.productId}`)
@@ -65,30 +65,6 @@ class Product extends React.Component {
     }
 
     return (
-
-      <div>
-          <h1>Product</h1>
-          <p>{product.name}</p>
-          <img style={stylePref} src={product.imageUrl}/>
-          <p>Price: {product.price}</p>
-          <button>Add Product to Cart</button>
-          <br></br>
-            <div>
-              <h2> Customer Review</h2>
-
-              {this.state.reviews.map((review, i) => {
-                console.log('WHAT IS REVIEW???', review)
-                return (
-                    <li>{review.stars} stars: {review.content} </li>
-                )
-              }
-              )}
-
-            </div>
-          <br></br>
-          <div className="row col-lg-4">
-
-    return ( 
             <div>
                 <h1>Product</h1>
                 <form onSubmit={this.handleSubmitItem}>
