@@ -1,27 +1,40 @@
 import React from 'react'
 
+
+
+
+
 import { Link, browserHistory } from 'react-router'
 import axios from 'axios'
 
-
+import { getOrMakeOrder } from '../reducers/cartItems'
 import { addToCart } from '../reducers/cartItems'
+
 import { connect } from 'react-redux'
 
 
 class Product extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state={
-      reviews: [],
-    }
+    this.state = {
+      quantity: 1,
+      productId: 1,
+      reviews: []
+    }  
     this.onReviewSubmit = this.onReviewSubmit.bind(this)
     this.handleSubmitItem = this.handleSubmitItem.bind(this)
+    this.handleQuantityChange = this.handleQuantityChange.bind(this)
   }
 
    handleSubmitItem = function(event){
     event.preventDefault()
-    this.props.addToCart()
+    let itemInfo = {quantity: this.state.quantity, productId: this.props.product.id, price: Number(this.props.product.price), userId: 1}
+    this.props.getOrMakeOrder(itemInfo)
+  }
+
+
+  handleQuantityChange = function(event){
+    this.setState({quantity: Number(event.target.value)})
   }
 
   componentWillMount() {
@@ -38,8 +51,6 @@ class Product extends React.Component {
   }
 
   onReviewSubmit(event) {
-    console.log('EVENTTTTTTT TARGEETTT', event.target.productId)
-    console.log('WHAT IS THIS ON SUBMIT', this)
     event.preventDefault()
     let reviewInfo = {
       stars: parseInt(event.target.stars.value),
@@ -57,6 +68,7 @@ class Product extends React.Component {
     browserHistory.push('/products')
   }
 
+
   render() {
     let product = this.props.product
     let stylePref = {
@@ -71,7 +83,7 @@ class Product extends React.Component {
                   <p>{product.name}</p>
                   <img style={stylePref} src={product.imageUrl}/>
                   <p>Price: {product.price}</p>
-                  <p> Quantity: <input type="text" name="quantity"/> </p>
+                  <p> Quantity: <input type="text" onChange={this.handleQuantityChange}/> </p>
                   <button type="submit">Add Product to Cart</button>
                 </form>
               <br></br>
@@ -79,7 +91,6 @@ class Product extends React.Component {
               <h2> Customer Review</h2>
 
               {this.state.reviews.map((review, i) => {
-                console.log('WHAT IS REVIEW???', review)
                 return (
                     <li>{review.stars} stars: {review.content} </li>
                 )
@@ -102,8 +113,8 @@ class Product extends React.Component {
               <button className="btn btn-default" type="submit">Add New Review</button>
             </form>
           </div>
+          </div>
 
-            </div>
 
     )
   }
@@ -118,5 +129,5 @@ const filterProducts = (products, productId) => {
 
 export default connect(
   (state, ownProps) => ({product: filterProducts(state.products, ownProps.routeParams.productId)}),
-  {addToCart},
+  {getOrMakeOrder},
 )(Product)

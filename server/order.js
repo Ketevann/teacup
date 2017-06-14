@@ -81,13 +81,11 @@ module.exports = require('express').Router()
  .catch(next))
  .get('/current/:userId',  // there can only be one 'pending' order per user
   (req, res, next) => {
-    console.log('----------------- before orders find or create -----------------------------')
     Orders.findOrCreate({where: {
       user_id: req.params.userId,
       status: 'pending'
     }})
     .then(order => {
-      console.log("****** ORDER: ", order)
       res.send(order[0])
     })
   .catch(next)

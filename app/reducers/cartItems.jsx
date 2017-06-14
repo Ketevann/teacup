@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const initialState = {currentOrder: {}, cart: [], total: 0}
+const initialState = {currentOrder: {}, cart: []}
 
 
 const reducer = (state=initialState, action) => {
@@ -12,6 +12,8 @@ const reducer = (state=initialState, action) => {
     return nextState.cart = [...action.cartItems]
   case CART_TOTAL:
     return nextState.total = action.total  
+  case CHECKOUT_ORDER:
+    return nextState.cart = []    
   default:
     return state
   }
@@ -35,17 +37,33 @@ export const cartTotal = (total) => ({
   type: CART_TOTAL, total
 })
 
+const CHECKOUT_ORDER = 'CHECKOUT_ORDER'
 
-export const addToCart = () => 
+export const checkoutCart = () => ({
+  type: CHECKOUT_ORDER
+})
+
+export const addToCart = (itemInfo) => 
     dispatch => {
-      let userId = 1 //will be SENT as this.props.auth.userId eventually
-      axios.post('/api/cartitem/')
+      axios.post('/api/cartitem/', itemInfo)
       .then(item => {
         dispatch(newCartItem(item.data))
-        .catch(console.err)
+        .catch(console.error)
       })
 
   }
+
+export const getOrMakeOrder = (itemInfo) => 
+  dispatch => {
+    console.log(itemInfo, 'ITEM INFO!!')
+    let userId = itemInfo.userId
+    axios.get(`/api/order/${userId}`)
+    .then(order => {itemInfo.orderId = order.id
+    return itemInfo})
+    .then(itemInfo => dispatch(addToCart(itemInfo)))
+    .catch(console.error)
+  }
+
 
 export const loadCartItems = () => 
     dispatch => {
@@ -54,15 +72,58 @@ export const loadCartItems = () =>
         .then((items) => {
           dispatch(getCart(items.data)) 
           return items.data})
-        .catch(console.err)}
+        .catch(console.error)}
 
 
 
-export const checkOut = () => {
-
-
-}
+export const checkOut = () => 
+  dispatch => {
+    let orderId = 1
+    axios.put(`/api/cartitem/checkout/${orderId}`)
+    .then(() => dispatch(checkoutCart()))
+    .catch(console.error)
+  }
 
 export default reducer
 
+
+
+/*
+what i wanted to do to find or create a new pending order
+lol :(
+
+//first...
+export const getUserIdThenCart = () => 
+
+  dispatch => {
+    axios.get('/api/auth/whoami')
+      .then(who => {
+        const user = who.data
+        dispatch(getOrMakeLoader(user))
+      })
+      .catch(console.error)}   
+    
+  
+
+//then...
+export const getOrMakeLoader = (user) => 
+  dispatch => {   
+    let userId = user.id
+    axios.get(`/api/order/${userId}`)
+      .then(order => dispatch(loadCartItems(order)))
+      .catch(console.error)
+  }
+
+
+//finally... 
+export const loadCartItems = (order) => 
+    dispatch => { 
+      let orderId = order.data[0].id
+      axios.get(`/api/cartitem/all/${orderId}`)
+        .then((items) => {
+          dispatch(getCart(items.data)) 
+          return items.data})
+        .catch(console.error)}
+
+*/
 

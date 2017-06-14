@@ -29,6 +29,13 @@ module.exports = (db) => db.define('order', {
      len: [5]
     }
   },
+}, {
+  instanceMethods: {
+    setStatus: function(status) {
+      this.status = 'sent'
+      return this.save()
+    },
+  },
 })
 
 module.exports.associations = (Order, {User, CartItem, Payment, Product}) => {

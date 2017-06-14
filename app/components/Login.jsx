@@ -11,9 +11,9 @@ export const Login = ({ login, thirdPartyLogin }) => (
       <input type="submit" value="Login" />
     </form>
     <br/>
-    <button onClick={evt => { thirdPartyLogin('google')}}>log in with google</button>
-        <button onClick={evt => { thirdPartyLogin('github')}}>log in with github</button>
-            <button onClick={evt => { thirdPartyLogin('facebook')}}>log in with facebook</button>
+      <button onClick={evt => { thirdPartyLogin('google')}}>log in with google</button>
+      <button onClick={evt => { thirdPartyLogin('github')}}>log in with github</button>
+      <button onClick={evt => { thirdPartyLogin('facebook')}}>log in with facebook</button>
   </div>
 )
 
