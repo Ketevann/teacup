@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import {login, thirdPartyLogin} from 'APP/app/reducers/auth'
 
 
 import {connect} from 'react-redux'
@@ -9,16 +10,20 @@ class NavBar extends Component {
     super(props)
   }
   render() {
-    
+    console.log(this.props, 'prop')
       let cart = this.props.cart
       return (
-      <div>
-      <nav className="navbar navbar-toggleable-xl navbar-light bg-faded">
-        <div className="container-fluid">
-          <ul className="nav navbar-nav">
+      <nav className="navbar navbar-default">
+  <div className="container-fluid">
+    <div className="navbar-header">
+      <a className="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul className="nav navbar-nav">
+
             <li className="active"><Link to="/">Home</Link></li>
 
             <li><Link to='/cart'>Cart ({cart.length})</Link></li>
+            <li><Link to='/products'>Products</Link></li>
              {this.props.authUser && this.props.authUser.role==='admin' ?
              <li><Link to='/allOrders'>All Orders</Link></li>
              : null}
@@ -29,12 +34,33 @@ class NavBar extends Component {
             <li><Link to='/currentUserOrders'>My Orders</Link></li>
              {this.props.authUser ?  <li><Link to={`users/${this.props.authUser.id}`}>My Profile</Link></li> : null}
 
+              <li>
+    <form className='login' onSubmit={evt => {
+      evt.preventDefault()
+      console.log(evt.target.username.value, evt.target.password.value, "%%%")
+      this.props.login(evt.target.username.value, evt.target.password.value)
+    } }>
+      <input name="username" />
+      <input name="password" type="password" />
+      <input type="submit" value="Login" />
+    </form>
+    <br/>
+    </li>
+      <li id="google" ><button onClick={evt => { thirdPartyLogin('google')}}>log in with google</button></li>
+
+
+
+
+
+
 
           </ul>
         </div>
-      </nav>
-      {this.props.children}
-      </div>
+
+</nav>
+
+
+
       )
     }
 }
@@ -43,5 +69,5 @@ class NavBar extends Component {
 const mapStateToProps = (state) => {
   return {authUser: state.auth, cart: state.cartItems}
 }
-export default connect(mapStateToProps,null)(NavBar)
+export default connect(mapStateToProps,{login})(NavBar)
 

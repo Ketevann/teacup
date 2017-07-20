@@ -20,8 +20,11 @@ import Cart from './components/Cart'
 import {fetchUsers} from './reducers/users'
 import Orders from './components/Orders'
 import AllOrders from './components/AllOrders'
+import AppContainer from './components/AppContainer'
 import {loadOrders, loadAllOrders} from './reducers/orders'
 import Userprofile from './components/Userprofile'
+import Front from './components/Front'
+
 
 
 
@@ -30,7 +33,9 @@ const ExampleApp = connect(
 )(
   ({ user, children }) =>
     <div>
+
       <nav>
+      <NavBar />
         {user ? <WhoAmI/> : <Login/>}
       </nav>
       {children}
@@ -58,14 +63,20 @@ const onUsersEnter = () => {
 
 render(
 
+
+
+
+
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={ExampleApp}  >
-        <IndexRedirect to="/products" />
-        <Route path="/foobar" component={NavBar} onEnter={onCartEnter} onEnter={onUsersEnter} >
+        <IndexRedirect to="/home" />
+        <Route path='/home' component={Front} />
+        <Route path="/foobar" component={AppContainer} onEnter={onCartEnter} onEnter={onUsersEnter} >
           <Route path="/products" component={Products} onEnter={onProductsEnter}/>
           <Route path="/products/:productId" component={Product} />
           <Route path="/admin/users" component={Users} onEnter={onUsersEnter}/>
+
           <Route path="/admin/users/:userId" component={SingleUser} />
           <Route path="/users/:userId" component={Userprofile} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />

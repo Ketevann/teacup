@@ -3,7 +3,7 @@ import NavBar from './NavBar.jsx';
 
 const AppContainer = ({ children }) => (
   <div id="main" className="container-fluid">
-    <NavBar />
+
     { children }
   </div>
 );

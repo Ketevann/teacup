@@ -16,8 +16,7 @@ export const login = (email, password) =>
   dispatch =>
     axios.post('/api/auth/login/local',
       {email, password})
-      .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))
+      .then(() => {console.log("WWW")})
 
 export const thirdPartyLogin = (provider) =>
   dispatch =>
@@ -33,7 +32,7 @@ export const logout = () =>
 
 export const signup = (email, password) =>
     dispatch =>
-      axios.post('/api/auth/signup', 
+      axios.post('/api/auth/signup',
         {email, password})
         .then(() => dispatch(whoami()))
         .catch(() => dispatch(whoami()))

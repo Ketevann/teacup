@@ -100,13 +100,15 @@ auth.get('/whoami', (req, res) => res.send(req.user))
 // POST requests for local login:
 // maybe add a fail redirect to a signup page?
 auth.post('/login/local', (req, res, next) => {
+  console.log("SSSS", req.body)
 const {email, password} = req.body;
-    console.log('email:', email, 'password:', password)  
+    console.log('email:', email, 'password:', password)
    User.findOne({
       where: {email},
       attributes: {include: ['password_digest']}
     })
       .then(user => {
+        console.log(user,' user')
         if (!user) {
           debug('authenticate user(email: "%s") did fail: no such user', email)
           throw new Error('one')
@@ -142,7 +144,7 @@ auth.post('/signup', (req, res, next) => {
 auth.get('/login/:strategy', (req, res, next) => {
   console.log('in AUTH DOT GET')
   passport.authenticate(req.params.strategy,  {
-    
+
     scope: 'email', // You may want to ask for additional OAuth scopes. These are
                     // provider specific, and let you access additional data (like
                     // their friends or email), or perform actions on their behalf.

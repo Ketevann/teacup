@@ -13,7 +13,7 @@ const Payment = () =>  {
               <p />
             </div>
             <div className="row">
-              <div style={{display: 'table', margin: 'auto'}}>
+              <div>
                 <span className="step step_complete"> <a href="#" className="check-bc">Cart</a> <span className="step_line step_complete">&nbsp;</span> <span className="step_line backline">&nbsp;</span> </span>
                 <span className="step step_complete"> <a href="#" className="check-bc">Checkout</a> <span className="step_line ">&nbsp;</span> <span className="step_line step_complete">&nbsp;</span> </span>
                 <span className="step_thankyou check-bc step_complete">Thank you</span>
@@ -35,7 +35,7 @@ const Payment = () =>  {
                 <div className="panel-body">
                   <div className="form-group">
                     <div className="col-sm-3 col-xs-3">
-                      <img className="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
+
                     </div>
                     <div className="col-sm-6 col-xs-6">
                       <div className="col-xs-12">Product name</div>
@@ -48,7 +48,7 @@ const Payment = () =>  {
                   <div className="form-group"><hr /></div>
                   <div className="form-group">
                     <div className="col-sm-3 col-xs-3">
-                      <img className="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
+
                     </div>
                     <div className="col-sm-6 col-xs-6">
                       <div className="col-xs-12">Product name</div>
@@ -61,7 +61,7 @@ const Payment = () =>  {
                   <div className="form-group"><hr /></div>
                   <div className="form-group">
                     <div className="col-sm-3 col-xs-3">
-                      <img className="img-responsive" src="//c1.staticflickr.com/1/466/19681864394_c332ae87df_t.jpg" />
+
                     </div>
                     <div className="col-sm-6 col-xs-6">
                       <div className="col-xs-12">Product name</div>

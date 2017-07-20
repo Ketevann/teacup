@@ -22,7 +22,7 @@ import { loadOrders } from '../reducers/orders'
 const Routes = ({ fetchOrders }) => (
      <Router history={browserHistory}>
       <Route path="/" component={AppContainer}>
-        <Route path="/foobar" component={NavBar} onEnter={fetchOrders}/>
+        <Route path="/foobar" onEnter={fetchOrders}/>
         <Route path="/orders" component={Orders} onEnter={fetchOrders} />
         <Route path="/cart" component={Cart} onEnter={fetchOrders} />
       </Route>

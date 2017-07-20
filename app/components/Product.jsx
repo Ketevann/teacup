@@ -20,7 +20,7 @@ class Product extends React.Component {
       quantity: 1,
       productId: 1,
       reviews: []
-    }  
+    }
     this.onReviewSubmit = this.onReviewSubmit.bind(this)
     this.handleSubmitItem = this.handleSubmitItem.bind(this)
     this.handleQuantityChange = this.handleQuantityChange.bind(this)
@@ -70,19 +70,20 @@ class Product extends React.Component {
 
 
   render() {
-    let product = this.props.product
-    let stylePref = {
-      width: '100px',
-      height: '100px'
+     const divStyle = {
+      width: 250,
+      height: 230
     }
+    let product = this.props.product
 
     return (
             <div>
-                <h1>Product</h1>
+                <h1>Product2</h1>
                 <form onSubmit={this.handleSubmitItem}>
                   <p>{product.name}</p>
-                  <img style={stylePref} src={product.imageUrl}/>
+
                   <p>Price: {product.price}</p>
+                  <img style={divStyle} src={product.img} />
                   <p> Quantity: <input type="text" onChange={this.handleQuantityChange}/> </p>
                   <button type="submit">Add Product to Cart</button>
                 </form>
@@ -108,7 +109,7 @@ class Product extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="textContent">Your Review:</label>
-              <input className="form-control" type="text" id="textContent" style={{width: '30em', height: '5em'}} />
+              <input className="form-control" type="text" id="textContent"  />
             </div>
               <button className="btn btn-default" type="submit">Add New Review</button>
             </form>

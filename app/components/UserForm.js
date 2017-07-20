@@ -25,18 +25,18 @@ class Userform extends Component {
                     <div className="col-sm-6">
                       <div > <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" className="img-circle img-responsive" />
                         <input id="profile-image-upload" className="hidden" type="file" />
-                        <div style={{color: '#999'}}>click here to change profile image</div>
+                        <div>click here to change profile image</div>
                         {/*Upload Image Js And Css*/}
                       </div>
                       <br />
                       {/* /input-group */}
                     </div>
                     <div className="col-sm-6">
-                      <h4 style={{color: '#00b1b1'}}>{this.props.name} </h4>
+                      <h4>{this.props.name} </h4>
                       <span><p>{this.props.role}</p></span>
                     </div>
                     <div className="clearfix" />
-                    <hr style={{margin: '5px 0 5px 0'}} />
+
                     <div className="col-sm-5 col-xs-6 tital ">First Name</div><div className="col-sm-7 col-xs-6 ">{this.props.name}</div>
                     <div className="clearfix" />
                     <div className="bot-border" />

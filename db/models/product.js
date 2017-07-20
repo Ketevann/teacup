@@ -23,9 +23,9 @@ module.exports = (db) => db.define('products', {
         type: Sequelize.ENUM('gluten free', 'vegan', 'Kettis pick!', 'unhealthy', 'chocolate', 'spicy', 'kosher', 'pickled'),
         defaultValue: 'unhealthy'
     },
-    imageUrl: {
-        type: Sequelize.STRING,
-        defaultValue: 'http://www.clker.com/cliparts/J/t/k/l/1/I/granola-bar-transparent-b-g-hi.png'
+    img: {
+        type: Sequelize.STRING
+
     },
 })
 
