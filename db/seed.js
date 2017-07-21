@@ -56,8 +56,8 @@ const review = seed(Review, {
 })
 
 const cartItem = seed(CartItem, {
-    one: {name: 'Cinnamon Foobar', Price: '3.00', product_id: 1, order_id: 1, quantity: 5},
-    two: {name: 'Almond Foobar', Price: '2.75', product_id: 2, order_id: 2, quantity: 9},
+    one: {name: 'Jasmine', price: '2.25', product_id: 1, order_id: 1, quantity: 5},
+    two: {name: 'Apple Tea', price: '2.25', product_id: 2, order_id: 2, quantity: 9},
 })
 
 const favorites = seed(Favorite,

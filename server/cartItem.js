@@ -10,7 +10,7 @@ module.exports = require('express').Router()
 		let product_id = req.body.productId
 		// let order_id = req.body.orderId
 		let quantity = req.body.quantity
-		
+
 		let newCartItem = {price: price, product_id: product_id, order_id: 2, quantity: quantity}
 		CartItem.create(newCartItem)
 		.then(item => res.send(item))
@@ -22,7 +22,19 @@ module.exports = require('express').Router()
 		CartItem.findAll({where: {
 			order_id: orderId
 		}})
-		.then(items => res.send(items))
+			.then(items =>{
+				var product_id = items[0].dataValues.product_id
+				console.log(items[0].dataValues.product_id, 'tpce', items)
+				Product.findAll({})
+				.then(product =>{
+
+
+					console.log(product)
+
+		 res.send({items: items, product:product})
+		 				})
+
+	})
 		.catch(next)
 	})
 	.put('/checkout/:orderId', (req,res,next) => {

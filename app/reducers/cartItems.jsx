@@ -9,11 +9,12 @@ const reducer = (state=initialState, action) => {
   case ADD_CARTITEM:
     return nextState.cart = [...state.cart, action.cartItem]
   case GET_CART:
-    return nextState.cart = [...action.cartItems]
+  console.log('action', action.cartItems)
+    return action.cartItems
   case CART_TOTAL:
-    return nextState.total = action.total  
+    return nextState.total = action.total
   case CHECKOUT_ORDER:
-    return nextState.cart = []    
+    return nextState.cart = []
   default:
     return state
   }
@@ -43,7 +44,7 @@ export const checkoutCart = () => ({
   type: CHECKOUT_ORDER
 })
 
-export const addToCart = (itemInfo) => 
+export const addToCart = (itemInfo) =>
     dispatch => {
       axios.post('/api/cartitem/', itemInfo)
       .then(item => {
@@ -53,7 +54,7 @@ export const addToCart = (itemInfo) =>
 
   }
 
-export const getOrMakeOrder = (itemInfo) => 
+export const getOrMakeOrder = (itemInfo) =>
   dispatch => {
     console.log(itemInfo, 'ITEM INFO!!')
     let userId = itemInfo.userId
@@ -65,18 +66,19 @@ export const getOrMakeOrder = (itemInfo) =>
   }
 
 
-export const loadCartItems = () => 
+export const loadCartItems = () =>
     dispatch => {
       let orderId = 2
       axios.get(`/api/cartitem/all/${orderId}`)
         .then((items) => {
-          dispatch(getCart(items.data)) 
+          console.log(items.data)
+          dispatch(getCart(items.data))
           return items.data})
         .catch(console.error)}
 
 
 
-export const checkOut = () => 
+export const checkOut = () =>
   dispatch => {
     let orderId = 1
     axios.put(`/api/cartitem/checkout/${orderId}`)
@@ -93,7 +95,7 @@ what i wanted to do to find or create a new pending order
 lol :(
 
 //first...
-export const getUserIdThenCart = () => 
+export const getUserIdThenCart = () =>
 
   dispatch => {
     axios.get('/api/auth/whoami')
@@ -101,13 +103,13 @@ export const getUserIdThenCart = () =>
         const user = who.data
         dispatch(getOrMakeLoader(user))
       })
-      .catch(console.error)}   
-    
-  
+      .catch(console.error)}
+
+
 
 //then...
-export const getOrMakeLoader = (user) => 
-  dispatch => {   
+export const getOrMakeLoader = (user) =>
+  dispatch => {
     let userId = user.id
     axios.get(`/api/order/${userId}`)
       .then(order => dispatch(loadCartItems(order)))
@@ -115,13 +117,13 @@ export const getOrMakeLoader = (user) =>
   }
 
 
-//finally... 
-export const loadCartItems = (order) => 
-    dispatch => { 
+//finally...
+export const loadCartItems = (order) =>
+    dispatch => {
       let orderId = order.data[0].id
       axios.get(`/api/cartitem/all/${orderId}`)
         .then((items) => {
-          dispatch(getCart(items.data)) 
+          dispatch(getCart(items.data))
           return items.data})
         .catch(console.error)}
 

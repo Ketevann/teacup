@@ -13,10 +13,10 @@ class NavBar extends Component {
     console.log(this.props, 'prop')
       let cart = this.props.cart
       return (
-      <nav className="navbar navbar-default">
+      <nav className="navbar navbar-default navbar-fixed-top ">
   <div className="container-fluid">
     <div className="navbar-header">
-      <a className="navbar-brand" href="#">WebSiteName</a>
+      <a className="navbar-brand" href="#"><span id="teacup">TeaCup</span></a>
     </div>
     <ul className="nav navbar-nav">
 
@@ -46,7 +46,6 @@ class NavBar extends Component {
     </form>
     <br/>
     </li>
-      <li id="google" ><button onClick={evt => { thirdPartyLogin('google')}}>log in with google</button></li>
 
 
 

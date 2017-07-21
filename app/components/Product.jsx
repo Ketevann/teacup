@@ -50,10 +50,10 @@ class Product extends React.Component {
       .catch(err => console.log(err))
   }
 
-  onReviewSubmit(event) {
+  onReviewSubmit(event, title) {
     event.preventDefault()
     let reviewInfo = {
-      stars: parseInt(event.target.stars.value),
+      stars: parseInt(title),
       content: event.target.textContent.value,
       productId: this.props.routeParams.productId
     }
@@ -71,21 +71,19 @@ class Product extends React.Component {
 
   render() {
      const divStyle = {
-      width: 250,
-      height: 230
+      width: 450,
+      height: 430
     }
     let product = this.props.product
 
     return (
-            <div>
-                <h1>Product2</h1>
+            <div className="singleproduct">
                 <form onSubmit={this.handleSubmitItem}>
-                  <p>{product.name}</p>
-
-                  <p>Price: {product.price}</p>
+                  <p className="productinfo">{product.name}</p>
+                  <p className="productinfo">Price: {product.price}</p>
                   <img style={divStyle} src={product.img} />
                   <p> Quantity: <input type="text" onChange={this.handleQuantityChange}/> </p>
-                  <button type="submit">Add Product to Cart</button>
+                  <button className="btn btn-default addproduct" type="submit">Add Product to Cart</button>
                 </form>
               <br></br>
             <div>
@@ -102,7 +100,7 @@ class Product extends React.Component {
           <br></br>
         <div className="row col-lg-4">
 
-            <form action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
+            <form id="reviewform" action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
             <div className="form-group">
               <label htmlFor="stars">STARS:</label>
               <input size="5" placeholder="Type a number like 5"className="form-control" type="number" id="stars" />
