@@ -11,7 +11,7 @@ class Orders extends Component {
     render () {
       var orders = this.props.orders
       return (
-         <div>
+         <div id="orders">
 
         <table className="table">
 

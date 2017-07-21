@@ -28,7 +28,7 @@ class Cart extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-md-8">
-            <h1>Your Cart:</h1>
+            <h1 className="header">Your Cart:</h1>
 
         <table className="table">
           <thead className="thead-inverse">

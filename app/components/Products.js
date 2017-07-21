@@ -26,13 +26,13 @@ class Products extends React.Component {
 
     console.log('PROPS',this.props)
     return (
-      <div className="container">
+      <div className="container prodcuts">
         <div >
           <div >
 
           </div>
           <div >
-          <h1>Products</h1>
+          <h1 className="header">Products</h1>
           {
             products.length && products.map((product) => {
               return (
@@ -40,7 +40,7 @@ class Products extends React.Component {
                 <Link to={`/products/${product.id}`}>
 
 
-                <img style={divStyle} src={product.img} />
+                <img id="prodimg" style={divStyle} src={product.img} />
                   <p className="productinfo">{product.name} $ {product.price}</p>
 
 

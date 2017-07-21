@@ -9,8 +9,10 @@ import _ from 'lodash'
 const SingleUser = (props) => {
   if (!props.user ) return null
   return(
+    <div className="users">
   <Userform  id={props.user.id} name={props.user.name} email={props.user.email} orders={props.user.orders} reviews={props.user.reviews} payment={props.user.payment}
-  role={props.user.role} />)
+  role={props.user.role} />
+  </div>)
 
   }
 const mapState = ({ users, auth }, ownProps) => {

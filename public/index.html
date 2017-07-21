@@ -61,58 +61,26 @@ background-attachment: fixed;
 }
 #homepagetext{
   position: fixed;
-  top:20px;
-  width:350px;
+  top:140px;
+  width:440px;
   padding:50px;
   line-height: 250%;
-  font-family: cursive
+  font-family: cursive;
+  font-size: 1.5em;
 }
 ul.nav.navbar-nav{
   margin-left: 100px;
 
 }
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
-fieldset, label { margin: 0; padding: 0; }
-body{ margin: 20px; }
-h1 { font-size: 1.5em; margin: 10px; }
-
-/****** Style Star Rating Widget *****/
-
-.rating {
-  border: none;
-  float: left;
+ .users, table, .singleproduct, #orders, .products, .header{
+  margin-top:50px;
 }
-
-.rating > input { display: none; }
-.rating > label:before {
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
+.header{
+  text-align: center;
 }
-
-.rating > .half:before {
-  content: "\f089";
-  position: absolute;
+#prodimg{
+  margin-top: 40px;
 }
-
-.rating > label {
-  color: #ddd;
- float: right;
-}
-
-/***** CSS Magic to Highlight Stars on Hover *****/
-
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
-
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
     </style>
 
 
