@@ -8,16 +8,18 @@ module.exports = (db) => db.define('products', {
         allowNull: false
     },
     price: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: Sequelize.STRING,
         allowNull: false
     },
     inStock: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true
+        type: Sequelize.STRING,
+        defaultValue: true,
+        allowNull: false
     },
     inventory: {
-        type: Sequelize.INTEGER,
-        defaultValue: 100
+        type:Sequelize.STRING,
+        defaultValue: 100,
+        allowNull: false
     },
     categories: {
         type: Sequelize.ENUM('gluten free', 'vegan', 'Kettis pick!', 'unhealthy', 'chocolate', 'spicy', 'kosher', 'pickled'),

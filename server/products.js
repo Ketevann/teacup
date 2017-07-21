@@ -22,6 +22,7 @@ module.exports = require('express').Router()
    })
 .param('id',
   (req, res, next, productId) => {
+    console.log('inparams')
     return Products.findById(productId, { include: [Reviews] })
       .then((product) => {
         if (!product) {
@@ -58,15 +59,22 @@ module.exports = require('express').Router()
      })
 .post('/',
      (req, res, next) => {
+       if( req.body.name === "")
+        res.end()
+        else{
        Products.create(req.body)
       .then((products) => {
         res.status(200).json(products)
       })
+        }
      })
-.put('/',
+.put('/:id',
      (req, res, next) => {
-       Products.update(req.body)
+       console.log(req.body, 'req.body')
+       req.product.update(req.body)
+
       .then((products) => {
+        console.log('products', products[0])
         res.status(200).json(products)
       })
       .catch(next)

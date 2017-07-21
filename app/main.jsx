@@ -24,6 +24,8 @@ import AppContainer from './components/AppContainer'
 import {loadOrders, loadAllOrders} from './reducers/orders'
 import Userprofile from './components/Userprofile'
 import Front from './components/Front'
+import Update from './components/Update'
+
 
 
 
@@ -36,7 +38,7 @@ const ExampleApp = connect(
 
       <nav>
       <NavBar />
-        {user ? <WhoAmI/> : <Login/>}
+
       </nav>
       {children}
     </div>
@@ -72,10 +74,15 @@ render(
       <Route path="/" component={ExampleApp}  >
         <IndexRedirect to="/home" />
         <Route path='/home' component={Front} />
+       <Route path='/update/:productId' component={Update} />
+       <Route path='/add' component={Update} />
+
+
         <Route path="/foobar" component={AppContainer} onEnter={onCartEnter} onEnter={onUsersEnter} >
           <Route path="/products" component={Products} onEnter={onProductsEnter}/>
           <Route path="/products/:productId" component={Product} />
           <Route path="/admin/users" component={Users} onEnter={onUsersEnter}/>
+          <Route path="/login" component={Login} />
 
           <Route path="/admin/users/:userId" component={SingleUser} />
           <Route path="/users/:userId" component={Userprofile} />
