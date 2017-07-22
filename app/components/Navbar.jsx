@@ -13,28 +13,35 @@ class NavBar extends Component {
     console.log(this.props, 'prop')
       let cart = this.props.cart
       return (
-      <nav className="navbar navbar-default  ">
-  <div className="container-fluid">
-    <div className="navbar-header">
+      <nav className="navbar-more-overlay">
+  <div className="navbar navbar navbar-fixed-top animate">
+    <div className="navbar-header ">
       <a className="navbar-brand" href="#"><span id="teacup">TeaCup</span></a>
     </div>
+              <div className="container navbar-more visible-xs">
+
+
+          </div>
+           <div className="navbar-header">
     <ul className="nav navbar-nav">
 
-            <li><Link to="/">Home</Link></li>
+            <li className="active"><Link className="link" to="/">Home</Link></li>
 
-            <li><Link to='/cart'>Cart ({cart.length})</Link></li>
-            <li><Link to='/products'>Products</Link></li>
+            <li><Link className="link menu-icon" to='/cart'>Cart ({cart.length})</Link></li>
+            <li><Link className="link" to='/products'>Products</Link></li>
              {this.props.authUser && this.props.authUser.role==='admin' ?
-             <li><Link to='/allOrders'>All Orders</Link></li>
+             <li><Link className="link" to='/allOrders'>All Orders</Link></li>
              : null}
               {this.props.authUser && this.props.authUser.role==='admin' ?
-              <li><Link to='admin/users'>All Users</Link></li>
+              <li><Link className="link" to='admin/users'>All Users</Link></li>
              : null}
 
-            <li><Link to='/currentUserOrders'>My Orders</Link></li>
-             {this.props.authUser ?  <li><Link to={`users/${this.props.authUser.id}`}>My Profile</Link></li> : null}
-              <li><Link to='/login'>Login</Link></li>
+            <li><Link className="link" to='/currentUserOrders'>My Orders</Link></li>
+             {this.props.authUser ?  <li><Link className="link" to={`users/${this.props.authUser.id}`}>My Profile</Link></li> : null}
+
               <li>
+
+
 
     <br/>
     </li>
@@ -46,6 +53,7 @@ class NavBar extends Component {
 
 
           </ul>
+          </div>
         </div>
 
 </nav>

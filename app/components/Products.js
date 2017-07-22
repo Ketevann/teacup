@@ -35,7 +35,7 @@ class Products extends React.Component {
 
     console.log(this.props.products, 'PROPS',this.props)
     return (
-      <div className="container prodcuts">
+      <div className="container products">
         <div >
           <div >
 
@@ -48,11 +48,11 @@ class Products extends React.Component {
           {
             this.props.products && this.props.products.map((product) => {
               return (
-                <div key={product.id} className="col-md-4">
+                <div key={product.id} className="col-sm-2">
                 <Link to={`/products/${product.id}`}>
 
 
-                <img id="prodimg" style={divStyle} src={product.img} />
+                <img id="prodimg"  src={product.img} />
                   <p className="productinfo">{product.name} $ {product.price}</p>
                </Link>
                 {this.props.auth && this.props.auth.role==='admin' ?

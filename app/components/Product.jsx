@@ -81,7 +81,7 @@ class Product extends React.Component {
                 <form onSubmit={this.handleSubmitItem}>
                   <p className="productinfo">{product.name}</p>
                   <p className="productinfo">Price: {product.price}</p>
-                  <img style={divStyle} src={product.img} />
+                  <img  src={product.img} />
                   <p> Quantity: <input type="text" onChange={this.handleQuantityChange}/> </p>
                   <button className="btn btn-default addproduct" type="submit">Add Product to Cart</button>
                 </form>

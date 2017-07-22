@@ -12,7 +12,7 @@ class Front extends Component {
   render(){
 
     return (<div className="homepage">
-    <p id="homepagetext">At Tea Trekker we sell the teas that we want to drink and that we want our customers to drink, too.   </p>
+
     </div>)
   }
 }
