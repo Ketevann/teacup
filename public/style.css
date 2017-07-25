@@ -1,0 +1,133 @@
+
+body {
+   min-height: 400px;
+  margin-bottom:70px;
+   clear: both;
+}
+
+.homepage{
+  background-image: url("./teacup.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+   margin: 0;
+    height: 900px;
+   }
+
+.login, #google{
+  margin-top:12px;
+  margin-left:100px;
+
+}
+.login{
+  margin-left:120px;
+}
+.productinfo{
+  color :black;
+  font-family: cursive;
+  font-size: 1.5em;
+  margin-left:45px;
+}
+
+.addproduct{
+margin-left: 60px;
+}
+.singleproduct{
+padding: 30px;
+text-align: center;
+}
+#teacup{
+color:pink;
+font-size:1.5em;
+}
+
+#homepagetext{
+top:140px;
+width:440px;
+padding:50px;
+line-height: 250%;
+font-family: cursive;
+font-size: 1.5em;
+}
+ul.nav.navbar-nav{
+margin-left: 100px;
+}
+
+.users, table, .singleproduct, #orders, .products, .header{
+margin-top:50px;
+}
+.header{
+text-align: center;
+}
+#prodimg{
+margin-top: 40px;
+}
+#loginform{
+text-align: center;
+margin-top:200px;
+}
+.updateForm input[type=submit]{
+background:#fb044a;
+color:#fff;
+font-weight:700;
+
+}
+.rmedit{
+margin-left: 60px;
+}
+.add.btn.btn-default{
+background-color: pink;
+border: 0px;
+}
+.navbar{
+background-color: #f5f5f5;
+border: 2px solid black;
+
+
+}
+.link {
+color:#333
+}
+@media screen and (max-width: 668px) {
+.products{
+margin-top:250px;
+text-align: center;
+      }
+}
+
+@media screen and (max-width: 668px) {
+.header{
+margin-top:140px;
+font-size:0.8em;
+      }
+}
+@media screen and (max-width: 668px) {
+.button.add.btn.btn-default{
+margin-left:10px;
+font-size:0.8em;
+max-width: 50px;
+
+}
+}
+
+
+.products{
+display: flex;
+flex-flow: column wrap;
+background-color: lavender;
+}
+#prodimg{
+
+  width: 250px;
+  height: 230px;
+}
+
+@media screen and (max-width: 668px) {
+#prodimg{
+width:100px;
+height: 70px;
+
+}
+}
+

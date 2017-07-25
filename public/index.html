@@ -4,6 +4,7 @@
    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Architects+Daughter|Arima+Madurai|Bad+Script|Bahiana|Bellefair|Cabin+Sketch|Chewy|Cinzel+Decorative|Fredericka+the+Great|Gloria+Hallelujah|Handlee|Indie+Flower|Josefin+Sans|Jura|Love+Ya+Like+A+Sister|Merienda+One|Oregano|Pacifico|Philosopher|Reem+Kufi|Shadows+Into+Light|Shadows+Into+Light+Two" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="/bootstrap.min.css" rel="stylesheet">
@@ -13,147 +14,12 @@
 
 
 
-    <style>
 
-body {
-   min-height: 400px;
-  margin-bottom:70px;
-   clear: both;
-}
-    .homepage{
-      background-image: url("./teacup.jpg");
-background-repeat: no-repeat;
-      background-size: cover;
-background-position: center center;
-background-attachment: fixed;
-
-
-    margin: 0;
-    height: 900px;
-    }
-
-    .login, #google{
-      margin-top:12px;
-      margin-left:100px;
-
-    }
-    .login{
-      margin-left:120px;
-    }
-    .productinfo{
-      color :black;
-      font-family: cursive;
-      font-size: 1.5em;
-      margin-left:45px;
-    }
-
-.addproduct{
-  margin-left: 60px;
-}
-.singleproduct{
-  padding: 30px;
-  text-align: center;
-}
-#teacup{
-  color:pink;
-  font-size:1.5em;
-}
-
-#homepagetext{
-  top:140px;
-  width:440px;
-  padding:50px;
-  line-height: 250%;
-  font-family: cursive;
-  font-size: 1.5em;
-}
-ul.nav.navbar-nav{
-  margin-left: 100px;
-}
-
- .users, table, .singleproduct, #orders, .products, .header{
-  margin-top:50px;
-}
-.header{
-  text-align: center;
-}
-#prodimg{
-  margin-top: 40px;
-}
-#loginform{
-  text-align: center;
-  margin-top:200px;
-}
-.updateForm input[type=submit]{
-	background:#fb044a;
-	color:#fff;
-	font-weight:700;
-
-}
-.rmedit{
-  margin-left: 60px;
-}
-.add.btn.btn-default{
-  background-color: pink;
-  border: 0px;
-}
- .navbar{
-  background-color: #f5f5f5;
-  border: 2px solid black;
-
-
-}
-.link {
-  color:#333
-}
- @media screen and (max-width: 668px) {
-  .products{
-margin-top:250px;
-text-align: center;
-          }
- }
-
- @media screen and (max-width: 668px) {
-  .header{
-margin-top:140px;
-font-size:0.8em;
-          }
- }
-  @media screen and (max-width: 668px) {
-  .button.add.btn.btn-default{
-margin-left:10px;
-font-size:0.8em;
-max-width: 50px;
-
- }
- }
-
-
-.products{
-  display: flex;
-  flex-flow: column wrap;
-  background-color: lavender;
-}
-#prodimg{
-
-      width: 250px;
-      height: 230px;
-    }
-
- @media screen and (max-width: 668px) {
-  #prodimg{
-width:100px;
-height: 70px;
-
- }
- }
-
-    </style>
 
 
   </head>
   <body>
-    <div id=main></div>
+    <div id="main"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
     <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
@@ -161,13 +27,17 @@ height: 70px;
  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossOrigin="anonymous" />
 
-    <script async defer src=/bundle.js></script>
 
 <script>
 
-console.log($(window).width())
+console.log($(window).width(),'ddd')
+$(document).ready(function(){
+    $('productinfo').text("i love you");
+  });
 
 </script>
+    <script async defer src=/bundle.js></script>
+
   </body>
 </html>
 

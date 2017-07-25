@@ -41,7 +41,6 @@ class Update extends React.Component {
     this.props.addProducts(data)
     else if (this.props.path !== '/add')
     {
-      console.log(this.props.product.id, "IDIDIDIIDID")
       this.props.updateProduct(this.props.product.id, data)}
       else {
         alert("Please input all fields")
