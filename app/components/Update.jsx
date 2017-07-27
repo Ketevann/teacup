@@ -17,7 +17,6 @@ class Update extends React.Component {
   handleSubmit = (evt, id) =>{
     evt.preventDefault()
     let data = {}
-    console.log( evt.target.img.value==="", " img")
     if ( evt.target.name !== "")
       data.name= evt.target.name.value
     if ( evt.target.inventory.value !== "")
@@ -28,7 +27,7 @@ class Update extends React.Component {
         data.inStock= evt.target.inStock.value
     if ( evt.target.img.value !==""){
       data.img= evt.target.img.value
-    console.log("not emplty")}
+    }
     // const data ={
     //   name: evt.target.name.value,
     //   inventory: evt.target.inventory.value,
@@ -53,7 +52,6 @@ class Update extends React.Component {
 
   }
   render(){
-  {console.log(this.props, 'prp')}
     return (
       <div className="container">
         <div className="row">
@@ -86,7 +84,6 @@ class Update extends React.Component {
   }
 }
 const mapState = (state, ownProps) => {
-  console.log(ownProps, 'ownprop')
   const paramId = Number(ownProps.params.productId)
   return {
     product: _.find(state.products, product => product.id === paramId),

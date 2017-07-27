@@ -13,12 +13,10 @@ const reducer = (state=initialState, action) => {
     return arr
 
   case UPDATE_PRODUCT:
-  console.log(action, "*dsdr252*")
     return state.map(product => (
         action.product.id === product.id ? action.product : product
       ))
     case ADD_PRODUCT:
-    console.log(action, 'action')
     return [...state, action.product]
   }
   return state

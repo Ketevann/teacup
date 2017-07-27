@@ -29,12 +29,8 @@ class Products extends React.Component {
       width: 250,
       height: 230
     }
+   // let products = this.props.products.filter((prod)=> this.props.filtered.indexOf(prod.categories)!==-1)
 
-
-    // let products = this.props.products.filter((prod)=> this.props.filtered.indexOf(prod.categories)!==-1)
-
-
-    console.log(this.props.products, 'PROPS', this.props)
     return (
       <div className="container prodcuts">
         <h1 className="header">Products</h1>

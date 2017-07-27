@@ -1,22 +1,21 @@
 import axios from 'axios'
 
-const initialState = {currentOrder: {}, cart: []}
+const initialState = { currentOrder: {}, cart: [] }
 
 
-const reducer = (state=initialState, action) => {
+const reducer = (state = initialState, action) => {
   let nextState = Object.assign({}, state)
   switch (action.type) {
-  case ADD_CARTITEM:
-    return nextState.cart = [...state.cart, action.cartItem]
-  case GET_CART:
-  console.log('action', action.cartItems)
-    return action.cartItems
-  case CART_TOTAL:
-    return nextState.total = action.total
-  case CHECKOUT_ORDER:
-    return nextState.cart = []
-  default:
-    return state
+    case ADD_CARTITEM:
+      return nextState.cart = [...state.cart, action.cartItem]
+    case GET_CART:
+      return action.cartItems
+    case CART_TOTAL:
+      return nextState.total = action.total
+    case CHECKOUT_ORDER:
+      return nextState.cart = []
+    default:
+      return state
   }
 }
 
@@ -45,45 +44,45 @@ export const checkoutCart = () => ({
 })
 
 export const addToCart = (itemInfo) =>
-    dispatch => {
-      axios.post('/api/cartitem/', itemInfo)
+  dispatch => {
+    axios.post('/api/cartitem/', itemInfo)
       .then(item => {
         dispatch(newCartItem(item.data))
-        .catch(console.error)
+          .catch(console.error)
       })
 
   }
 
 export const getOrMakeOrder = (itemInfo) =>
   dispatch => {
-    console.log(itemInfo, 'ITEM INFO!!')
     let userId = itemInfo.userId
     axios.get(`/api/order/${userId}`)
-    .then(order => {itemInfo.orderId = order.id
-    return itemInfo})
-    .then(itemInfo => dispatch(addToCart(itemInfo)))
-    .catch(console.error)
+      .then(order => {
+      itemInfo.orderId = order.id
+        return itemInfo
+      })
+      .then(itemInfo => dispatch(addToCart(itemInfo)))
+      .catch(console.error)
   }
 
 
 export const loadCartItems = () =>
-    dispatch => {
-      let orderId = 2
-      axios.get(`/api/cartitem/all/${orderId}`)
-        .then((items) => {
-          console.log(items.data)
-          dispatch(getCart(items.data))
-          return items.data})
-        .catch(console.error)}
-
-
+  dispatch => {
+    let orderId = 2
+    axios.get(`/api/cartitem/all/${orderId}`)
+      .then((items) => {
+        dispatch(getCart(items.data))
+        return items.data
+      })
+      .catch(console.error)
+  }
 
 export const checkOut = () =>
   dispatch => {
     let orderId = 1
     axios.put(`/api/cartitem/checkout/${orderId}`)
-    .then(() => dispatch(checkoutCart()))
-    .catch(console.error)
+      .then(() => dispatch(checkoutCart()))
+      .catch(console.error)
   }
 
 export default reducer

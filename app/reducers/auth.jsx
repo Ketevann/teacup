@@ -3,6 +3,7 @@ import axios from 'axios'
 const reducer = (state=null, action) => {
   switch (action.type) {
   case AUTHENTICATED:
+  console.log(action, 'usaaa')
     return action.user
   }
   return state
@@ -16,7 +17,8 @@ export const login = (email, password) =>
   dispatch =>
     axios.post('/api/auth/login/local',
       {email, password})
-      .then(() => {console.log("WWW")})
+      .then(() => dispatch(whoami()))
+      .catch(console.error)
 
 export const thirdPartyLogin = (provider) =>
   dispatch =>
@@ -25,15 +27,16 @@ export const thirdPartyLogin = (provider) =>
       .catch(() => dispatch(whoami()))
 
 export const logout = () =>
-  dispatch =>
-    axios.post('/api/auth/logout')
+  dispatch =>{
+    console.log("looog")
+    return axios.post('/api/auth/logout')
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
-
-export const signup = (email, password) =>
+  }
+export const signup = (email, password, name) =>
     dispatch =>
       axios.post('/api/auth/signup',
-        {email, password})
+        {email, password, name})
         .then(() => dispatch(whoami()))
         .catch(() => dispatch(whoami()))
 

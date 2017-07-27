@@ -14,7 +14,6 @@ const Userprofile = (props) => {
     </div>)
 }
 const mapState = ({ users, auth }, ownProps) => {
-  console.log(users)
   return {
     user: _.find(users, user => user.id === auth.id),
     auth,

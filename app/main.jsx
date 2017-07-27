@@ -25,6 +25,8 @@ import { loadOrders, loadAllOrders } from './reducers/orders'
 import Userprofile from './components/Userprofile'
 import Front from './components/Front'
 import Update from './components/Update'
+import SignUp from './components/SignUp'
+
 
 
 const ExampleApp = connect(
@@ -73,6 +75,8 @@ render(
           <Route path="/products/:productId" component={Product} />
           <Route path="/admin/users" component={Users} onEnter={onUsersEnter} />
           <Route path="/login" component={Login} />
+          <Route path="/signup" component={SignUp} />
+
           <Route path="/admin/users/:userId" component={SingleUser} />
           <Route path="/users/:userId" component={Userprofile} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
