@@ -259,4 +259,4 @@ module.exports = auth
   //       'Thanks for logging in, ' + response.name + '!';
   //   });
   // }
-https://www.facebook.com/dialog/oauth?response_type=code&redirect_uri=http://localhost/api/login/facebook
+// https://www.facebook.com/dialog/oauth?response_type=code&redirect_uri=http://localhost/api/login/facebook
