@@ -39,7 +39,7 @@ OAuth.setupStrategy({
   config: {
     clientID: env.FACEBOOK_CLIENT_ID,
     clientSecret: env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: `${app.baseUrl}/api/auth/login/facebook`,
+    callbackURL: `gentle-sea-91716.herokuapp.com/api/auth/login/facebook`,
   },
   passport
 })
@@ -259,3 +259,4 @@ module.exports = auth
   //       'Thanks for logging in, ' + response.name + '!';
   //   });
   // }
+https://www.facebook.com/dialog/oauth?response_type=code&redirect_uri=http://localhost/api/login/facebook
