@@ -5,6 +5,7 @@ const passport = require('passport')
 const {User, OAuth} = require('APP/db')
 const auth = require('express').Router()
 
+app.baseUrl = 'gentle-sea-91716.herokuapp.com'
 /*************************
  * Auth strategies
  *
@@ -39,7 +40,7 @@ OAuth.setupStrategy({
   config: {
     clientID: env.FACEBOOK_CLIENT_ID,
     clientSecret: env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: `gentle-sea-91716.herokuapp.com/api/auth/login/facebook`,
+    callbackURL: `/api/auth/login/facebook`,
   },
   passport
 })
@@ -92,7 +93,7 @@ passport.deserializeUser(
       })
   }
 )
-
+console.log(`${app.baseUrl}`, 'base!!!!!')
 
 auth.get('/whoami', (req, res) => res.send(req.user))
 
@@ -158,6 +159,7 @@ auth.post('/signup', (req, res, next) => {
 // Register this route as a callback URL with OAuth provider
 auth.get('/login/:strategy', (req, res, next) => {
   console.log('in AUTH DOT GET', env.FACEBOOK_CLIENT_ID,  env.FACEBOOK_CLIENT_SECRET)
+  console.log(`${app.baseUrl}`, 'base!!!!!')
   passport.authenticate(req.params.strategy,  {
 
     scope: 'email', // You may want to ask for additional OAuth scopes. These are
@@ -259,4 +261,3 @@ module.exports = auth
   //       'Thanks for logging in, ' + response.name + '!';
   //   });
   // }
-// https://www.facebook.com/dialog/oauth?response_type=code&redirect_uri=http://localhost/api/login/facebook
