@@ -19,10 +19,12 @@ export const Login = ({ login, signup }, props) => (
           <hr className="colorgraph" /><br />
           <input type="text" className="form-control" name="username" placeholder="Username" required autofocus />
           <input type="password" className="form-control" name="password" placeholder="Password" required />
-          <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>  			          </form>
-        <a href="api/auth/login/facebook"><div className="fb"></div>
+          <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
+          <a href="api/auth/login/facebook"><div className="fb"></div>
+ </a>
+           			          </form>
 
-        </a>
+
       </div>
     </div>
 

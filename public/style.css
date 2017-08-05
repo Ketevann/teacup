@@ -201,7 +201,6 @@ input[type="password"] {
 }
 
 .fb{
-  position: relative;
     /* left: 150px; */
     bottom: 2;
     background-color: lightgray;
@@ -209,6 +208,8 @@ input[type="password"] {
     /* bottom: 100px; */
     bottom: 120px;
     width: 600px;
-    left: 320px;
-    margin-left: 100px;
+
+
+font-size:0.8em;
+
 }
