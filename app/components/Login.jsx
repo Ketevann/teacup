@@ -52,11 +52,7 @@ export class Login extends React.Component {
                auth && auth.name  ? browserHistory.push('/home') : null
               }
               <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
-              <button className="fblogin btn btn-primary"> Login with Facebook</button>
-              <div className="fb">
-                <a href="api/auth/login/facebook">
-                  <img src={'../public/fb.png'} /></a>
-              </div>
+              <button className="fblogin btn btn-primary"><a href="api/auth/login/facebook"> Login with Facebook</a></button>
 
             </form>
 
