@@ -108,19 +108,28 @@ const {email, password} = req.body;
       .then(user => {
         if (!user) {
           debug('authenticate user(email: "%s") did fail: no such user', email)
-          throw new Error('one')
+          console.log('Error 1')
+          res.status(404).send({error: 'error'})
         }
-        return user.authenticate(password).then(ok => {
-            if (!ok) {
+        else{
+                  return user.authenticate(password).then(ok => {
+          if (!ok) {
               debug('authenticate user(email: "%s") did fail: bad password')
-              throw new Error('two')
+              //throw new Error('two')
+              console.log('Error 2')
+              res.status(404).send({error: 'error'})
             }
+          else {
             debug('authenticate user(email: "%s") did ok: user.id=%d', email, user.id)
             req.logIn(user, function(err) {
-              if (err) {throw next('three')}
+              if (err) {
+                console.log('Error 3')
+                res.status(404).send({error: 'error'})}
               return res.redirect('/')
             })
+            }
           })
+        }
       })
       .catch(next)
 })
@@ -136,7 +145,8 @@ auth.post('/signup', (req, res, next) => {
     .then((user) => {
 
       if (user !== null) {
-        res.end()
+        console.log('user Exists!!!!!')
+        res.status(404).send({user:'error'})
       } else {
          User.create({
             name: req.body.name,

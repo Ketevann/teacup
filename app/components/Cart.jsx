@@ -17,10 +17,10 @@ class Cart extends React.Component {
   }
 
   render() {
-    const divStyle = {
-      width: 250,
-      height: 230
-    }
+    // const divStyle = {
+    //   width: 250,
+    //   height: 230
+    // }
     let cartItems = this.props.cart
     let user = this.props.user
     return (
@@ -53,7 +53,7 @@ class Cart extends React.Component {
                         <th scope="row">{index + 1}</th>
                         <td> {product.quantity} </td>
                         <td> ${product.price * product.quantity}</td>
-                        <td> <img style={divStyle} src={image} /></td>
+                        <td> <img id="cartproducts" src={image} /></td>
                       </tr>
                     </tbody>
                   )
@@ -62,7 +62,7 @@ class Cart extends React.Component {
             </table>
           </div>
           <div className="col-md-4">
-            <h1>Total: ${
+            <h1 id="total">Total: ${
               this.props.cart.items ? cartItems.items.map((item) => item.price * item.quantity)
                 .reduce((a, b) => a + b)
                 : null} </h1>

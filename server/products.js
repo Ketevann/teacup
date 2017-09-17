@@ -3,13 +3,13 @@ const Products = db.model('products')
 const Reviews = db.model('reviews')
 
 module.exports = require('express').Router()
-.get('/categories/:category',
-   (req, res, next) => {
-     return Products.findAll({
-       where: {
-         categoriezs: req.params.category
-       }
-     })
+  .get('/categories/:category',
+  (req, res, next) => {
+    return Products.findAll({
+      where: {
+        categoriezs: req.params.category
+      }
+    })
       .then((products) => {
         if (!products.length) {
           console.log(products, 'err')
@@ -19,10 +19,9 @@ module.exports = require('express').Router()
         } else res.json(products)
       })
       .catch(next)
-   })
-.param('id',
+  })
+  .param('id',
   (req, res, next, productId) => {
-    console.log('inparams')
     return Products.findById(productId, { include: [Reviews] })
       .then((product) => {
         if (!product) {
@@ -40,14 +39,13 @@ module.exports = require('express').Router()
       })
       .catch(next)
   })
-.get('/:id',
-    (req, res, next) => {
-      console.log('anything', req.product)
-      res.json(req.product)
-    })
-.get('/', (req, res, next) => {
-      console.log("routeee")
-       Products.findAll({})
+  .get('/:id',
+  (req, res, next) => {
+    console.log('anything', req.product)
+    res.json(req.product)
+  })
+  .get('/', (req, res, next) => {
+    Products.findAll({})
       .then((products) => {
         if (!products.length) {
           const error = new Error()
@@ -56,37 +54,37 @@ module.exports = require('express').Router()
         } else res.status(200).json(products)
       })
       .catch(next)
-     })
-.post('/',
-     (req, res, next) => {
-       if( req.body.name === "")
-        res.end()
-        else{
-       Products.create(req.body)
-      .then((products) => {
-        res.status(200).json(products)
-      })
-        }
-     })
-.put('/:id',
-     (req, res, next) => {
-       console.log(req.body, 'req.body')
-       req.product.update(req.body)
+  })
+  .post('/',
+  (req, res, next) => {
+    if (req.body.name === "")
+      res.end()
+    else {
+      Products.create(req.body)
+        .then((products) => {
+          res.status(200).json(products)
+        })
+    }
+  })
+  .put('/:id',
+  (req, res, next) => {
+    console.log(req.body, 'req.body')
+    req.product.update(req.body)
 
       .then((products) => {
         console.log('products', products[0])
         res.status(200).json(products)
       })
       .catch(next)
-     })
-.delete('/:id',
-     (req, res, next) => {
-       req.product.destroy({})
+  })
+  .delete('/:id',
+  (req, res, next) => {
+    req.product.destroy({})
       .then(() => {
         res.sendStatus(204)
       })
       .catch(next)
-     })
+  })
 
 
 

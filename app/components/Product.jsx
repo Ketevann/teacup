@@ -60,18 +60,19 @@ class Product extends React.Component {
 
 
   render() {
-    const divStyle = {
-      width: 450,
-      height: 430
-    }
+    // const divStyle = {
+    //   width: 450,
+    //   height: 430
+    // }
+
     let product = this.props.product
 
     return (
-      <div className="singleproduct">
+      <div className="singleproduct flex">
         <form onSubmit={this.handleSubmitItem}>
-          <p className="productinfo">{product.name}</p>
-          <p className="productinfo">Price: {product.price}</p>
-          <img style={divStyle} src={product.img} />
+          <p >{product.name}</p>
+          <p>Price: {product.price}</p>
+          <img id="singleproducts" src={product.img} />
           <p> Quantity: <input type="text" onChange={this.handleQuantityChange} /> </p>
           <button className="btn btn-default addproduct" type="submit">Add Product to Cart</button>
         </form>
@@ -88,7 +89,7 @@ class Product extends React.Component {
 
         </div>
         <br></br>
-        <div className="row col-lg-4">
+        <div >
 
           <form id="reviewform" action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
             <div className="form-group">

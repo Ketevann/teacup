@@ -51,7 +51,7 @@ class Userform extends Component {
                     <div className="col-sm-5 col-xs-6 tital ">Payment</div><div className="col-sm-7">{this.props.payment ? this.props.payment.Name : null} N/A</div>
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Reviwes</div><div className="col-sm-7">N/A Link</div>
+                    <div className="col-sm-5 col-xs-6 tital ">Reviwes</div><div className="col-sm-7">N/A </div>
 
                     <div className="clearfix" />
                     <div className="bot-border" />

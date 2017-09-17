@@ -23,8 +23,7 @@ class Orders extends Component {
                   <th scope="row">{order.id}</th>
                   <td >{order.status}</td>
                   <td >{order.Apartment} {order.Street}, {order.City}, {order.State}</td>
-                  <button className="glyphicon glyphicon-remove"></button>
-                  <button className="glyphicon glyphicon-edit"></button>
+
                 </tr>
               </tbody>)
           })

@@ -2,44 +2,81 @@ import React from 'react'
 import WhoAmI from './WhoAmI'
 import { browserHistory, Link } from 'react-router'
 
-export const Login = ({ login, signup }, props) => (
+export class Login extends React.Component {
 
-  <div>
-    <div id="loginform" className="container">
-      <div className="wrapper">
-        <form action method="post" name="Login_Form" className="form-signin" onSubmit={evt => {
-          evt.preventDefault()
-          login(evt.target.username.value, evt.target.password.value)
-          evt.target.username.value = ""
-          evt.target.password.value = ""
-          browserHistory.push('/')
-        }}>
-          <h3 className="form-signin-heading">Welcome Back! Please Sign In</h3>
-          <h4>Not a memeber ?</h4><span><Link to="/signup">Sign up</Link></span>
-          <hr className="colorgraph" /><br />
-          <input type="text" className="form-control" name="username" placeholder="Username" required autofocus />
-          <input type="password" className="form-control" name="password" placeholder="Password" required />
-          <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
-          <a href="api/auth/login/facebook"><div className="fb"></div>
- </a>
-           			          </form>
+  constructor() {
+    super()
+
+  }
+
+
+  errorMessage() {
+    console.log(' Error!!!!!!!', this.state)
+    return (
+      <div id="errormessage">Please Try Again</div>
+    )
+  }
+  // redirect(){
+  //   console.log(this.props,' redirect')
+  //   if (this.props.auth !== null && this.props.auth.id)
+
+  // }
+  render() {
+
+    const { login, auth } = this.props
+   // if (auth && auth.name) browserHistory('/')
+    { console.log(auth, login, 'Login Props', this.props) }
+    return (
+      <div>
+        <div id="loginform" className="container">
+          <div className="wrapper">
+            <form action method="post" name="Login_Form" className="form-signin" onSubmit={evt => {
+              evt.preventDefault()
+              login(evt.target.username.value, evt.target.password.value)
+              evt.target.username.value = ""
+              evt.target.password.value = ""
+             // this.redirect()
+                          }}>
+              <h3 className="form-signin-heading">Welcome Back! Please Sign In</h3>
+              <h4>Not a memeber ?</h4><span><Link to="/signup">Sign up</Link></span>
+              <hr className="colorgraph" /><br />
+              <input type="text" className="form-control" name="username" placeholder="Username" required autofocus />
+              <input type="password" className="form-control" name="password" placeholder="Password" required />
+
+              {
+                auth && auth.user === 'error' ?
+                this.errorMessage() : null
+              }
+              {
+               // console.log('checkin auth', auth)
+               auth && auth.name  ? browserHistory.push('/home') : null
+              }
+              <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
+              <button className="fblogin btn btn-primary"> Login with Facebook</button>
+              <div className="fb">
+                <a href="api/auth/login/facebook">
+                  <img src={'../public/fb.png'} /></a>
+              </div>
+
+            </form>
+
+
+          </div>
+        </div>
+
+
 
 
       </div>
-    </div>
 
-
-
-
-  </div>
-
-)
-
+    )
+  }
+}
 import { login, signup, thirdPartyLogin } from 'APP/app/reducers/auth'
 import { connect } from 'react-redux'
 
 export default connect(
-  state => ({}),
+  ({ auth }) => ({ auth }),
   { login, signup },
 )(Login)
 

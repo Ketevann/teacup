@@ -6,7 +6,7 @@ import { render } from 'react-dom'
 import { connect, Provider } from 'react-redux'
 import store from './store'
 import Jokes from './components/Jokes'
-import NavBar from './components/Navbar'
+import NavigationBar from './components/NavigationBar'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
@@ -36,7 +36,7 @@ const ExampleApp = connect(
     <div>
 
       <nav>
-        <NavBar />
+        <NavigationBar />
 
       </nav>
       {children}

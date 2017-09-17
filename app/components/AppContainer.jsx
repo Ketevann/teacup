@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './NavBar.jsx';
+import NavigationBar from './NavigationBar.jsx';
 
 const AppContainer = ({ children }) => (
   <div id="main" className="container-fluid">

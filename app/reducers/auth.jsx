@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { browserHistory, Link } from 'react-router'
 
 const reducer = (state=null, action) => {
   switch (action.type) {
@@ -17,14 +18,14 @@ export const login = (email, password) =>
   dispatch =>
     axios.post('/api/auth/login/local',
       {email, password})
-      .then(() => dispatch(whoami()))
-      .catch(console.error)
+      .then((user) =>
+      {
+        console.log('user myyy', user)
+      return dispatch(whoami())
 
-export const thirdPartyLogin = (provider) =>
-  dispatch =>
-     axios.get(`/api/auth/login/${provider}`)
-      .then(() => dispatch(whoami()))
-      .catch(() => dispatch(whoami()))
+  })
+      .catch(() => dispatch(authenticated({user: 'error'})))
+
 
 export const logout = () =>
   dispatch =>{
@@ -38,14 +39,16 @@ export const signup = (email, password, name) =>
       axios.post('/api/auth/signup',
         {email, password, name})
         .then(() => dispatch(whoami()))
-        .catch(() => dispatch(whoami()))
+        .catch(() => dispatch(authenticated({user: 'error'})))
 
 export const whoami = () =>
   dispatch =>
     axios.get('/api/auth/whoami')
       .then(response => {
         const user = response.data
+
         dispatch(authenticated(user))
+
       })
       .catch(failed => dispatch(authenticated(null)))
 
