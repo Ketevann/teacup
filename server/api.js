@@ -11,6 +11,7 @@ api
   .use('/order', require('./order'))
   .use('/products', require('./products'))
   .use('/cartitem', require('./cartItem'))
+  .use('/forgotPassword', require('./forgotPassword'))
 
 // No routes matched? 404.
 api.use((req, res) => res.status(404).end())

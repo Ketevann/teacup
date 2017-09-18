@@ -51,7 +51,11 @@ export class Login extends React.Component {
                // console.log('checkin auth', auth)
                auth && auth.name  ? browserHistory.push('/home') : null
               }
+
               <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
+              <button className="btn btn-lg btn-primary">
+              <Link to="/forgotpassword">Forgot</Link>
+               </button>
               <button className="fblogin btn btn-primary"><a href="api/auth/login/facebook"> Login with Facebook</a></button>
 
             </form>

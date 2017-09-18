@@ -11,7 +11,7 @@ const debug = require('debug')(`${app.name}:models`)
     //
     // This lets us avoid cyclic dependencies, which can be hard to reason
     // about.
-    
+
 const metaModels = {
       OAuth: require('./oauth'),
       Product: require('./product'),
@@ -20,9 +20,10 @@ const metaModels = {
       Payment: require('./payment'),
       Review: require('./review'),
       CartItem: require('./cartItem'),
+      Token: require('./token')
       // ---------- Add new models here ----------
     }
- 
+
 const {mapValues} = require('lodash')
 console.log('running file?')
 module.exports = db => {

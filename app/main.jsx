@@ -26,6 +26,8 @@ import Userprofile from './components/Userprofile'
 import Front from './components/Front'
 import Update from './components/Update'
 import SignUp from './components/SignUp'
+import ForgotPassword from './components/ForgotPassword';
+
 
 
 
@@ -82,6 +84,7 @@ render(
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
           <Route path="/currentUserOrders" component={Orders} onEnter={onOrdersEnter} />
           <Route path="/allOrders" component={Orders} onEnter={onAllOrdersEnter} />
+          <Route path='/forgotpassword' component={ForgotPassword} />
         </Route>
         <Route path="/" />
       </Route>
