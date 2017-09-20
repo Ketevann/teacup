@@ -39,6 +39,7 @@ module.exports = db => db.define('users', {
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
     authenticate(plaintext) {
+      console.log('here here **************', plaintext)
       return bcrypt.compare(plaintext, this.password_digest)
     }
   }
@@ -55,7 +56,6 @@ module.exports.associations = (User, {OAuth, Order, Review, Payment}) => {
 function setEmailAndPassword(user) {
   user.email = user.email && user.email.toLowerCase()
   if (!user.password) return Promise.resolve(user)
-
   return bcrypt.hash(user.get('password'), 10)
     .then(hash => user.set('password_digest', hash))
 }

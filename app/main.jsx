@@ -27,7 +27,7 @@ import Front from './components/Front'
 import Update from './components/Update'
 import SignUp from './components/SignUp'
 import ForgotPassword from './components/ForgotPassword';
-
+import ResetPassword from './components/ResetPassword';
 
 
 
@@ -67,6 +67,7 @@ const onUsersEnter = () => {
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
+    <Route path="/reset/:token" component={ResetPassword} />
       <Route path="/" component={ExampleApp}  >
         <IndexRedirect to="/home" />
         <Route path='/home' component={Front} />
@@ -78,7 +79,6 @@ render(
           <Route path="/admin/users" component={Users} onEnter={onUsersEnter} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-
           <Route path="/admin/users/:userId" component={SingleUser} />
           <Route path="/users/:userId" component={Userprofile} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
@@ -89,6 +89,8 @@ render(
         <Route path="/" />
       </Route>
       <Route path='*' component={NotFound} />
+
+
     </Router>
   </Provider>,
 

@@ -55,12 +55,16 @@ font-size: 1.5em;
 margin-left: 100px;
 }*/
 
-.users, table, .singleproduct, #orders, .products, .header{
+.users, table, .singleproduct, #orders, .products, .productsheader{
 margin-top:50px;
 }
-.header{
+.productsheader{
 text-align: center;
 }
+.productsheader:hover{
+cursor: pointer;
+}
+
 #prodimg{
 margin-top: 40px;
 }
@@ -98,7 +102,7 @@ text-align: center;
 }
 
 @media screen and (max-width: 668px) {
-.header{
+.productsheader{
 margin-top:140px;
 font-size:0.8em;
       }
@@ -280,4 +284,17 @@ button a:hover {
 }
 button a{
   color:white
+}
+
+#resetmsg {
+    text-align: center;
+    margin: -t;
+    margin-top: 108px;
+    font-family: helvetica;
+    color: pink;
+}
+
+#emailnotify{
+  padding: 10px;
+  color:crimson;
 }

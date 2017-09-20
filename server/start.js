@@ -7,7 +7,6 @@ const {resolve} = require('path')
 const passport = require('passport')
 const PrettyError = require('pretty-error')
 const finalHandler = require('finalhandler')
-//require('../secrets')
 // PrettyError docs: https://www.npmjs.com/package/pretty-error
 
 // Bones has a symlink from node_modules/APP to the root of the app.
@@ -33,13 +32,13 @@ prettyError.skipNodeFiles()
 // Skip all the trace lines about express' core and sub-modules.
 prettyError.skipPackage('express')
 
-//app dot use, chaining dot & creating app...
 module.exports = app
   // Session middleware - compared to express-session (which is what's used in the Auther workshop), cookie-session stores sessions in a cookie, rather than some other type of session store.
   // Cookie-session docs: https://www.npmjs.com/package/cookie-session
+
   .use(require('cookie-session')({
     name: 'session',
-    keys: [process.env.SESSION_SECRET || 'secretkey123'],
+    keys: [process.env.SESSION_SECRET || 'an insecure secret key'],
   }))
 
   // Body parsing middleware
@@ -55,6 +54,8 @@ module.exports = app
 
   // Serve our api - ./api also requires in ../db, which syncs with our database
   .use('/api', require('./api'))
+    .use('/forgotPassword', require('./forgotPassword'))
+
 
   // any requests with an extension (.js, .css, etc.) turn into 404
   .use((req, res, next) => {

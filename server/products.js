@@ -45,6 +45,7 @@ module.exports = require('express').Router()
     res.json(req.product)
   })
   .get('/', (req, res, next) => {
+    console.log('in prod!!!')
     Products.findAll({})
       .then((products) => {
         if (!products.length) {

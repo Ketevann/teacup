@@ -9,7 +9,7 @@ const LiveReloadPlugin = require('webpack-livereload-plugin')
  * code, not the original code. Keep this on `false` for slower builds but
  * usable stack traces. Set to `true` if you want to speed up development.
  */
-
+const path = require('path')
     , USE_FAST_SOURCE_MAPS = false
 
 module.exports = {
@@ -23,6 +23,9 @@ module.exports = {
     ? 'cheap-module-eval-source-map'
     : 'source-map',
   resolve: {
+    alias: {
+      'react': path.join(__dirname, 'node_modules', 'react')
+    },
     extensions: ['.js', '.jsx', '.json', '*']
   },
   module: {
@@ -37,6 +40,7 @@ module.exports = {
       }]
     }]
   },
+
   plugins: devMode
     ? [new LiveReloadPlugin({appendScriptTag: true})]
     : []

@@ -17,13 +17,13 @@ module.exports = (db) => db.define('products', {
         allowNull: false
     },
     inventory: {
-        type:Sequelize.STRING,
+        type: Sequelize.STRING,
         defaultValue: 100,
         allowNull: false
     },
     categories: {
-        type: Sequelize.ENUM('gluten free', 'vegan', 'Kettis pick!', 'unhealthy', 'chocolate', 'spicy', 'kosher', 'pickled'),
-        defaultValue: 'unhealthy'
+        type: Sequelize.ENUM('green', 'black', 'white', 'herbal', 'earl gray', 'jasmine', 'apple', 'rose', 'mint')
+
     },
     img: {
         type: Sequelize.STRING
@@ -31,7 +31,7 @@ module.exports = (db) => db.define('products', {
     },
 })
 
-module.exports.associations = (Product, {CartItem, Review, Order}) => {
+module.exports.associations = (Product, { CartItem, Review, Order }) => {
     //Product.belongsToMany(Order, {through: CartItem})
     Product.hasMany(Review)
 }

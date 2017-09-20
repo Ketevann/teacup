@@ -1,7 +1,8 @@
 import React from 'react'
 import WhoAmI from './WhoAmI'
 import { browserHistory, Link } from 'react-router'
-
+import { forgotPasswordBool, forgotPassword, forgotPasswordBoolFalse } from '../reducers/forgot'
+import store from '../store'
 export class Login extends React.Component {
 
   constructor() {
@@ -23,11 +24,12 @@ export class Login extends React.Component {
   // }
   render() {
 
-    const { login, auth } = this.props
-   // if (auth && auth.name) browserHistory('/')
-    { console.log(auth, login, 'Login Props', this.props) }
+    const { login, auth, forgot } = this.props
+    // if (auth && auth.name) browserHistory('/')
+    { console.log(login, 'Login Props', this.props) }
     return (
       <div>
+
         <div id="loginform" className="container">
           <div className="wrapper">
             <form action method="post" name="Login_Form" className="form-signin" onSubmit={evt => {
@@ -35,8 +37,8 @@ export class Login extends React.Component {
               login(evt.target.username.value, evt.target.password.value)
               evt.target.username.value = ""
               evt.target.password.value = ""
-             // this.redirect()
-                          }}>
+              // this.redirect()
+            }}>
               <h3 className="form-signin-heading">Welcome Back! Please Sign In</h3>
               <h4>Not a memeber ?</h4><span><Link to="/signup">Sign up</Link></span>
               <hr className="colorgraph" /><br />
@@ -45,27 +47,22 @@ export class Login extends React.Component {
 
               {
                 auth && auth.user === 'error' ?
-                this.errorMessage() : null
+                  this.errorMessage() : null
               }
               {
-               // console.log('checkin auth', auth)
-               auth && auth.name  ? browserHistory.push('/home') : null
+                // console.log('checkin auth', auth)
+                auth && auth.name ? browserHistory.push('/home') : null
               }
 
               <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
-              <button className="btn btn-lg btn-primary">
-              <Link to="/forgotpassword">Forgot</Link>
-               </button>
+              <Link to="/forgotpassword">Forgot Password ?</Link>
               <button className="fblogin btn btn-primary"><a href="api/auth/login/facebook"> Login with Facebook</a></button>
 
             </form>
 
 
-          </div>
+            </div>
         </div>
-
-
-
 
       </div>
 
@@ -76,8 +73,8 @@ import { login, signup, thirdPartyLogin } from 'APP/app/reducers/auth'
 import { connect } from 'react-redux'
 
 export default connect(
-  ({ auth }) => ({ auth }),
-  { login, signup },
+  ({ auth, forgot }) => ({ auth, forgot }),
+  { login, signup, forgotPasswordBool, forgotPassword, forgotPasswordBoolFalse },
 )(Login)
 
 
