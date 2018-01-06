@@ -5,10 +5,10 @@ const db = require('./index.js')
 
 module.exports = (db) => db.define('cartItem', {
   quantity: {
-    type: Sequelize.INTEGER,
-    validation: {
-      min: 1
-    }
+    type: Sequelize.INTEGER
+    // validation: {
+    //   min: 1
+    // }
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),

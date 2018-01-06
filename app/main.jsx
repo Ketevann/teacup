@@ -28,7 +28,9 @@ import Update from './components/Update'
 import SignUp from './components/SignUp'
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
-
+import {
+  cancelSearch, searchProduct
+} from './reducers/search'
 
 
 const ExampleApp = connect(
@@ -47,6 +49,8 @@ const ExampleApp = connect(
 
 const onProductsEnter = () => {
   store.dispatch(loadProducts())
+     store.dispatch(cancelSearch)
+
 }
 
 const onCartEnter = () => {

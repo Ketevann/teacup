@@ -24,10 +24,19 @@ const orders = (state=initialState, action) => {
     var orders = (Array.isArray(action.orders)) ? action.orders : [action.orders]
     newstate.userOrders = orders
     return newstate
+   case SEARCH:
+      console.log('in orders', action)
+        return {listnames:true, names: action.names}
+      case CANCEL:
+      return {listnames:false}
   default:
     return newstate
   }
 }
+const SEARCH = 'SEARCH'
+const CANCEL = 'CANCEL'
+export const searchProduct = (names) => ({ type: SEARCH, names})
+export const cancelSearch = () => ({ type: CANCEL})
 export const loadAllOrders = () => dispatch => {
   axios.get('/api/orders')
         .then(orders => {

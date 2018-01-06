@@ -298,3 +298,60 @@ button a{
   padding: 10px;
   color:crimson;
 }
+
+/*input#searchsubmit {
+    background: pink;
+    border-radius: 2px;
+    border: 0px;
+    height: 28px;
+    margin-left: 9px;
+}*/
+
+/*input#search {
+    border-radius: 4px;
+    height: 27px;
+
+}*/
+
+form#searchproducts {
+    text-align: center;
+    padding: 22px;
+}
+
+
+
+
+@keyframes slideInFromLeft
+   {
+     0% { transform: translateY(-100%) }
+     100% {
+    transform: translateY(0);
+  }
+
+     }
+
+div#names  {
+    padding: 2px;
+    text-transform: capitalize;
+    font-weight: 400;
+    /*background: lightgray;*/
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+
+}
+
+
+div#names {
+ cursor: pointer;
+}
+div#names:after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+
+    /*background: black;*/
+}
+
+form.navbar-form{
+  margin-top: 7px;
+}

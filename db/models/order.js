@@ -24,10 +24,10 @@ module.exports = (db) => db.define('order', {
     type: Sequelize.STRING,
   },
   zipCode: {
-    type: Sequelize.INTEGER,
-    validation: {
-     len: [5]
-    }
+    type: Sequelize.INTEGER
+    // validation: {
+    //  len: [5]
+    // }
   },
 }, {
   instanceMethods: {

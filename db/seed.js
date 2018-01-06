@@ -29,11 +29,16 @@ const users = seed(User, {
 
 const products = seed(Product, {
   one: {name: 'Jasmine', price: 2.25, img:'https://www.organicfacts.net/wp-content/uploads/2013/06/Jasmine-tea.jpg', categories: 'jasmine'},
+
   two:  {name: 'Black', price: 2.75, img:'http://demandware.edgesuite.net/sits_pod26/dw/image/v2/AAFV_PRD/on/demandware.static/-/Sites-Teavana_Master_Catalog/default/dw58701317/images/Product%20Images/Tea/32258_earlgreytea_Hol16.jpg?sw=1000&sh=1000', categories: 'black'},
+
   three:  {name: 'Earl Gray', price: 3.00, img:'http://us.palaisdesthes.com/media/catalog/product/cache/4/image/450x450/9df78eab33525d08d6e5fb8d27136e95/8/0/803_blue-of-london-earl-grey-du-yunnan_3.jpg', categories: 'earl gray'},
-  four: {name: 'Peppermint', price: 2.25, img:'http://www.teapeople.co.uk/media/catalog/product/cache/1/image/aca7c15394bfd51561ecb1df063b923e/p/e/peppermint.jpg', categories: 'mint'},
-  five:  {name: 'Apple Tea', price: 2.75, img:'https://bluebirdteaco.com/media/catalog/product/cache/1//a/n/ankara-apple_1_2.png/9df78eab33525d08d6e5fb8d27136e95/a/n/ankara_apple.png', categories: 'apple'},
-  six:  {name: 'Rose Tea', price: 3.00, img:'http://demandware.edgesuite.net/sits_pod26/dw/image/v2/AAFV_PRD/on/demandware.static/-/Sites-Teavana_Master_Catalog/default/dw23bd32b2/images/Product%20Images/Tea/Green%20Tea/31355_sakuraallurertea.jpg?sw=450&sh=450', categories: 'rose'}
+
+  four: {name: 'Peppermint', price: 2.25, img:'http://www.teapeople.co.uk/media/catalog/product/cache/1/image/aca7c15394bfd51561ecb1df063b923e/p/e/peppermint.jpg', categories: 'peppermint'},
+
+  five:  {name: 'Apple Tea', price: 2.75, img:'https://bluebirdteaco.com/media/catalog/product/cache/1//a/n/ankara-apple_1_2.png/9df78eab33525d08d6e5fb8d27136e95/a/n/ankara_apple.png', categories: 'apple tea'},
+
+  six:  {name: 'Rose Tea', price: 3.00, img:'http://demandware.edgesuite.net/sits_pod26/dw/image/v2/AAFV_PRD/on/demandware.static/-/Sites-Teavana_Master_Catalog/default/dw23bd32b2/images/Product%20Images/Tea/Green%20Tea/31355_sakuraallurertea.jpg?sw=450&sh=450', categories: 'rose tea'}
 })
 
 const orders = seed(Order, {
@@ -95,7 +100,7 @@ const favorites = seed(Favorite,
 
 if (module === require.main) {
   db.didSync
-    .then(() => db.sync({force: true}))
+    .then(() => db.sync({}))
     .then(seedEverything)
     .finally(() => process.exit(0))
 }

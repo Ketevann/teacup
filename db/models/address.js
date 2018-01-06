@@ -20,10 +20,10 @@ module.exports = (db) => db.define('address', {
     allowNull: false
   },
   zipCode: {
-    type: Sequelize.INTEGER,
-    validate: {
-      len: [5]
-    }
+    type: Sequelize.INTEGER
+    // validate: {
+    //   len: [5]
+    // }
   },
 })
 

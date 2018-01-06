@@ -8,11 +8,11 @@ module.exports = (db) => db.define('reviews', {
         allowNull: false
     },
     stars: {
-        type: Sequelize.INTEGER,
-        validate: {
-            min: 0,
-            max: 5
-        }
+        type: Sequelize.INTEGER
+        // validate: {
+        //     min: 0,
+        //     max: 5
+        // }
     },
 })
 

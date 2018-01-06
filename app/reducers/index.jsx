@@ -7,7 +7,8 @@ const rootReducer = combineReducers({
   cartItems: require('./cartItems').default,
   orders: require('./orders').default,
   filter: require('./filter').default,
-  forgot: require('./forgot').default
+  forgot: require('./forgot').default,
+  searchNames: require('./search').default,
 
 })
 

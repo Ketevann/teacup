@@ -8,10 +8,10 @@ module.exports = db => db.define('users', {
   name: STRING,
   email: {
     type: STRING,
-    validate: {
-      isEmail: true,
-      notEmpty: true,
-    },
+    // validate: {
+    //   isEmail: true,
+    //   notEmpty: true,
+    // },
     isAdmin: {
       type: Sequelize.BOOLEAN,
       defaultValue: false

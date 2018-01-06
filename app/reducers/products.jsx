@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-const initialState = {search: false}
+const initialState = { all: [], search: false, val: null,  path: null }
 
-const reducer = (state = [], action) => {
+const reducer = (state = initialState, action) => {
   //var newState = Object.assign({}, state)
   var newState = Object.assign({}, state)
 
   switch (action.type) {
     case GET_PRODUCTS:
       console.log('prod', action)
-      return action.products
+      return {...state, all: action.products, search: false }
     case DEL_PRODUCTS:
       var arr = state.procuts.filter(product => product.id !== action.id)
 
@@ -22,22 +22,42 @@ const reducer = (state = [], action) => {
     case ADD_PRODUCT:
       return [...state, action.product]
     case FIND:
-    console.log(state,' slice')
-      var allProducts = state.slice(0)
-     return [allProducts, action.product, {search:true}]
+      console.log(state, 'state')
+      return {...state,  all: state.all, search: true, val: action.val }
+    case REMOVE_FILTER:
+      console.log('rempve filet')
+      return {...state,  all: state.all, search: false }
+    case UPDATE_PATH:
+
+      return { ...state, path: action.payload }
+
+    // case SEARCH:
+    // console.log('in search', action)
+    //   return {listnames:true, names: action.names}
+    // case CANCEL:
+    // return {listnames:false}
   }
 
   return state
 
 }
+const SEARCH = 'SEARCH'
+const CANCEL = 'CANCEL'
+
+const UPDATE_PATH = 'UPDATE_PATH'
 const GET_PRODUCTS = 'GET_PRODUCTS'
 const DEL_PRODUCTS = 'DEL_PRODUCTS'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const FIND = 'FIND'
+const REMOVE_FILTER = ' REMOVE_FILTER'
+
+export const filterRemove = () => ({ type: REMOVE_FILTER })
+// export const searchProduct = (names) => ({ type: SEARCH, names})
+// export const cancelSearch = () => ({ type: CANCEL})
 
 
-export const findProduct = (product) => ({ type: 'FIND', product })
+export const search = (val) => ({ type: 'FIND', val })
 export const getAllProducts = products => ({ type: GET_PRODUCTS, products })
 const removeProduct = (id) => ({ type: DEL_PRODUCTS, id })
 const update = (product) => ({ type: UPDATE_PRODUCT, product })
@@ -75,4 +95,5 @@ export const updateProduct = (id, data) =>
       .catch(console.error())
 
 
+export const updatePath = (bool) => ({ type: UPDATE_PATH, payload: bool })
 export default reducer

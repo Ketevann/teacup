@@ -19,10 +19,10 @@ module.exports = (db) => db.define('payment', {
   },
   Number: {
     type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      len: [13]
-    }
+    allowNull: false
+    // validate: {
+    //   len: [13]
+    // }
   },
   Name: {
     type: Sequelize.STRING,

@@ -1,52 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router'
 import {
-  deleteProduct, findProduct, search, filterRemove, updatePath
+  deleteProduct, findProduct, search, filterRemove,
 
 } from '../reducers/products'
-import store from '../store'
-import Search from './Search'
 import {
   cancelSearch, searchProduct
 } from '../reducers/search'
+import store from '../store'
 
 const products = ['jasmine', 'apple', 'jam'];
 var temp = [];
 
-class Products extends React.Component {
+class Search extends React.Component {
   constructor(props) {
     super(props)
-    this.clickHandler = this.clickHandler.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-
-
 
     //   this.state = {search: false, val:null}
   }
 
-
-  clickHandler = (evt) => {
-    // if(this.props.filtered.indexOf(evt.target.value)===-1||this.props.filtered.length===8)
-    //   store.dispatch(addFilter(evt.target.value))
-    // else store.dispatch(removeFilter(evt.target.value))
-  }
-  handleChange(value) {
-    console.log(value);
-  }
-
-  componentDidMount() {
-    store.dispatch(cancelSearch())
-    store.dispatch(this.props.updatePath(true))
-
-  }
-
-  // componentDidMount() {
-
-  // }
-    componentWillUnmount() {
-    store.dispatch(this.props.updatePath(false))
-
-  }
+ componentDidMount() {
+   store.dispatch(cancelSearch)
+ }
   findWords = (text) => {
     if (typeof text[temp.length] === 'string') temp.push(text[temp.length])
     // console.log(temp, 'this is temp', text, "&&**")
@@ -103,21 +78,9 @@ class Products extends React.Component {
     }
   }
 
-  someFunc = (name) => {
-    var nameField = document.getElementById('search');
-    console.log(nameField, 'namefield', name)
-    nameField.value = name
-
-  }
-  handleClick = (id, action) => {
-    if (action === 'delete')
-      this.props.deleteProduct(id)
-    else this.props.somefunc
-  }
   filter = (products) => {
     console.log(Array.isArray(this.props.products.all), products, 'in filter', this.props.products.all)
     var filteredProducts = this.props.products.all.filter(product => {
-      console.log(product, product.categories.toLowerCase(),  products.toLowerCase()  )
       return product.categories.toLowerCase() === products.toLowerCase()
 
     })
@@ -126,9 +89,7 @@ class Products extends React.Component {
     return filteredProducts;
 
   }
-  // search = (product) => {
-  //   this.setState({search: true, val: product})
-  // }
+
   renderProduct(allproducts) {
 
     return allproducts.map((product) => {
@@ -151,7 +112,7 @@ class Products extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'print props')
+    console.log(this.props, 'print search props')
     const divStyle = {
       width: 250,
       height: 230
@@ -160,23 +121,30 @@ class Products extends React.Component {
     { console.log(this.props, 'props') }
     return (
       <div className="container prodcuts">
-        <h1 className="productsheader" onClick={() => { store.dispatch(filterRemove()) }}>All Products</h1>
 
-
-
-
-
-        {this.props.auth && this.props.auth.role === 'admin' ?
-          <h1>
-            <Link to='/add'><button className="btn btn-default" >Add Products</button></Link></h1> : null}
-        {this.props.products && this.props.products.search ?
-          <div>{this.renderProduct(this.filter(this.props.products.val))}</div> :
-
-
-          this.props.products.all ?
-            <div>{this.renderProduct(this.props.products.all)}</div>
-            : null
+        <form id="searchproducts" action="" onSubmit={(evt) => {
+          evt.preventDefault()
+          store.dispatch(search(evt.target.search.value))
+          //this.filter(evt.target.search.value)
+          //console.log(evt.target.value, evt.target)
+          //          store.dispatch(findProduct(evt.target.search.value))
         }
+        }>
+
+
+
+          <input onChange={(evt) => console.log(this.checkSearchState(evt.target.value))
+
+            // console.log(evt.target.value,' target')
+          } id="search" type="text" name="searching" placeholder="Search" />
+          <input id="searchsubmit" type="submit" />
+        </form>
+        <div className="autocomplete" >{this.props.searched && this.props.searched.listnames ?
+          this.props.searched.names.map(names => {
+            return <div id="names">{names}</div>
+
+          })
+          : null}</div>
       </div>
 
     )
@@ -184,43 +152,15 @@ class Products extends React.Component {
 }
 
 import { connect } from 'react-redux'
-// const filterTea = (state, ownProps) => {
-//   console.log(state.products, ' state in own !!!!!!!!',state.products.length)
-//   if (state.products.length > 1){
-//   const allProducts = state.products[0],
-//           selected = state.products[1];
-//           console.log(Array.isArray(allProducts), selected, '1234567890', allProducts)
-//       var products = allProducts['0'].filter(product =>{
-//       console.log(product)
-
-//        return product.categories.toLowerCase() === selected.id.toLowerCase()
-//       })
-//   console.log(state, ' state in own', products, '@@@@@@')
-//   return {products: products }
-// }
-// return {products: state.products[0] }
-// }
 
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps, 'che@ ')
-  return {
+
+export default connect(
+  state => ({
     products: state.products,
-    filtered: state.filter,
-    auth: state.auth,
+    filtered: state.filter, auth: state.auth,
     filter: state.filter,
     searched: state.searchNames
-
-  }
-}
-export default connect(
-  mapStateToProps,
-  {
-    filterRemove,
-    deleteProduct,
-    search,
-    searchProduct,
-    cancelSearch,
-    updatePath
-  },
-)(Products)
+  }),
+  { filterRemove, deleteProduct, search, searchProduct, cancelSearch },
+)(Search)

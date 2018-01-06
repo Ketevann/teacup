@@ -113,7 +113,8 @@ class Product extends React.Component {
 
 
 const filterProducts = (products, productId) => {
-  let productArr = products.filter((product) => product.id === (+productId))
+  console.log(products,' in filter')
+  let productArr = products.all.filter((product) => product.id === (+productId))
   return productArr[0]
 }
 

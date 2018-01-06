@@ -55,7 +55,7 @@ module.exports = {
     return env.BASE_URL || `http://localhost:${module.exports.port}`
   },
   get port() {
-    return env.PORT || 8080
+    return env.PORT || 8081
   },
   get root() {
     return __dirname
