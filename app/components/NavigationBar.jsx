@@ -23,7 +23,6 @@ class NavigationBar extends Component {
 
   someFunc = (name) => {
     var nameField = document.getElementById('search');
-    console.log(nameField, 'namefield', name)
     nameField.value = name
 
   }
@@ -33,50 +32,30 @@ class NavigationBar extends Component {
 
   findWords = (text) => {
     if (typeof text[temp.length] === 'string') temp.push(text[temp.length])
-    // console.log(temp, 'this is temp', text, "&&**")
     let complete = []
-    // console.log(text, 'text', text.lenght, typeof text)
     //for (let i = 0; i < temp.length; i++) {
-    //console.log('in loop')
+
     for (var j = 0; j < products.length; j++) {
-      console.log('in loop', j, products[j], temp)
-      //  console.log(text[i] === products[j][0], text[i] === products[j])
       if (text[0] === products[j][0]) {
-        //console.log('equal', temp, products[j], temp.join(''), temp[0] === products[j][0],
         // products[j], j ,'jjjj', complete.indexOf(products[j]))
         if (complete.indexOf(products[j] === -1)) complete.push(products[j])
         //compare(temp.join(''), products[j], temp[i],j ,'jjjj')
         //}
       }
     }
-    console.log('complete', complete)
     var news = []
     for (var m = 0; m < complete.length; m++) {
-      // console.log('looop', complete[m].slice(0, text.length), text.length+1)
       if (complete[m].slice(0, text.length) === text) {
-        //  console.log('texts are equal', complete[m])
         news.push(complete[m])
       }
-      // else console.log('not equal')
     }
 
     return news
 
-    // function compare(text, word) {
-    //  console.log('text is right', text, word, text.length)
-    //   for (let l = 0; l < text.length; l++) {
-    //     //for (var k = l; k < text.length; k++) {
-    //       if (text[l] === word[l]) {
-    //         console.log(word, 'words are equal', text[l],' ***', word[l], text[l] === word[l])
-    //      // }
-    //     }
-    //     else console.log('not equal')
-    //   }
-    // }
+
   }
 
   checkSearchState = (text) => {
-    console.log('in checkstate', text)
     if (text === '') {
       store.dispatch(cancelSearch())
     }
@@ -88,22 +67,14 @@ class NavigationBar extends Component {
   }
 
   call() {
-    console.log('hhhhh')
     store.dispatch(search(evt.target.search.value))
   }
 
   render() {
-    { console.log(this.props, 'props') }
     let cart = this.props.cart
     return (
 
 
-      //       {this.props.authUser ?
-      //                 <ul className="nav navbar-nav">
-      //  <li><Link className="link" to={`users/${this.props.authUser.id}`}>My Profile</Link></li>
-      //     <li className="whoami-user-name">{this.props.authUser && this.props.authUser.name} </li>
-      //     <button className="logout, btn-danger" onClick={() => this.clickHandler()}>Logout</button></ul>
-      //              :  <li> <Link to="/login">Login</Link></li>}
 
       <Navbar collapseOnSelect>
         <Navbar.Header>
@@ -113,8 +84,6 @@ class NavigationBar extends Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-
-
           <Nav>
             <NavItem eventKey={1} to="/">
               <Link className="link" to="/">Home</Link>
@@ -161,7 +130,6 @@ class NavigationBar extends Component {
                   <div className="input-group">
                            <input onChange={(evt) => console.log(this.checkSearchState(evt.target.value))
 
-            // console.log(evt.target.value,' target')
           } id="search" type="text" name="searching" placeholder="Search"
           type="text" className="form-control" placeholder="Search"
            />
@@ -169,12 +137,6 @@ class NavigationBar extends Component {
                       <button className="btn btn-default" type="submit"><i className="glyphicon glyphicon-search" /></button>
                     </div>
                   </div>
-
-
-
-
-
-
                   <div className="autocomplete" >
                     {this.props.searched && this.props.searched.listnames ?
 
@@ -184,8 +146,6 @@ class NavigationBar extends Component {
 
                       })
                       : null} </div> </form>
-
-
               </Nav> : null}
             {this.props.authUser && this.props.authUser.name ?
               <Nav>
@@ -210,7 +170,6 @@ class NavigationBar extends Component {
   }
 }
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps, 'check routes ')
   return { authUser: state.auth, cart: state.cartItems, searched: state.searchNames, products: state.products }
 }
 export default connect(mapStateToProps, { login, logout, filterRemove, cancelSearch, search })(NavigationBar)
