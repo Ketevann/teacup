@@ -4,7 +4,6 @@ import { browserHistory, Link } from 'react-router'
 const reducer = (state=null, action) => {
   switch (action.type) {
   case AUTHENTICATED:
-  console.log(action, 'usaaa')
     return action.user
   }
   return state
@@ -20,7 +19,6 @@ export const login = (email, password) =>
       {email, password})
       .then((user) =>
       {
-        console.log('user myyy', user)
       return dispatch(whoami())
 
   })
@@ -29,7 +27,6 @@ export const login = (email, password) =>
 
 export const logout = () =>
   dispatch =>{
-    console.log("looog")
     return axios.post('/api/auth/logout')
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))

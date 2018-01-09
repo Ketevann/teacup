@@ -46,7 +46,6 @@ class ForgotPassword extends React.Component {
   }
   render() {
     const { forgot } = this.props
-    console.log(forgot, 'forgot')
     return (
       <div>
        <div id="loginform" className="container">

@@ -33,7 +33,6 @@ class Product extends React.Component {
     axios.get(`/api/reviews/${this.props.routeParams.productId}`)
       .then(res => res.data)
       .then(reviews => {
-        console.log('MOUNT prodcut', reviews)
         this.setState({
           reviews: reviews
         })
@@ -113,7 +112,6 @@ class Product extends React.Component {
 
 
 const filterProducts = (products, productId) => {
-  console.log(products,' in filter')
   let productArr = products.all.filter((product) => product.id === (+productId))
   return productArr[0]
 }

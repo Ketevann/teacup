@@ -11,7 +11,6 @@ export class SignUp extends React.Component {
 
 
   errorMessage() {
-  console.log(' Error!!!!!!!', this.state)
   return (
     <div id="errormessage">Please Try Again</div>
   )
@@ -43,7 +42,6 @@ render(){
                 this.errorMessage() : null
             }
             {
-              // console.log('checkin auth', auth)
               auth && auth.name ? browserHistory.push('/home') : null
             }
             <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Sign Up</button>

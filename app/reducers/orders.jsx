@@ -25,7 +25,6 @@ const orders = (state=initialState, action) => {
     newstate.userOrders = orders
     return newstate
    case SEARCH:
-      console.log('in orders', action)
         return {listnames:true, names: action.names}
       case CANCEL:
       return {listnames:false}

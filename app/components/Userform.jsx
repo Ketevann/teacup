@@ -83,7 +83,6 @@ class Userform extends Component {
     )
   }
   ClickHandler(userId) {
-    console.log
     this.props.deleteUser(userId)
   }
   SubmitHandler(evt, userId) {

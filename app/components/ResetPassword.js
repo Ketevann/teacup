@@ -7,7 +7,6 @@ class ResetPassword extends React.Component {
   render() {
 
     const { forgot } = this.props
-        { console.log( ' forgotprops') }
     return (
       <div>
       {
@@ -43,7 +42,6 @@ class ResetPassword extends React.Component {
 
 
   const mapStatetoProps = (state, ownProps) => {
-    console.log(ownProps, 'ownprops', state)
     return {
       token: ownProps.routeParams.token,
       forgot: state.forgot

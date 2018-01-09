@@ -12,7 +12,6 @@ const searchNames = (state=initialState, action) => {
   switch (action.type) {
 
    case SEARCH:
-      console.log('in orders', action)
         return {listnames: true, names: action.names}
       case CANCEL:
       return {listnames: false}

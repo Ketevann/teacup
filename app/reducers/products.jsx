@@ -8,7 +8,6 @@ const reducer = (state = initialState, action) => {
 
   switch (action.type) {
     case GET_PRODUCTS:
-      console.log('prod', action)
       return {...state, all: action.products, search: false }
     case DEL_PRODUCTS:
       var arr = state.procuts.filter(product => product.id !== action.id)
@@ -22,10 +21,8 @@ const reducer = (state = initialState, action) => {
     case ADD_PRODUCT:
       return [...state, action.product]
     case FIND:
-      console.log(state, 'state')
       return {...state,  all: state.all, search: true, val: action.val }
     case REMOVE_FILTER:
-      console.log('rempve filet')
       return {...state,  all: state.all, search: false }
     case UPDATE_PATH:
 
@@ -66,7 +63,6 @@ const add = (product) => ({ type: ADD_PRODUCT, product })
 
 
 export const loadProducts = () => {
-  console.log('prprprp')
   return dispatch =>
     axios.get('/api/products')
       .then((products) => dispatch(getAllProducts(products.data)))

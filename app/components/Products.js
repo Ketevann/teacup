@@ -115,14 +115,12 @@ class Products extends React.Component {
     else this.props.somefunc
   }
   filter = (products) => {
-    console.log(Array.isArray(this.props.products.all), products, 'in filter', this.props.products.all)
+
     var filteredProducts = this.props.products.all.filter(product => {
-      console.log(product, product.categories.toLowerCase(),  products.toLowerCase()  )
+
       return product.categories.toLowerCase() === products.toLowerCase()
 
     })
-    console.log(filteredProducts, 'filter')
-    // this.setState()
     return filteredProducts;
 
   }
