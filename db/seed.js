@@ -56,8 +56,8 @@ const payment = seed(Payment, {
 })
 
 const review = seed(Review, {
-    good: {content: 'this foobar rules!', stars: 4},
-    bad: {content: 'this foobar SUCKS', stars: 1},
+    good: {content: 'this tes rules!', stars: 4},
+    bad: {content: 'this tea SUCKS', stars: 1},
 })
 
 const cartItem = seed(CartItem, {
