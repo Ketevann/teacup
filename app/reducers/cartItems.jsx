@@ -69,7 +69,7 @@ export const getOrMakeOrder = (itemInfo, dispatch) =>
             axios.post(`/api/order/${userId}`, itemInfo)
               .then(savedOrder => {
                 console.log(savedOrder, 'saved Order')
-                itemInfo.orderId = order.data.id
+                itemInfo.orderId = savedOrder.data.id
                 return axios.post('/api/cartitem/', itemInfo)
                   .then(item => {
                     console.log(item, 'got back')
@@ -81,7 +81,7 @@ export const getOrMakeOrder = (itemInfo, dispatch) =>
           }
 
           else {
-            itemInfo.orderId = order.data[0].id
+            itemInfo.orderId = order.data.id
             console.log(itemInfo, ' OGOGOGOGOOG', order)
             return axios.post('/api/cartitem/', itemInfo)
               .then(item => {
@@ -112,44 +112,76 @@ export const getOrMakeOrder = (itemInfo, dispatch) =>
 
 export const loadCartItems = () =>
   dispatch => {
-     axios.get('/api/auth/whoami')
-     .then(user =>{
+    axios.get('/api/auth/whoami')
+      .then(user => {
 
 
 
-    if (user) {
-      console.log(user, 'user')
-      let userId = user.data.id
-      console.log(userId, ' USER ID IN LOADCART')
-     return axios.get(`/api/order/users/${userId}`)
+        if (user) {
+          console.log(user, 'user')
+          let userId = user.data.id
+          console.log(userId, ' USER ID IN LOADCART')
+          return axios.get(`/api/cartitem/notlogged`)
+            .then(notLoggedOrders => {
+
+              console.log('not logged int ordes', notLoggedOrders);
+
+              return axios.get(`/api/order/users/${userId}`)
 
 
-        .then((order) => {
-          console.log('items!!!', order.id)
-          let orderId = order.data[0].id
-         return axios.get(`/api/cartitem/all/${orderId}`)
-          .then(cartItems =>{
-            console.log(cartItems, 'cartItems')
-            return dispatch(getCart(cartItems.data))
-          })
+            .then((order) => {
+              console.log('items!!!', order)
+              let orderId = order.data.id
+              if (!orderId && notLoggedOrders.data) {
 
-          //  return items.data
-        })
-        .catch(console.error)
+                return axios.post(`/api/order/${userId}`)
+                .then(createdOrder =>{
+                    console.log(createdOrder, 'CREATED ORDER')
+                    let orderId = createdOrder.data.id
+                   return axios.get(`/api/cartitem/all/${orderId}`)
 
+                .then(cartItems => {
+                  console.log(cartItems, 'cartItems')
+                  return dispatch(getCart(cartItems.data))
+                })
+
+                })
+
+              }
+
+
+            else {
+                    let orderId = order.data.id
+                   return axios.get(`/api/cartitem/all/${orderId}`)
+
+                .then(cartItems => {
+                  console.log(cartItems, 'cartItems')
+                  return dispatch(getCart(cartItems.data))
+                })
+            }
+              //  return items.data
+            })
+             })
+            .catch(console.error)
+
+        }
+        else {
+          //if user is not logged in cart shows zero items
+          return dispatch(getCart([]))
+        }
+
+      })
   }
-    else {
-      //if user is not logged in cart shows zero items
-      return dispatch(getCart([]))
-    }
 
-  })
-  }
-
-export const checkOut = () =>
+export const checkOut = (userId, dispatch) =>
   dispatch => {
-    let orderId = 1
-    axios.put(`/api/cartitem/checkout/${orderId}`)
+    console.log(userId, ' user IDDDDDDD')
+    axios.get(`/api/order/users/${userId}`)
+      .then(res => {
+        let orderId = res.data.id
+        console.log(res, 'checkout order')
+        axios.put(`/api/cartitem/checkout/${orderId}`)
+      })
       .then(() => dispatch(checkoutCart()))
       .catch(console.error)
   }

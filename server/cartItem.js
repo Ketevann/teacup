@@ -179,6 +179,7 @@ module.exports = require('express').Router()
 	// })
 	.put('/checkout/:orderId', (req, res, next) => {
 		let orderId = req.params.orderId
+		console.log(orderId, 'checkou!!!======>');
 		Order.findById(orderId)
 			.then(order => order.setStatus('sent'))
 			.then(items => res.send(items))
@@ -244,6 +245,16 @@ module.exports = require('express').Router()
 	})
 
 
+	.get('/notlogged', (req, res) => {
+		console.log(' in not logged in', req.session.id, req.body)
+		NonLoggedCart.findAll({
+			where: {
+				sessionId: req.session.id
+			}
+		})
+		.then(orders => res.send(orders))
+		.catch(err => console.log(err))
+	})
 	.delete('/notlogged', (req, res) => {
 		NonLoggedCart.destroy({
 			where: {

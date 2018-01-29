@@ -13,7 +13,9 @@ class Cart extends React.Component {
 
   handleCheckout = function (evt) {
     evt.preventDefault()
-    this.props.checkOut()
+    const {id} = this.props.user
+    console.log('this.pros', this.props.user)
+    this.props.checkOut(id)
   }
 
   render() {
@@ -66,7 +68,7 @@ class Cart extends React.Component {
           </div>
           <div className="col-md-4">
             <h1 id="total">Total: ${
-              this.props.cart.items ? cartItems.items.map((item) => item.price * item.quantity)
+              this.props.cart.items && this.props.cart.items.length > 0 ? cartItems.items.map((item) => item.price * item.quantity)
                 .reduce((a, b) => a + b)
                 : null} </h1>
             <form onSubmit={this.handleCheckout}>

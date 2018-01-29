@@ -37,14 +37,15 @@ module.exports = require('express').Router()
     })
  .get('/users/:userId',
   (req, res, next) =>{
-  Orders.findAll({
+  Orders.find({
     where: {
-      user_id: req.params.userId
+      user_id: req.params.userId,
+      status: 'created'
     }
   })
  .then((orders) => {
    console.log(req.params.userId, ' params')
-   if (!orders.length) {
+   if (!orders) {
      console.log('empty orders')
     //  var error = new Error()
     //  error.status = 404
