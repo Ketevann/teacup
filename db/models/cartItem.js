@@ -15,6 +15,6 @@ module.exports = (db) => db.define('cartItem', {
   },
 })
 
-module.exports.associations = (CartItem, {Product}) => {
+module.exports.associations = (CartItem, {Product, User}) => {
   CartItem.belongsTo(Product)
 }

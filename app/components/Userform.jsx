@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {deleteUser, updateUser} from '../reducers/users'
+import {Link} from 'react-router';
 import _ from 'lodash'
 
 
@@ -11,6 +12,7 @@ class Userform extends Component {
     this.SubmitHandler = this.SubmitHandler.bind(this)
   }
   render(){
+    console.log('this.props', this.props)
     if (!this.props) return <div />
     return (
       <div className="container">
@@ -42,17 +44,26 @@ class Userform extends Component {
                     <div className="bot-border" />
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Last Name:</div><div className="col-sm-7"> N/A</div>
+                    <div className="col-sm-5 col-xs-6 tital ">Email:</div><div className="col-sm-7">{this.props.email}</div>
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Orders</div><div className="col-sm-7">{this.props.orders.length} </div>
+
+                    <div className="col-sm-5 col-xs-6 tital ">
+                    Orders</div>
+
+                    <div className="col-sm-7">
+                    <Link className="link" to='/allOrders'>
+                    {this.props.orders.length}</Link></div>
                     <div className="clearfix" />
                     <div className="bot-border" />
                     <div className="col-sm-5 col-xs-6 tital ">Payment</div><div className="col-sm-7">{this.props.payment ? this.props.payment.Name : null} N/A</div>
                     <div className="clearfix" />
                     <div className="bot-border" />
-                    <div className="col-sm-5 col-xs-6 tital ">Reviwes</div><div className="col-sm-7">N/A </div>
-
+                    <div className="col-sm-5 col-xs-6 tital ">Reviews</div>
+                    <div className="col-sm-7">
+                    <Link to='/currentReviews'
+                    params={{reviews: `${this.props.reviews}`}}>
+                    {this.props.reviews.length}</Link></div>
                     <div className="clearfix" />
                     <div className="bot-border" />
                     <div className="col-sm-5 col-xs-6 tital ">

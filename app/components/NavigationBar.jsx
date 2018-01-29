@@ -7,14 +7,22 @@ import store from '../store'
 import {
   cancelSearch, searchProduct
 } from '../reducers/search'
+import {loadCartItems} from '../reducers/cartItems'
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 import {
   search
 
 } from '../reducers/products'
 import { connect } from 'react-redux'
-const products = ['jasmine', 'earl gray', 'black', 'peppermint', 'apple tea', 'rose tea' ];
+const products = ['jasmine', 'earl gray', 'black', 'peppermint', 'apple tea', 'rose tea'];
 var temp = [];
+
+let accumulate = (acc, cur ) => {
+
+  console.log(acc, cur)
+  return acc+ cur
+}
+
 class NavigationBar extends Component {
 
   clickHandler() {
@@ -26,9 +34,15 @@ class NavigationBar extends Component {
     nameField.value = name
 
   }
-  componentDidMount() {
-    store.dispatch(cancelSearch())
-  }
+  componentDidMount(){
+
+     this.props.loadCartItems();
+
+}
+
+  // componentDidMount() {
+  //   store.dispatch(cancelSearch())
+  // }
 
   findWords = (text) => {
     if (typeof text[temp.length] === 'string') temp.push(text[temp.length])
@@ -71,7 +85,8 @@ class NavigationBar extends Component {
   }
 
   render() {
-    let cart = this.props.cart
+    //let cart = this.props.cart
+    console.log(this.props, ' in navigation')
     return (
 
 
@@ -79,27 +94,23 @@ class NavigationBar extends Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#" id="teacup">TeaCup</a>
+             <Link id="teacup" className="link" to="/">TeaCup</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} to="/">
-              <Link className="link" to="/">Home</Link>
-            </NavItem>
-            <NavItem eventKey={2} href="#">
-              <Link className="link menu-icon" to='/cart'>Cart({cart.length})</Link>
-            </NavItem>
-            <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
+
+            <NavItem eventKey={3.1}>
+                <Link className="link" to='/products' onClick={() => store.dispatch(filterRemove())}>Products</Link>
+              </NavItem>
+            <NavDropdown eventKey={3} title="Account" id="basic-nav-dropdown">
 
               {this.props.authUser && this.props.authUser.name ?
                 <MenuItem eventKey={3.1}>
                   <Link className="link" to={`users/${this.props.authUser.id}`}>My Profile</Link>
                 </MenuItem> : null}
-              <MenuItem eventKey={3.1}>
-                <Link className="link" to='/products' onClick={() => store.dispatch(filterRemove())}>Products</Link>
-              </MenuItem>
+
               {this.props.authUser && this.props.authUser.role === 'admin' ?
                 <MenuItem>
                   <MenuItem eventKey={3.2}>
@@ -110,10 +121,10 @@ class NavigationBar extends Component {
                   </MenuItem>
                 </MenuItem>
                 : null}
-
-              <MenuItem eventKey={3.3}>
+                {this.props.authUser && this.props.authUser.name ?
+              <NavItem eventKey={3.3}>
                 <Link className="link" to='/currentUserOrders'>My Orders</Link>
-              </MenuItem>
+              </NavItem> : null}
             </NavDropdown>
           </Nav>
           <Nav pullRight className="right">
@@ -128,11 +139,11 @@ class NavigationBar extends Component {
                   }
                 >
                   <div className="input-group">
-                           <input onChange={(evt) => console.log(this.checkSearchState(evt.target.value))
+                    <input onChange={(evt) => console.log(this.checkSearchState(evt.target.value))
 
-          } id="search" type="text" name="searching" placeholder="Search"
-          type="text" className="form-control" placeholder="Search"
-           />
+                    } id="search" type="text" name="searching" placeholder="Search"
+                      type="text" className="form-control" placeholder="Search"
+                    />
                     <div className="input-group-btn">
                       <button className="btn btn-default" type="submit"><i className="glyphicon glyphicon-search" /></button>
                     </div>
@@ -150,7 +161,7 @@ class NavigationBar extends Component {
             {this.props.authUser && this.props.authUser.name ?
               <Nav>
                 <NavItem className="usernamelogout">
-                  {this.props.authUser && this.props.authUser.name}
+                 Hello {this.props.authUser && this.props.authUser.name}
                 </NavItem>
                 <NavItem>
                   <button className="usernamelogout" onClick={() => this.clickHandler()}>Logout</button>
@@ -162,7 +173,9 @@ class NavigationBar extends Component {
               </NavItem>
 
             }
-
+             <NavItem eventKey={2} href="#">
+              <Link className="link menu-icon" to='/cart'>Cart({this.props.cart.items ? this.props.cart.items.map( el => el.quantity).reduce(accumulate, 0) : 0})</Link>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -172,7 +185,7 @@ class NavigationBar extends Component {
 const mapStateToProps = (state, ownProps) => {
   return { authUser: state.auth, cart: state.cartItems, searched: state.searchNames, products: state.products }
 }
-export default connect(mapStateToProps, { login, logout, filterRemove, cancelSearch, search })(NavigationBar)
+export default connect(mapStateToProps, { login, logout, filterRemove, cancelSearch, search, loadCartItems })(NavigationBar)
 
 
 

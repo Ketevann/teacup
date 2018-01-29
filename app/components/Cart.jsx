@@ -21,6 +21,7 @@ class Cart extends React.Component {
     //   width: 250,
     //   height: 230
     // }
+    console.log(this.props, 'in cart component')
     let cartItems = this.props.cart
     let user = this.props.user
     return (
@@ -40,19 +41,21 @@ class Cart extends React.Component {
                 </tr>
               </thead>
               {
-                this.props.cart.items ? cartItems.items.map((product, index) => {
+                this.props.cart.items ? cartItems.items.map((item, index) => {
                   var image = ""
 
-                  this.props.cart.product.forEach(elem => {
-                    if (product.product_id === elem.id)
-                      image = elem.img
-                  })
+                  //this.props.cart.items.forEach(singleProduct => {
+                  //  if (elem.product_id === singleProduct.product.id)
+                      image = item.product.img
+                 // })
                   return (
-                    <tbody>
+                    <tbody
+                    key={item.id}
+                    >
                       <tr>
                         <th scope="row">{index + 1}</th>
-                        <td> {product.quantity} </td>
-                        <td> ${product.price * product.quantity}</td>
+                        <td> {item.quantity} </td>
+                        <td> ${item.price * item.quantity}</td>
                         <td> <img id="cartproducts" src={image} /></td>
                       </tr>
                     </tbody>

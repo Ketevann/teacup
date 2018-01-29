@@ -20,7 +20,10 @@ class Product extends React.Component {
 
   handleSubmitItem = function (event) {
     event.preventDefault()
-    let itemInfo = { quantity: this.state.quantity, productId: this.props.product.id, price: Number(this.props.product.price), userId: 1 }
+    console.log(this.props)
+    const {id, price} = this.props.product
+    let itemInfo = {quantity: this.state.quantity, productId: id, price, userId: this.props.auth.id }
+    //this.props.addToCart(itemInfo)
     this.props.getOrMakeOrder(itemInfo)
   }
 
@@ -63,7 +66,7 @@ class Product extends React.Component {
     //   width: 450,
     //   height: 430
     // }
-
+    console.log(this.props, ' in product');
     let product = this.props.product
 
     return (
@@ -117,6 +120,6 @@ const filterProducts = (products, productId) => {
 }
 
 export default connect(
-  (state, ownProps) => ({ product: filterProducts(state.products, ownProps.routeParams.productId) }),
-  { getOrMakeOrder },
+  (state, ownProps) => ({ product: filterProducts(state.products, ownProps.routeParams.productId), auth: state.auth }),
+  { getOrMakeOrder, addToCart },
 )(Product)

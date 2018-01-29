@@ -36,21 +36,27 @@ module.exports = require('express').Router()
  .catch(next)
     })
  .get('/users/:userId',
-  (req, res, next) =>
+  (req, res, next) =>{
   Orders.findAll({
     where: {
       user_id: req.params.userId
     }
   })
  .then((orders) => {
+   console.log(req.params.userId, ' params')
    if (!orders.length) {
-     var error = new Error()
-     error.status = 404
-     throw error
+     console.log('empty orders')
+    //  var error = new Error()
+    //  error.status = 404
+    //  throw error
+     res.send(null)
    }
+   console.log('=============', orders)
    res.send(orders)
  })
- .catch(next))
+ .catch(next)
+  })
+
  .get('/:status',
   (req, res, next) =>
    Orders.findAll({
@@ -92,3 +98,18 @@ module.exports = require('express').Router()
   })
 
 
+.post('/:userId',
+    (req, res, next) => {
+      console.log(req.params.user_id, req.body,  ' in ORDER/USERID');
+      Orders.create(req.body.itemInfo)
+ .then((orders) => {
+  //  if (!orders.length) {
+  //    var error = new Error()
+  //    error.status = 404
+  //    throw error
+  //  }
+   orders.setUser(req.params.userId)
+   res.send(orders)
+ })
+ .catch(next)
+    })

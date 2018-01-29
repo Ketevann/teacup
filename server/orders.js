@@ -20,8 +20,13 @@ module.exports = require('express').Router()
      }
    })
 .then((orders) => {
+  console.log('orders in server', orders)
       if (!orders) res.status(404).send('page Not Found')
-      else res.send(orders)
+      else {
+
+          console.log('orders333 in server', orders)
+
+        res.send(orders)}
     })
     .catch(next))
 

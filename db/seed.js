@@ -23,8 +23,9 @@ function seedEverything() {
 }
 
 const users = seed(User, {
- one: {name: 'Claire', email: 'claire@gmail.com', role: 'admin', password: 'password123'},
- two: {name: 'Ketti', email: 'ketti@gmail.com', role: 'user', password: '321password'},
+  one: {name: 'Ketti', email: 'ketti@gmail.com', role: 'user', password: '321password'},
+ two: {name: 'Claire', email: 'claire@gmail.com', role: 'admin', password: 'password123'},
+
 })
 
 const products = seed(Product, {
@@ -56,8 +57,8 @@ const payment = seed(Payment, {
 })
 
 const review = seed(Review, {
-    good: {content: 'this tes rules!', stars: 4},
-    bad: {content: 'this tea SUCKS', stars: 1},
+    good: {content: 'this tes rules!', stars: 4, userId: 1},
+    bad: {content: 'this tea SUCKS', stars: 1, userId: 1},
 })
 
 const cartItem = seed(CartItem, {

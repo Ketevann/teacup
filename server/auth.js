@@ -95,7 +95,13 @@ passport.deserializeUser(
 )
 console.log(`${app.baseUrl}`, 'base!!!!!')
 
-auth.get('/whoami', (req, res) => res.send(req.user))
+auth.get('/whoami', (req, res) => {
+
+  console.log(req.user, 'REQ USER =====>', req.session, req.session.id, req.session.cookie)
+  res.send(req.user)
+
+
+})
 
 // POST requests for local login:
 // maybe add a fail redirect to a signup page?
@@ -184,6 +190,8 @@ auth.get('/login/:strategy', (req, res, next) => {
 auth.post('/logout', (req, res) => {
   console.log("logout")
   req.logout()
+  req.session.destroy()
+  console.log('DESTROYING')
   res.redirect('/api/auth/whoami')
 })
 

@@ -27,6 +27,10 @@ import Update from './components/Update'
 import SignUp from './components/SignUp'
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import {fetchReviews} from 'APP/app/reducers/reviews'
+import Reviews from './components/Reviews';
+import {whoami} from './reducers/auth'
+
 import {
   cancelSearch, searchProduct
 } from './reducers/search'
@@ -48,17 +52,22 @@ const ExampleApp = connect(
 
 const onProductsEnter = () => {
   store.dispatch(loadProducts())
-     store.dispatch(cancelSearch)
+  store.dispatch(cancelSearch)
 
 }
 
 const onCartEnter = () => {
-  store.dispatch(loadCartItems())
+  //store.dispatch(loadCartItems())
 }
-const onOrdersEnter = () => {
-  store.dispatch(loadOrders())
-}
+// const onOrdersEnter = () => {
+//   console.log('main orders !!!')
+//   store.dispatch(loadOrders())
+// }
+
+
+
 const onAllOrdersEnter = () => {
+
   store.dispatch(loadAllOrders())
 
 }
@@ -67,13 +76,21 @@ const onUsersEnter = () => {
   store.dispatch(fetchUsers())
 }
 
+const OnProfileEnter = () => {
+  store.dispatch(whoami())
+  store.dispatch(loadOrders())
+  store.dispatch(fetchReviews());
+}
+const OnHomeEnter = () => {
+  //store.dispatch(loadCartItems())
+}
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-    <Route path="/reset/:token" component={ResetPassword} />
+      <Route path="/reset/:token" component={ResetPassword} />
       <Route path="/" component={ExampleApp}  >
         <IndexRedirect to="/home" />
-        <Route path='/home' component={Front} />
+        <Route path='/home' component={Front} onEnter={OnHomeEnter} />
         <Route path='/update/:productId' component={Update} />
         <Route path='/add' component={Update} />
         <Route path="/foobar" component={AppContainer} onEnter={onCartEnter} onEnter={onUsersEnter} >
@@ -83,9 +100,10 @@ render(
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/admin/users/:userId" component={SingleUser} />
-          <Route path="/users/:userId" component={Userprofile} />
+          <Route path="/users/:userId" component={Userprofile} onEnter={OnProfileEnter()} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
-          <Route path="/currentUserOrders" component={Orders} onEnter={onOrdersEnter} />
+          <Route path="/currentUserOrders" component={Orders} />
+           <Route path="/currentReviews" component={Reviews} />
           <Route path="/allOrders" component={Orders} onEnter={onAllOrdersEnter} />
           <Route path='/forgotpassword' component={ForgotPassword} />
         </Route>
@@ -96,7 +114,6 @@ render(
 
     </Router>
   </Provider>,
-
   document.getElementById('main')
 
 )

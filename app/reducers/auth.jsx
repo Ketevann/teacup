@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { browserHistory, Link } from 'react-router'
-
+import {getCart} from './cartItems'
 const reducer = (state=null, action) => {
   switch (action.type) {
   case AUTHENTICATED:
@@ -10,9 +10,11 @@ const reducer = (state=null, action) => {
 }
 
 const AUTHENTICATED = 'AUTHENTICATED'
+
 export const authenticated = user => ({
   type: AUTHENTICATED, user
 })
+
 export const login = (email, password) =>
   dispatch =>
     axios.post('/api/auth/login/local',
@@ -27,8 +29,16 @@ export const login = (email, password) =>
 
 export const logout = () =>
   dispatch =>{
-    return axios.post('/api/auth/logout')
-      .then(() => dispatch(whoami()))
+   return axios.delete('api/cartitem/notlogged')
+   .then(() => {
+     return axios.post('/api/auth/logout')
+   })
+      .then(() =>
+      dispatch(whoami())
+      )
+      .then(() => {
+        dispatch(getCart([]))
+      })
       .catch(() => dispatch(whoami()))
   }
 export const signup = (email, password, name) =>

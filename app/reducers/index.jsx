@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   filter: require('./filter').default,
   forgot: require('./forgot').default,
   searchNames: require('./search').default,
-
+  reviews: require('./reviews').default,
 })
 
 export default rootReducer

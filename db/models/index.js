@@ -20,7 +20,8 @@ const metaModels = {
       Payment: require('./payment'),
       Review: require('./review'),
       CartItem: require('./cartItem'),
-      Token: require('./token')
+      Token: require('./token'),
+      NonLoggedCart: require('./nonloggedcart')
       // ---------- Add new models here ----------
     }
 

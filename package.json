@@ -54,6 +54,7 @@
     "crypto-js": "^3.1.9-1",
     "enzyme": "^2.5.1",
     "express": "^4.14.0",
+    "express-session": "^1.15.6",
     "finalhandler": "^1.0.0",
     "homedir": "^0.6.0",
     "nodemailer": "^4.1.0",

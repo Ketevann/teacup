@@ -7,17 +7,21 @@ import _ from 'lodash'
 
 
 const Userprofile = (props) => {
+   console.log(props, 'props', props.auth)
+   if (!props.auth) return null
   return (
     <div className="users">
-      <Userform id={props.user.id} name={props.user.name} email={props.user.email} orders={props.user.orders} reviews={props.user.reviews} payment={props.user.payment}
-        role={props.user.role} auth={props.auth} />
+      <Userform id={props.auth.id} name={props.auth.name} email={props.auth.email} orders={props.orders.userOrders} reviews={props.reviews.userReviews} payment={null}
+        role={props.auth.role} auth={props.auth} />
     </div>)
 }
-const mapState = ({ users, auth }, ownProps) => {
+const mapState = ({ users, auth, orders, reviews }, ownProps) => {
+  console.log(orders,' irders', users,  reviews, auth)
   return {
     user: _.find(users, user => user.id === auth.id),
     auth,
-
+    orders,
+    reviews
   }
 }
 const mapDispatch = { deleteUser, updateUser }

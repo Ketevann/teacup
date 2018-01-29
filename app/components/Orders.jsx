@@ -4,8 +4,14 @@ import { connect } from 'react-redux'
 import { loadOrders, loadSingleUserOrders } from 'APP/app/reducers/orders'
 
 class Orders extends Component {
+
+  componentDidMount(){
+    this.props.loadOrders()
+  }
+
   render() {
-    var orders = this.props.orders
+    console.log(this.props, ' props in orders')
+    const {userOrders} = this.props.orders
     return (
       <div id="orders">
         <table className="table">
@@ -16,7 +22,7 @@ class Orders extends Component {
               <th>Destination</th>
             </tr>
           </thead>
-          {orders.length ? orders.map((order) => {
+          {userOrders ? userOrders.map((order) => {
             return (
               <tbody>
                 <tr>
@@ -36,11 +42,11 @@ class Orders extends Component {
 
 
 const mapStateToProps = (state) => {
+  console.log(state, 'state', state.orders.userOrders, state.orders)
   return {
-    orders: state.orders.userOrders
+    orders: state.orders
   }
 }
 
-const mapDispatch = null
 
-export default connect(mapStateToProps, mapDispatch)(Orders)
+export default connect(mapStateToProps, {loadOrders})(Orders)
