@@ -43,7 +43,7 @@ app.use(require('express-session')({
   cookie: { secure: false, maxAge: (4 * 60 * 60 * 1000) }, // 4 hours
 }))
   // Body parsing middleware
-  .use(bodyParser.urlencoded({ extended: true }))
+  //.use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
 
   // Authentication middleware

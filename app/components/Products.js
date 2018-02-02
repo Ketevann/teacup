@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { BarLoader } from 'react-spinners';
+
 import {
   deleteProduct, findProduct, search, filterRemove, updatePath
 
@@ -16,6 +18,9 @@ var temp = [];
 class Products extends React.Component {
   constructor(props) {
     super(props)
+     this.state = {
+      loading: true
+    }
     this.clickHandler = this.clickHandler.bind(this)
     this.handleClick = this.handleClick.bind(this)
 
@@ -103,6 +108,10 @@ class Products extends React.Component {
   renderProduct(allproducts) {
 
     return allproducts.map((product) => {
+      console.log(products, ' in all ro')
+      if (product.length === 0){
+        return <div>Your search did not return any results</div>
+      }
 
       return (
         <div key={product.id} className='col-md-4 col-sm-6' >
@@ -113,7 +122,8 @@ class Products extends React.Component {
           {this.props.auth && this.props.auth.role === 'admin' ?
             <button className="rmedit btn btn-default" onClick={() => this.handleClick(product.id, 'delete')}>Remove</button> : null}
           {this.props.auth && this.props.auth.role === 'admin' ?
-            <Link to={`/update/${product.id}`}><button className="btn btn-default" >Edit</button></Link> : null}
+            <Link to={`/update/${product.id}`}><button className="btn btn-default" >Edit</button></Link> :
+             null}
 
 
         </div>
@@ -122,6 +132,8 @@ class Products extends React.Component {
   }
 
   render() {
+
+    console.log(this.props, 'products')
     const divStyle = {
       width: 250,
       height: 230
@@ -137,7 +149,12 @@ class Products extends React.Component {
           <div>{this.renderProduct(this.filter(this.props.products.val))}</div> :
           this.props.products.all ?
             <div>{this.renderProduct(this.props.products.all)}</div>
-            : null
+            : <div className='sweet-loading'>
+        <BarLoader
+          color={'#123abc'}
+          loading={this.state.loading}
+        />
+      </div>
         }
       </div>
 

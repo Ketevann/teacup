@@ -355,3 +355,21 @@ div#names:after {
 form.navbar-form{
   margin-top: 7px;
 }
+
+.removebtn{
+ margin-top: 10px;
+  margin-left: 30px
+
+  }
+
+.removebtn:hover{
+ cursor: pointer
+
+  }
+.updatebtn, .removebtn{
+    margin-top: 10px;
+  margin-left: 30px
+}
+.updateinput{
+   margin-top: 10px;
+}

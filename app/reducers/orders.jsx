@@ -56,20 +56,23 @@ export const loadOrders = dispatch =>
         // .then(user => {
         const userId = response.data.id
         console.log('userID in ordrs =============',userId )
+        if(userId){
         return axios.get(`/api/orders/user/${userId}`)
-      })
+
       .then(orders => {
         console.log('orders', orders)
         dispatch(userOrders(orders.data))
       })
       .catch(console.error)
+    }
+    })
 
       //   Promise.all([gettingId])
       //     .spread(function (userId) {
       //       return dispatch(gettingOrders(userId))
       //     })
 
-      .catch(console.error)
+
  }
 //}
 export default orders

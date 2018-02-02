@@ -22,14 +22,19 @@ export const fetchReviews = (dispatch) =>
         // return response.data
         // })
         // .then(user => {
+
         const userId = response.data.id
+
         console.log(userId, ' USER!!!!!--------->')
-        return axios.get(`/api/reviews/${userId}`)
-      })
+          if (userId) {
+      return axios.get(`/api/reviews/user/${userId}`)
+
       .then(reviews => {
         console.log('reviews', reviews)
         dispatch(getReviews(reviews.data))
       })
       .catch(console.error)
+    }
+    })
   }
 export default reviewsReducer

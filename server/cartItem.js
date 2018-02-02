@@ -79,6 +79,7 @@ module.exports = require('express').Router()
 
 	})
 	.get('/all/:orderId', (req, res, next) => {
+		let found, promises = []
 		let orderId = req.params.orderId
 		CartItem.findAll({
 			where: {
@@ -96,33 +97,33 @@ module.exports = require('express').Router()
 					.then(sessionCartItems => {
 						//	console.log(sessionCartItems, 'ITEMS', items, "IMTEEES" )
 						let found, promises = [] // <----- create empty array
-						 sessionCartItems.forEach(notLoggedIn => {
+						sessionCartItems.forEach(notLoggedIn => {
 							found = false;
 							for (var i = 0; i < items.length; i++) {
 								// console.log('items[i]', items[i],'items[i].instance', items[i].Instance, 'notLoggedIn instance', notLoggedIn.Instance, notLoggedIn, ' notLoggedIn');
 								if (items[i].dataValues.product_id ===
 									notLoggedIn.dataValues.product_id
-								){
+								) {
 									found = true;
-								let price = Number(items[i].dataValues.price) +
-									Number(notLoggedIn.dataValues.price);
-								let quantity = Number(items[i].dataValues.quantity) +
-									Number(notLoggedIn.dataValues.quantity);
-								console.log(price, 'PRICEEEEEEE', items[i].dataValues.quantity, items[i].dataValues.product_id)
+									let price = Number(items[i].dataValues.price) +
+										Number(notLoggedIn.dataValues.price);
+									let quantity = Number(items[i].dataValues.quantity) +
+										Number(notLoggedIn.dataValues.quantity);
+									console.log(price, 'PRICEEEEEEE', items[i].dataValues.quantity, items[i].dataValues.product_id)
 
-							var newPromise =	items[i].update({ price: price, quantity: quantity },
-									{
-										where: {
-											product_id: items[i].dataValues.product_id
-										}
+									var newPromise = items[i].update({ price: price, quantity: quantity },
+										{
+											where: {
+												product_id: items[i].dataValues.product_id
+											}
 
-									})
-								promise.push(newPromise) // <-------------- pushing
+										})
+									promise.push(newPromise) // <-------------- pushing
 								}
 							}
 							if (!found) {
 								console.log('in not found')
-							var newPromise2 =	CartItem.create({
+								var newPromise2 = CartItem.create({
 									quantity: notLoggedIn.dataValues.quantity,
 									price: notLoggedIn.dataValues.price,
 									product_id: notLoggedIn.dataValues.product_id,
@@ -133,26 +134,26 @@ module.exports = require('express').Router()
 							}
 						})
 
-					 return Promise.all(promises) // <-------------- returning promises
+						return Promise.all(promises) // <-------------- returning promises
 
-					 .then(function(carts) {
-						console.log(carts , 'carts', carts)
+							.then(function (carts) {
+								console.log(carts, 'carts', carts)
 
-							CartItem.findAll({
-					where: {
-						order_id: orderId
-					},
-					include: [{ model: Product }]
-				})
+								CartItem.findAll({
+									where: {
+										order_id: orderId
+									},
+									include: [{ model: Product }]
+								})
 
-			.then(cartItems => {
+									.then(cartItems => {
 
-				console.log(cartItems, ' ITEMSSSSS')
-				res.send({ items: cartItems, product: [] })
-			})
+										console.log(cartItems, ' ITEMSSSSS')
+										res.send({ items: cartItems, product: [] })
+									})
 
 
-					 })
+							})
 						// 	sessionCartItems.forEach(notLoggedIn => {
 
 						// 		 {
@@ -185,84 +186,166 @@ module.exports = require('express').Router()
 			.then(items => res.send(items))
 			.catch(next)
 	})
-	.post('/notlogged', (req, res) => {
-		console.log(' in not logged in', req.session.id, req.body)
-		NonLoggedCart.find({
+	// .post('/notlogged', (req, res) => {
+	// 	console.log(' in not logged in', req.session.id, req.body)
+	// 	NonLoggedCart.find({
+	// 		where: {
+	// 			sessionId: req.session.id,
+	// 			product_id: req.body.productId
+	// 		}
+	// 	})
+	// 		.then(session => {
+	// 			if (!session) {
+	// 				console.log('session does not exist')
+	// 				return NonLoggedCart.create({
+
+	// 					quantity: req.body.quantity,
+	// 					price: req.body.price,
+	// 					sessionId: req.session.id,
+	// 					product_id: req.body.productId
+
+	// 				})
+	// 				// .then(cart => {
+	// 				// 	res.send(cart)
+	// 				// })
+	// 			} else {
+	// 				console.log(session, 'SESSION')
+
+
+	// 				let price = (Number(session.price) + Number(Number(req.body.price))),
+	// 					quantity = (Number(Number(req.body.quantity)) + Number(session.quantity))
+	// 				console.log((Number(session.price) + Number(price)), (Number(quantity) + Number(session.quantity)), ' CHECKING session', req.body.price, session.price, req.body.quantity, session.quantity, session)
+
+	// 				return session.update({ price: price, quantity: quantity },
+	// 					{
+	// 						where: {
+
+	// 							product_id: req.body.productId,
+	// 							sessionId: req.session.id
+	// 						}
+	// 					}
+	// 				)
+	// 					.then(updated => {
+	// 						console.log(updated, 'UPDATED')
+	// 						//	res.send(updated)
+
+	// 					})
+	// 			}
+
+	// 		})
+	// 		.then(() => {
+	// 			return NonLoggedCart.findAll({
+	// 				where: {
+	// 					sessionId: req.session.id,
+
+	// 				},
+	// 				include: [Product]
+	// 			})
+	// 				.then(cart => res.send({ items: cart, product: [] }))
+	// 		})
+	// })
+
+
+	// .get('/notlogged', (req, res) => {
+	// 	console.log(' in not logged in', req.session.id, req.body)
+	// 	NonLoggedCart.findAll({
+	// 		where: {
+	// 			sessionId: req.session.id
+	// 		},
+	// 		include: [Product]
+	// 	})
+	// 		.then(orders => res.send(orders))
+	// 		.catch(err => console.log(err))
+	// })
+	// .delete('/notlogged', (req, res) => {
+	// 	NonLoggedCart.destroy({
+	// 		where: {
+	// 			sessionId: req.session.id
+	// 		}
+	// 	})
+	// 		.then(() => {
+	// 			res.send(204)
+	// 		})
+	// 		.catch(err => console.log(err))
+	// })
+	 .put('/', (req, res, next) => {
+			console.log(' in update', req.body)
+				CartItem.find({
 			where: {
-				sessionId: req.session.id,
-				product_id: req.body.productId
+				product_id : req.body.productId,
+				order_id: req.body.orderId
 			}
 		})
-			.then(session => {
-				if (!session) {
-					console.log('session does not exist')
-					return NonLoggedCart.create({
-
-						quantity: req.body.quantity,
-						price: req.body.price,
-						sessionId: req.session.id,
-						product_id: req.body.productId
-
-					})
-					// .then(cart => {
-					// 	res.send(cart)
-					// })
-				} else {
-					console.log(session, 'SESSION')
-
-
-					let price = (Number(session.price) + Number(Number(req.body.price))),
-						quantity = (Number(Number(req.body.quantity)) + Number(session.quantity))
-					console.log((Number(session.price) + Number(price)), (Number(quantity) + Number(session.quantity)), ' CHECKING session', req.body.price, session.price, req.body.quantity, session.quantity, session)
-
-					return session.update({ price: price, quantity: quantity },
-						{
-							where: {
-
-								product_id: req.body.productId,
-								sessionId: req.session.id
-							}
-						}
-					)
-						.then(updated => {
-							console.log(updated, 'UPDATED')
-							//	res.send(updated)
-
-						})
-				}
-
+		.then(cart =>{
+			if (req.body.quantity === String(0)){
+				cart.destroy()
+				.then(() => res.send(204))
+			}
+			else
+			{
+				cart.update({quantity: req.body.quantity})
+				.then(() => res.send(202))
+			}
 			})
-			.then(() => {
-				return NonLoggedCart.findAll({
-					where: {
-						sessionId: req.session.id,
-
-					},
-					include: [Product]
-				})
-					.then(cart => res.send({ items: cart, product: [] }))
-			})
-	})
 
 
-	.get('/notlogged', (req, res) => {
-		console.log(' in not logged in', req.session.id, req.body)
-		NonLoggedCart.findAll({
+	 })
+
+
+	.delete('/delete/:id/:orderId', (req, res, next) => {
+		console.log(req.body, 'req.body')
+		CartItem.find({
 			where: {
-				sessionId: req.session.id
+				product_id : req.params.id,
+				order_id: req.params.orderId
 			}
 		})
-		.then(orders => res.send(orders))
+		.then(cart => {
+		//	console.log(cart)
+			return cart.destroy()
+		})
+		.then(() => res.send(204))
 		.catch(err => console.log(err))
 	})
-	.delete('/notlogged', (req, res) => {
-		NonLoggedCart.destroy({
-			where: {
-				sessionId: req.session.id
-			}
-		})
-		.then( () => {
-			res.send(204)
-			})
-		.catch(err => console.log(err))
-	})
+
+
+
+	// .delete('/delete/:id', (req, res, next) => {
+	// 	console.log(req.body, 'req.body')
+	// 	NonLoggedCart.find({
+	// 		where: {
+	// 			product_id : req.params.id,
+	// 			sessionId: req.session.id
+	// 		}
+	// 	})
+	// 	.then(cart => {
+	// 	//	console.log(cart)
+	// 		return cart.destroy()
+	// 	})
+	// 	.then(() => res.send(204))
+	// 	.catch(err => console.log(err))
+	// })
+
+
+	// 	 .put('/notlogged', (req, res, next) => {
+	// 		console.log(' in update', req.body)
+	// 			NonLoggedCart.find({
+	// 		where: {
+	// 			product_id : req.body.productId,
+	// 			sessionId: req.session.id
+	// 		}
+	// 	})
+	// 	.then(cart =>{
+	// 		if (req.body.quantity === String(0)){
+	// 			cart.destroy()
+	// 			.then(() => res.send(204))
+	// 		}
+	// 		else
+	// 		{
+	// 			cart.update({quantity: req.body.quantity})
+	// 			.then(() => res.send(202))
+	// 		}
+	// 		})
+
+
+	//  })

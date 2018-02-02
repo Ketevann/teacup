@@ -174,7 +174,7 @@ class NavigationBar extends Component {
 
             }
              <NavItem eventKey={2} href="#">
-              <Link className="link menu-icon" to='/cart'>Cart({this.props.cart.items ? this.props.cart.items.map( el => el.quantity).reduce(accumulate, 0) : 0})</Link>
+              <Link className="link menu-icon" to='/cart'>Cart({this.props.cart && this.props.cart.items ? this.props.cart.items.map(el => el.quantity).reduce(accumulate, 0) : 0})</Link>
             </NavItem>
           </Nav>
         </Navbar.Collapse>
