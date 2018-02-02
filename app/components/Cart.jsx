@@ -91,7 +91,7 @@ class Cart extends React.Component {
                           <div onClick={() => this.handleRemove(item)}>Remove </div>
                           </div>
                         </div>
-                         <td> ${item.price * item.quantity}</td>
+                         <td> ${item.price}</td>
                         <td> <img id="cartproducts" src={image} /></td>
 
                       </tr>
