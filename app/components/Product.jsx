@@ -134,7 +134,7 @@ class Product extends React.Component {
         </div>
         <br></br>
         <div >
-         {this.props.auth.userId ?
+         {this.props.auth.id ?
           <form id="reviewform" action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
             <div className="form-group">
 
