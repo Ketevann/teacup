@@ -57,7 +57,7 @@ const onProductsEnter = () => {
 }
 
 const onCartEnter = () => {
-  //store.dispatch(loadCartItems())
+  store.dispatch(loadCartItems())
 }
 // const onOrdersEnter = () => {
 //   console.log('main orders !!!')
@@ -77,6 +77,7 @@ const onUsersEnter = () => {
 }
 
 const OnProfileEnter = () => {
+  console.log('profile enter')
   store.dispatch(whoami())
   store.dispatch(loadOrders())
   store.dispatch(fetchReviews());
@@ -100,7 +101,7 @@ render(
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/admin/users/:userId" component={SingleUser} />
-          <Route path="/users/:userId" component={Userprofile} onEnter={OnProfileEnter()} />
+          <Route path="/users/:userId" component={Userprofile} onEnter={OnProfileEnter} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
           <Route path="/currentUserOrders" component={Orders} />
            <Route path="/currentReviews" component={Reviews} />

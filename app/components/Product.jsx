@@ -2,7 +2,9 @@ import React from 'react'
 import { Link, browserHistory } from 'react-router'
 import axios from 'axios'
 import { getOrMakeOrder, addToCart } from '../reducers/cartItems'
+import { postReviews, getProductReviews } from '../reducers/reviews'
 import { connect } from 'react-redux'
+import ReactStars from 'react-stars'
 
 
 class Product extends React.Component {
@@ -21,8 +23,8 @@ class Product extends React.Component {
   handleSubmitItem = function (event) {
     event.preventDefault()
     console.log(this.props)
-    const {id, price} = this.props.product
-    let itemInfo = {quantity: this.state.quantity, productId: id, price, userId: this.props.auth.id }
+    const { id, price } = this.props.product
+    let itemInfo = { quantity: this.state.quantity, productId: id, price, userId: this.props.auth.id }
     //this.props.addToCart(itemInfo)
     this.props.getOrMakeOrder(itemInfo)
   }
@@ -33,40 +35,59 @@ class Product extends React.Component {
   }
 
   componentWillMount() {
-    axios.get(`/api/reviews/${this.props.routeParams.productId}`)
-      .then(res => res.data)
-      .then(reviews => {
-        this.setState({
-          reviews: reviews
-        })
-      })
-      .catch(err => console.log(err))
+    this.props.getProductReviews(this.props.routeParams.productId)
+    // axios.get(`/api/reviews/${this.props.routeParams.productId}`)
+    //   .then(res => res.data)
+    //   .then(reviews => {
+    //     this.setState({
+    //       reviews: reviews
+    //     })
+    //   })
+    //   .catch(err => console.log(err))
   }
 
   onReviewSubmit(event, title) {
     event.preventDefault()
     let reviewInfo = {
-      stars: parseInt(title),
       content: event.target.textContent.value,
       productId: this.props.routeParams.productId
     }
-    fetch("/api/reviews", {
-      method: "POST",
-      body: JSON.stringify(reviewInfo),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
-    })
-    browserHistory.push('/products')
+    this.props.postReviews(reviewInfo)
+    // fetch("/api/reviews", {
+    //   method: "POST",
+    //   body: JSON.stringify(reviewInfo),
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8"
+    //   }
+    // })
   }
+ ratingChanged (newRating) {
+  console.log(newRating)
+      this.props.postReviews({stars: newRating, productId: this.props.routeParams.productId})
+
+}
 
 
   render() {
+    let stars = this.props.reviews.all.map(el => el.star).reduce((accumulator, currentValue) => {
+      return accumulator + currentValue
+    },
+      0
+    )
+    const { all } = this.props.reviews
+    let count = 0, sum = 0
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].stars !== null) {
+        sum += all[i].stars
+        count++
+      }
+    }
+    stars = sum / count
     // const divStyle = {
     //   width: 450,
     //   height: 430
     // }
-    console.log(this.props, ' in product');
+    console.log(this.props, ' in product',stars);
     let product = this.props.product
 
     return (
@@ -75,16 +96,37 @@ class Product extends React.Component {
           <p >{product.name}</p>
           <p>Price: {product.price}</p>
           <img id="singleproducts" src={product.img} />
+
+
+          <div className="singleproduct stars">
+          {stars !== 0 ?
+          <ReactStars
+            count={5}
+            size={18}
+            color2={'#ffd700'}
+            value={stars}
+            edit={false}
+          />
+          :
+              <ReactStars
+            count={5}
+            size={18}
+            color2={'#ffd700'}
+            edit={false}
+          />
+        }
+        </div>
           <p> Quantity: <input type="text" onChange={this.handleQuantityChange} /> </p>
           <button className="btn btn-default addproduct" type="submit">Add Product to Cart</button>
         </form>
         <br></br>
         <div>
+
           <h2> Customer Review</h2>
 
-          {this.state.reviews.map((review, i) => {
+          {this.props.reviews.all.map((review, i) => {
             return (
-              <li>{review.stars} stars: {review.content} </li>
+              <div>{review.content} </div>
             )
           }
           )}
@@ -92,19 +134,32 @@ class Product extends React.Component {
         </div>
         <br></br>
         <div >
-
+         {this.props.auth.userId ?
           <form id="reviewform" action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
             <div className="form-group">
-              <label htmlFor="stars">STARS:</label>
-              <input size="5" placeholder="Type a number like 5" className="form-control" type="number" id="stars" />
+
             </div>
+
             <div className="form-group">
               <label htmlFor="textContent">Your Review:</label>
-              <input className="form-control" type="text" id="textContent" />
+              <div>
+               <div className= "ratestars">
+              <ReactStars
+            onChange={this.ratingChanged.bind(this)}
+            count={5}
+            size={24}
+            color2={'#ffd700'} />
+            </div>
+              <textarea name="textContent" id="" cols="30" rows="10"></textarea>
+
+              </div>
             </div>
             <button className="btn btn-default" type="submit">Add New Review</button>
           </form>
+          : null }
+
         </div>
+
       </div>
 
 
@@ -120,6 +175,6 @@ const filterProducts = (products, productId) => {
 }
 
 export default connect(
-  (state, ownProps) => ({ product: filterProducts(state.products, ownProps.routeParams.productId), auth: state.auth }),
-  { getOrMakeOrder, addToCart },
+  (state, ownProps) => ({ product: filterProducts(state.products, ownProps.routeParams.productId), auth: state.auth, reviews: state.reviews }),
+  { getOrMakeOrder, addToCart, postReviews, getProductReviews },
 )(Product)

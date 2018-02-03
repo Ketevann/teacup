@@ -52,8 +52,11 @@ class Userform extends Component {
                     Orders</div>
 
                     <div className="col-sm-7">
+                    {this.props.orders ?
                     <Link className="link" to='/allOrders'>
-                    {this.props.orders.length}</Link></div>
+                    {this.props.orders.length}</Link>
+                    : 0}
+                    </div>
                     <div className="clearfix" />
                     <div className="bot-border" />
                     <div className="col-sm-5 col-xs-6 tital ">Payment</div><div className="col-sm-7">{this.props.payment ? this.props.payment.Name : null} N/A</div>

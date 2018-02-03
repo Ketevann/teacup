@@ -5,10 +5,10 @@ var db = require('./index.js');
 module.exports = (db) => db.define('reviews', {
     content: {
         type: Sequelize.STRING,
-        allowNull: false
+
     },
     stars: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
         // validate: {
         //     min: 0,
         //     max: 5

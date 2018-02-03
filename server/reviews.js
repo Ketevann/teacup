@@ -2,6 +2,8 @@
 
 const db = require('APP/db')
 const Product = db.model('products')
+const User = db.model('users')
+
 const Review = db.model('reviews')
 
 const { mustBeLoggedIn, forbidden } = require('./auth.filters')
@@ -31,18 +33,83 @@ module.exports = require('express').Router()
         Review.findAll({
             where: {
                 product_id: req.params.productId
-            }
+            },
+            include: [User]
         })
             .then(reviews => res.send(reviews))
             .catch(next))
 
     .post('/',
     (req, res, next) =>
-        Review.create({
-            content: req.body.content,
-            stars: req.body.stars,
-            product_id: req.body.productId,
-            user_id: req.body.userId,
+        Review.find({
+            where: {
+                user_id: req.body.userId
+            }
         })
-            .then(review => res.send(review))
-            .catch(next))
+            .then(review => {
+                console.log(req.body, 'req body reviews')
+                if (!review) {
+
+                    return Review.create({
+                        content: req.body.content,
+                        stars: req.body.stars,
+                        product_id: req.body.productId,
+
+                    })
+                        .then(createdReview => {
+
+                            console.log(req.body.userId, 'user ID')
+                            return createdReview.setUser(req.body.userId)
+
+                                .then(() => {
+                                    return User.find({
+                                        where: {
+                                            id: createdReview.user_id
+                                        }
+                                    })
+                                        .then(user => {
+                                            createdReview.user = user
+
+                                            res.send(createdReview)
+                                        })
+
+
+                                })
+                        })
+                }
+                else {
+                    let updatedContent = req.body.content,
+                        updatedStars = req.body.stars
+                    if (!req.body.content) updatedContent = review.content
+                    if (!req.body.stars) updatedStars = review.stars
+
+                    return review.update({
+                        content: updatedContent, stars: updatedStars
+                    }, {
+                            where: {
+                                product_id: req.body.productId,
+                                user_id: req.body.userId
+                            }
+                        })
+                        .then(updated => {
+
+                            return User.find({
+                                where: {
+                                    id: review.user_id
+                                }
+                            })
+                                .then(user => {
+                                    updated.user = user
+
+                                    res.send(updated)
+                                })
+
+
+                        })
+
+
+
+                }
+
+            })
+    )

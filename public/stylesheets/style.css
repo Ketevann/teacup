@@ -373,3 +373,14 @@ form.navbar-form{
 .updateinput{
    margin-top: 10px;
 }
+
+.stars{
+  display: flex;
+  justify-content: center;
+  margin-left: 33px;
+}
+
+.ratestars{
+   display: flex;
+  justify-content: center;
+}
