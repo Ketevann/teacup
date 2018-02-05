@@ -44,9 +44,9 @@ const products = seed(Product, {
 
 const orders = seed(Order, {
   one: {status:'pending', Name: 'Linus', Street: '123 Grace Hopper Lane', Apartment: '5B',
-  State:'Alaska', City:'Hopperville', zipCode: 10021},
+  State:'Alaska', City:'Hopperville', zipCode: 10021, user_id: 1},
   two: {status:'pending', Name: 'Liz', Street: '246 Grace Hopper Lane', Apartment: '8G',
-  State:'Alaska', City:'Hopperville', zipCode: 10021}
+  State:'Alaska', City:'Hopperville', zipCode: 10021, user_id: 1}
 })
 
 const payment = seed(Payment, {
@@ -63,7 +63,7 @@ const review = seed(Review, {
 
 const cartItem = seed(CartItem, {
     one: {name: 'Jasmine', price: '2.25', product_id: 1, order_id: 1, quantity: 5},
-    two: {name: 'Apple Tea', price: '2.25', product_id: 2, order_id: 2, quantity: 9},
+    two: {name: 'Apple Tea', price: '2.25', product_id: 2, order_id: 1, quantity: 9},
 })
 
 const favorites = seed(Favorite,
