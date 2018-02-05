@@ -7,14 +7,13 @@ import store from '../store'
 import {
   cancelSearch, searchProduct
 } from '../reducers/search'
-import {loadCartItems} from '../reducers/cartItems'
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 import {
   search
 
 } from '../reducers/products'
 import { connect } from 'react-redux'
-const products = ['jasmine', 'earl gray', 'black', 'peppermint', 'apple tea', 'rose tea'];
+const products = ['jasmine', 'earl gray', 'black', 'peppermint', 'apple tea', 'rose tea' ];
 var temp = [];
 
 let accumulate = (acc, cur ) => {
@@ -22,27 +21,22 @@ let accumulate = (acc, cur ) => {
   console.log(acc, cur)
   return acc+ cur
 }
-
 class NavigationBar extends Component {
 
   clickHandler() {
     this.props.logout()
   }
 
+
   someFunc = (name) => {
     var nameField = document.getElementById('search');
     nameField.value = name
 
   }
-  componentDidMount(){
 
-     this.props.loadCartItems();
-
-}
-
-  // componentDidMount() {
-  //   store.dispatch(cancelSearch())
-  // }
+  componentDidMount() {
+    store.dispatch(cancelSearch())
+  }
 
   findWords = (text) => {
     if (typeof text[temp.length] === 'string') temp.push(text[temp.length])
@@ -85,8 +79,7 @@ class NavigationBar extends Component {
   }
 
   render() {
-    //let cart = this.props.cart
-    console.log(this.props, ' in navigation')
+    let cart = this.props.cart
     return (
 
 
@@ -94,17 +87,19 @@ class NavigationBar extends Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-             <Link id="teacup" className="link" to="/">TeaCup</Link>
+           <Link id="teacup" className="link" to="/">TeaCup</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
 
-            <NavItem eventKey={3.1}>
+
+            <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
+
+            <MenuItem eventKey={3.1}>
                 <Link className="link" to='/products' onClick={() => store.dispatch(filterRemove())}>Products</Link>
-              </NavItem>
-            <NavDropdown eventKey={3} title="Account" id="basic-nav-dropdown">
+              </MenuItem>
 
               {this.props.authUser && this.props.authUser.name ?
                 <MenuItem eventKey={3.1}>
@@ -129,39 +124,35 @@ class NavigationBar extends Component {
           </Nav>
           <Nav pullRight className="right">
             {this.props.products && this.props.products.path === true ?
-              <Nav eventKey={2} href="#" className="usernamelogout">
-                <form className="navbar-form" role="search"
+              <Nav className="right">
+              <form className="navbar-form" role="search"
                   onSubmit={(evt) => {
                     evt.preventDefault()
                     store.dispatch(search(evt.target.search.value))
-
                   }
                   }
                 >
                   <div className="input-group">
-                    <input onChange={(evt) => console.log(this.checkSearchState(evt.target.value))
-
-                    } id="search" type="text" name="searching" placeholder="Search"
-                      type="text" className="form-control" placeholder="Search"
-                    />
+                           <input onChange={(evt) => console.log(this.checkSearchState(evt.target.value))
+          } id="search" type="text" name="searching" placeholder="Search"
+          type="text" className="form-control" placeholder="Search"
+           />
                     <div className="input-group-btn">
                       <button className="btn btn-default" type="submit"><i className="glyphicon glyphicon-search" /></button>
                     </div>
                   </div>
                   <div className="autocomplete" >
                     {this.props.searched && this.props.searched.listnames ?
-
-
                       this.props.searched.names.map(names => {
                         return <div onClick={() => this.someFunc(names)} id="names">{names}</div>
-
                       })
                       : null} </div> </form>
-              </Nav> : null}
+                     </Nav> : null}
+
             {this.props.authUser && this.props.authUser.name ?
               <Nav>
                 <NavItem className="usernamelogout">
-                 Hello {this.props.authUser && this.props.authUser.name}
+                  {this.props.authUser && this.props.authUser.name}
                 </NavItem>
                 <NavItem>
                   <button className="usernamelogout" onClick={() => this.clickHandler()}>Logout</button>
@@ -179,13 +170,14 @@ class NavigationBar extends Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+
     )
   }
 }
 const mapStateToProps = (state, ownProps) => {
   return { authUser: state.auth, cart: state.cartItems, searched: state.searchNames, products: state.products }
 }
-export default connect(mapStateToProps, { login, logout, filterRemove, cancelSearch, search, loadCartItems })(NavigationBar)
+export default connect(mapStateToProps, { login, logout, filterRemove, cancelSearch, search })(NavigationBar)
 
 
 

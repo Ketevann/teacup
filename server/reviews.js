@@ -41,13 +41,15 @@ module.exports = require('express').Router()
 
     .post('/',
     (req, res, next) =>
+    {console.log(req.body, 'req body reviews')
         Review.find({
             where: {
-                user_id: req.body.userId
+                user_id: req.body.userId,
+                product_id: req.body.productId
             }
         })
             .then(review => {
-                console.log(req.body, 'req body reviews')
+
                 if (!review) {
 
                     return Review.create({
@@ -112,4 +114,19 @@ module.exports = require('express').Router()
                 }
 
             })
-    )
+    })
+
+    .delete('/:id', (req, res) => {
+        console.log(req.params.id)
+        return Review.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+            // .then(review => {
+            //     console.log(review)
+            //     return review.destory()
+            // })
+            .then(() => res.send(204))
+            .catch(err => console.log(err))
+    })

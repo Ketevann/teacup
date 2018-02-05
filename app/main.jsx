@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+import { Router, Route, IndexRedirect, browserHistory, Hashhistory } from 'react-router'
 import { render } from 'react-dom'
 import { connect, Provider } from 'react-redux'
 import store from './store'
@@ -82,12 +82,33 @@ const OnProfileEnter = () => {
   store.dispatch(loadOrders())
   store.dispatch(fetchReviews());
 }
+
+
 const OnHomeEnter = () => {
   //store.dispatch(loadCartItems())
+    store.dispatch(whoami())
+
 }
+
+function hashLinkScroll() {
+  const { hash } = window.location;
+  if (hash !== '') {
+    // Push onto callback queue so it runs after the DOM is updated,
+    // this is required when navigating from a different page so that
+    // the element is rendered on the page before trying to getElementById.
+    setTimeout(() => {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) element.scrollIntoView();
+    }, 0);
+  }
+}
+
 render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={browserHistory}
+    onUpdate={hashLinkScroll}
+    >
       <Route path="/reset/:token" component={ResetPassword} />
       <Route path="/" component={ExampleApp}  >
         <IndexRedirect to="/home" />
@@ -96,11 +117,11 @@ render(
         <Route path='/add' component={Update} />
         <Route path="/foobar" component={AppContainer} onEnter={onCartEnter} onEnter={onUsersEnter} >
           <Route path="/products" component={Products} onEnter={onProductsEnter} />
-          <Route path="/products/:productId" component={Product} />
+          <Route path="/products/:productId" component={Product} onEnter={onProductsEnter} />
           <Route path="/admin/users" component={Users} onEnter={onUsersEnter} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/admin/users/:userId" component={SingleUser} />
+          <Route path="/admin/users/:userId" component={SingleUser}  />
           <Route path="/users/:userId" component={Userprofile} onEnter={OnProfileEnter} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
           <Route path="/currentUserOrders" component={Orders} />

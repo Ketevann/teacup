@@ -86,17 +86,32 @@ class Product extends React.Component {
     // const divStyle = {
     //   width: 450,
     //   height: 430
-    // }
+    // }\let Oneproduct
+    let Oneproduct
     console.log(this.props, ' in product',stars);
-    let product = this.props.product
+    {this.props.products ?
+      Oneproduct = this.props.products.all.filter(product =>{
+        console.log(product, this.props.ownProps.routeParams.productId )
+    if(product.id == this.props.ownProps.routeParams.productId){
+      return product
+    }
+  })
 
+  : null }
+  console.log(Oneproduct, '************')
+  let product = Oneproduct[0]
     return (
+
       <div className="singleproduct flex">
+
         <form onSubmit={this.handleSubmitItem}>
+         {product ?
+           <div>
           <p >{product.name}</p>
           <p>Price: {product.price}</p>
           <img id="singleproducts" src={product.img} />
-
+          </div>
+            :null}
 
           <div className="singleproduct stars">
           {stars !== 0 ?
@@ -122,7 +137,7 @@ class Product extends React.Component {
         <br></br>
         <div>
 
-          <h2> Customer Review</h2>
+          <h2>Customer Review</h2>
 
           {this.props.reviews.all.map((review, i) => {
             return (
@@ -134,7 +149,7 @@ class Product extends React.Component {
         </div>
         <br></br>
         <div >
-         {this.props.auth.id ?
+         {this.props.auth && this.props.auth.id ?
           <form id="reviewform" action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
             <div className="form-group">
 
@@ -143,6 +158,7 @@ class Product extends React.Component {
             <div className="form-group">
               <label htmlFor="textContent">Your Review:</label>
               <div>
+                  <div id="hash"></div>
                <div className= "ratestars">
               <ReactStars
             onChange={this.ratingChanged.bind(this)}
@@ -167,14 +183,24 @@ class Product extends React.Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
 
+
+  return {
+    products: state.products,
+    auth: state.auth,
+    reviews: state.reviews,
+    ownProps
+  }
+}
 
 const filterProducts = (products, productId) => {
+  console.log(products,' product -------->s')
   let productArr = products.all.filter((product) => product.id === (+productId))
   return productArr[0]
 }
 
 export default connect(
-  (state, ownProps) => ({ product: filterProducts(state.products, ownProps.routeParams.productId), auth: state.auth, reviews: state.reviews }),
+  mapStateToProps,
   { getOrMakeOrder, addToCart, postReviews, getProductReviews },
 )(Product)

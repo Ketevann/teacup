@@ -30,7 +30,7 @@ export const login = (email, password) =>
 export const logout = () =>
   dispatch =>{
     console.log(' in logout ')
-   return axios.delete('api/notlogged')
+   return axios.delete('/api/notlogged')
    .then(() => {
      return axios.post('/api/auth/logout')
    })

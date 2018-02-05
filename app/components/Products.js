@@ -114,7 +114,7 @@ class Products extends React.Component {
       }
 
       return (
-        <div key={product.id} className='col-md-4 col-sm-6' >
+        <div key={product.id} className='col-md-4 col-sm-6 items' >
           <Link to={`/products/${product.id}`}>
             <img id="prodimg" src={product.img} />
             <p className="productinfo" data-price="{product.price}">{product.name} $ {product.price}</p>
@@ -140,8 +140,9 @@ class Products extends React.Component {
     }
 
     return (
-      <div className="container prodcuts">
+      <div className="">
         <h1 className="productsheader" onClick={() => { store.dispatch(filterRemove()) }}>All Products</h1>
+
         {this.props.auth && this.props.auth.role === 'admin' ?
           <h1>
             <Link to='/add'><button className="btn btn-default" >Add Products</button></Link></h1> : null}

@@ -18,12 +18,20 @@ const reviewsReducer = (reviews = INITIAL_STATE, action) => {
 
         case GET_ALL_REVIEWS:
           return {...reviews, all: action.reviews}
+          case REMOVE_REVIEW:
+          console.log(action.id, reviews.userReviews )
+            let deletedReviews = reviews.userReviews.filter(elem =>{
+              if(elem.id != action.id) return elem;
+            })
+            return {...reviews, userReviews: deletedReviews}
   }
+
   return reviews
 }
 
 const POST_REVIEWS = 'POST_REVIEWS'
 const GET_ALL_REVIEWS = 'GET_ALL_REVIEWS'
+const REMOVE_REVIEW = 'REMOVE_REVIEW'
 
 
 const postReview = (reviews) => ({type: POST_REVIEWS, reviews})
@@ -31,6 +39,21 @@ const postReview = (reviews) => ({type: POST_REVIEWS, reviews})
 const getReviews = (payload) => ({ type: GET_reviews, payload })
 
 const getAllReviews = reviews => ({type: GET_ALL_REVIEWS, reviews})
+
+const remove = (id) => ({type: REMOVE_REVIEW, id})
+
+export const removeReview = (id, dispatch) =>
+  dispatch =>
+    {
+      console.log('in remove')
+      return axios.delete(`/api/reviews/${id}`)
+  .then(() =>
+  {
+        console.log('dispatching')
+
+    dispatch(remove(id))
+  })
+  .catch(err => console.log(err))}
 
 export const postReviews = (info, dispatch) =>
   dispatch => {

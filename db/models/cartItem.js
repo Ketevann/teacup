@@ -12,9 +12,10 @@ module.exports = (db) => db.define('cartItem', {
   },
   price: {
     type: Sequelize.DECIMAL(10, 2),
-  },
+  }
 })
 
-module.exports.associations = (CartItem, {Product, User}) => {
+module.exports.associations = (CartItem, {Product, User, Order}) => {
   CartItem.belongsTo(Product)
+  CartItem.belongsTo(Order)
 }

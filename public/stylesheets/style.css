@@ -99,11 +99,15 @@ color:#333
 margin-top:250px;
 text-align: center;
       }
+      #prodimg {
+    width: 240px;
+    /* height: 140px; */
+}
 }
 
 @media screen and (max-width: 668px) {
 .productsheader{
-margin-top:140px;
+
 font-size:0.8em;
       }
 }
@@ -136,12 +140,42 @@ background-color: lavender;
   height: 230px;
 }
 
-@media screen and (max-width: 668px) {
-#prodimg{
-width:100px;
-height: 70px;
-
+ /*.prodcuts{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}*/
+@media screen and (max-width: 800px) {
+.input-group .form-control, .input-group-addon, .input-group-btn
+{
+  display: block important!
 }
+}
+@media screen and (max-width: 668px) {
+  .prodcuts{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap
+}
+.navbar-form{
+  display: block
+}
+
+  /*#prodimg{
+
+    width:200px;
+    height: 140px;
+
+  }*/
+  .productsheader{
+    margin-top: 40;
+    font-size: 2.5em;
+  }
+  .input-group{
+    padding-left: 22px;
+    padding-right: 24px
+  }
 }
 
 .btn-danger{
@@ -183,12 +217,12 @@ li.whoami-user-name{
   margin-bottom: 30px;
 }
 
-.form-control {
+/*.form-control {
   position: relative;
   font-size: 16px;
   height: auto;
   padding: 10px;
-}
+}*/
 
 input[type="text"] {
   margin-bottom: 0px;
@@ -383,4 +417,87 @@ form.navbar-form{
 .ratestars{
    display: flex;
   justify-content: center;
+}
+.items {
+  text-align: center
+}
+@media screen and (max-width: 1000px) {
+.navbar-collapse.collapse {
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow-x: visible;
+    -webkit-overflow-scrolling: touch;
+    border-top: 1px solid transparent;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+}
+.navbar-toggle{
+    position: relative;
+    float: right;
+    padding: 9px 10px;
+    /* margin-top: 8px; */
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+}
+
+.searchbutton {
+  height: 23.5
+}
+span#names {
+    margin-left: -169px;
+}
+
+input.icon.search-bar-submit {
+    height: 24px;
+}
+
+@media screen and (max-width: 500px) {
+  .col-md-7 {
+    margin-top: 122px;
+}
+
+}
+
+.orderflex {
+    display: flex;
+    justify-content: space-around;
+    background-color: #2d2d2d;
+    color: ghostwhite;
+    font-family: avenir-book;
+    height: 97px;
+    align-items: center;
+}
+
+#orderimage {
+    vertical-align: middle;
+    max-width: 100%;
+    width: 32%;
+    height: auto;
+    align-items: center;
+
+}
+.address, #orderitems{
+  display: inline-block;
+}
+
+.productdetails {
+    display: flex;
+    align-self: center;
+
+    align-items: center;
+}
+#itemquantity, #itemname, .address {
+  font-family: avenir-book
+}
+
+.productdetails2 {
+    display: flex;
+    flex: 1;
+    justify-content: space-around;
 }

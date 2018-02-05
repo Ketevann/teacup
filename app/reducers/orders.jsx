@@ -7,7 +7,8 @@ const initialState = { userOrders: [], singleOrders: [] }
 /** *********** ACTIONS **********************/
 
 const USER_ORDERS = 'USER_ORDERS'
-export const userOrders = orders => {
+
+export const userOrders = (orders) => {
   console.log(' hereee')
   return { type: USER_ORDERS, orders }
 }
@@ -44,10 +45,10 @@ export const loadAllOrders = () => dispatch => {
     })
 }
 export const loadOrders = dispatch =>
-  dispatch =>{
+  dispatch => {
 
     //dispatch =>
-  console.log('LOAD PRDERS')
+    console.log('LOAD PRDERS')
     return axios.get('/api/auth/whoami')
       .then(response => {
         console.log('response', response)
@@ -55,25 +56,34 @@ export const loadOrders = dispatch =>
         // })
         // .then(user => {
         const userId = response.data.id
-        console.log('userID in ordrs =============',userId )
-        if(userId){
-        return axios.get(`/api/orders/user/${userId}`)
+        console.log('userID in ordrs =============', userId)
+        if (userId) {
+          return axios.get(`/api/orders/user/${userId}`)
 
-      .then(orders => {
-        console.log('orders', orders)
-        dispatch(userOrders(orders.data))
+            .then(orders => {
+              var newObj = orders.data.orders;
+              console.log(newObj, '*****');
+              for (var i =0; i < newObj.length; i++ ){
+                newObj[i].cart = orders.data.cart[i]
+              }
+              // newObj.forEach((elem, index) => {
+              //   elem.cart = newObj[index].cart
+              // })
+              //newObj.carT = orders.data.cart
+              console.log('orders', newObj)
+              dispatch(userOrders(newObj))
+            })
+            .catch(console.error)
+        }
       })
-      .catch(console.error)
-    }
-    })
 
-      //   Promise.all([gettingId])
-      //     .spread(function (userId) {
-      //       return dispatch(gettingOrders(userId))
-      //     })
+    //   Promise.all([gettingId])
+    //     .spread(function (userId) {
+    //       return dispatch(gettingOrders(userId))
+    //     })
 
 
- }
+  }
 //}
 export default orders
 

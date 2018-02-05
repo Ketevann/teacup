@@ -5,37 +5,70 @@ import { loadOrders, loadSingleUserOrders } from 'APP/app/reducers/orders'
 
 class Orders extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.loadOrders()
   }
 
   render() {
-    console.log(this.props, ' props in orders')
-    const {userOrders} = this.props.orders
+    const { userOrders } = this.props.orders
+        console.log(this.props, ' props in orders', userOrders)
+
     return (
       <div id="orders">
-        <table className="table">
-          <thead className="thead-inverse">
-            <tr>
-              <th>Order ID</th>
-              <th>Status</th>
-              <th>Destination</th>
-            </tr>
-          </thead>
-          {userOrders ? userOrders.map((order) => {
-            return (
-              <tbody>
-                <tr>
-                  <th scope="row">{order.id}</th>
-                  <td >{order.status}</td>
-                  <td >{order.Apartment} {order.Street}, {order.City}, {order.State}</td>
 
-                </tr>
-              </tbody>)
-          })
-            : null}
-        </table>
+
+
+        {userOrders ? userOrders.map((order, index) => {
+          console.log(index,' index@@@@', order)
+
+            console.log(order, 'index!!!!')
+          return (
+            <div>
+              <div className="orderflex">
+                <div className="orderrow">
+                  <div>Order Placed</div>
+                  <div>{order.created_at}</div>
+                </div>
+                <div className="orderrow">
+                  <div>Order ID</div>
+                  <div>{order.id}</div>
+                </div>
+                <div className="orderrow">
+                  <div>Status</div>
+                  <div>{order.status}</div>
+                </div>
+                <div className="orderrow">
+                  <div>Total</div>
+                  <div>{Number(order.cart.quantity) * Number(order.cart.price)}</div>
+                </div>
+              </div>
+              <div className='productdetails'>
+                <img id="orderimage" src={order.cart.product.img} alt="" />
+                <div className='productdetails2'>
+                  <div id="orderitems">
+                    <div id="itemname">Name: {order.cart.product.name}</div>
+                    <div id="itemquantity">Quantity: {order.cart.quantity}</div>
+                  </div>
+                  <div className="address">
+                    <div id="itemname">Address</div>
+                    <div>{order.Street}, {order.Apartment} </div>
+
+                    <div>{order.City}, {order.State} {order.zipCode}</div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          )
+
+           })
+
+
+          : null}
       </div>
+
     )
   }
 }
@@ -49,4 +82,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {loadOrders})(Orders)
+export default connect(mapStateToProps, { loadOrders })(Orders)

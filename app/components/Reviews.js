@@ -1,17 +1,28 @@
 import React, { Component } from 'react'
 import { } from 'APP/app/reducers/auth'
 import { connect } from 'react-redux'
-import { fetchReviews } from 'APP/app/reducers/reviews'
+import { fetchReviews, removeReview } from 'APP/app/reducers/reviews'
+import { Link } from 'react-router'
 
 class Reviews extends Component {
 
-  componentWillMount(){
+  constructor(){
+    super()
+    this.handleOnRemove.bind(this)
+  }
+  componentWillMount() {
     this.props.fetchReviews()
   }
 
+  handleOnRemove = function(id) {
+    console.log('removed')
+    this.props.removeReview(id)
+  }
+
+
   render() {
     console.log(this.props, ' props in orders')
-    const {userReviews} = this.props.reviews
+    const { userReviews } = this.props.reviews
     return (
       <div id="orders">
         <table className="table">
@@ -29,6 +40,8 @@ class Reviews extends Component {
                   <th scope="row">{review.id}</th>
                   <td >{review.created_at}</td>
                   <td >{review.content}</td>
+                   <button onClick={() => this.handleOnRemove(review.id)}>Remove </button>
+                  <Link to={`/products/${review.product_id}#hash`}> <td >update</td> </Link>
 
                 </tr>
               </tbody>)
@@ -41,7 +54,7 @@ class Reviews extends Component {
 }
 
 
-const mapStateToProps = ({reviews}) => {
+const mapStateToProps = ({ reviews }) => {
   console.log(reviews, 'state')
   return {
     reviews: reviews
@@ -49,4 +62,4 @@ const mapStateToProps = ({reviews}) => {
 }
 
 
-export default connect(mapStateToProps, {fetchReviews})(Reviews)
+export default connect(mapStateToProps, { fetchReviews, removeReview })(Reviews)
