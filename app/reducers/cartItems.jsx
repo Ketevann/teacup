@@ -206,7 +206,7 @@ export const loadCartItems = () =>
                         return axios.get(`/api/cartitem/all/${orderId}`)
 
                           .then(cartItems => {
-                            console.log(cartItems, 'cartItems')
+                            console.log(cartItems, '!!!!!!!!!!!')
                             return dispatch(getCart(cartItems.data))
                           })
 

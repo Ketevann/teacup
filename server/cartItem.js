@@ -118,7 +118,7 @@ module.exports = require('express').Router()
 											}
 
 										})
-									promise.push(newPromise) // <-------------- pushing
+									promises.push(newPromise) // <-------------- pushing
 								}
 							}
 							if (!found) {

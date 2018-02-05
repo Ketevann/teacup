@@ -128,6 +128,6 @@ module.exports = require('express').Router()
 			},
 			include: [Product]
 		})
-			.then(orders => res.send(orders))
+			.then(orders => res.send({items: orders}))
 			.catch(err => console.log(err))
 	})
