@@ -41,7 +41,7 @@ class Reviews extends Component {
                   <td >{review.created_at}</td>
                   <td >{review.content}</td>
                    <button onClick={() => this.handleOnRemove(review.id)}>Remove </button>
-                  <Link to={`/products/${review.product_id}#hash`}> <td >update</td> </Link>
+                  <Link to={{ pathname: `/products/${review.product_id}#hash`, state: { placeholder: `${review.content}`, star: `${review.stars}` } }}> <td >update</td> </Link>
 
                 </tr>
               </tbody>)

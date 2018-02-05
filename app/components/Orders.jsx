@@ -48,6 +48,7 @@ class Orders extends Component {
                   <div id="orderitems">
                     <div id="itemname">Name: {order.cart.product.name}</div>
                     <div id="itemquantity">Quantity: {order.cart.quantity}</div>
+                    <div id="itemquantity">Price: {order.cart.price}</div>
                   </div>
                   <div className="address">
                     <div id="itemname">Address</div>

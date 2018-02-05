@@ -61,14 +61,19 @@ class Product extends React.Component {
     //   }
     // })
   }
- ratingChanged (newRating) {
-  console.log(newRating)
-      this.props.postReviews({stars: newRating, productId: this.props.routeParams.productId})
+  ratingChanged(newRating) {
+    console.log(newRating)
+    this.props.postReviews({ stars: newRating, productId: this.props.routeParams.productId })
 
-}
+  }
 
 
   render() {
+    let placeholder = ''
+    if (this.props.location.state && this.props.location.state.placeholder) {
+      placeholder = this.props.location.state.placeholder
+    }
+
     let stars = this.props.reviews.all.map(el => el.star).reduce((accumulator, currentValue) => {
       return accumulator + currentValue
     },
@@ -88,49 +93,51 @@ class Product extends React.Component {
     //   height: 430
     // }\let Oneproduct
     let Oneproduct
-    console.log(this.props, ' in product',stars);
-    {this.props.products ?
-      Oneproduct = this.props.products.all.filter(product =>{
-        console.log(product, this.props.ownProps.routeParams.productId )
-    if(product.id == this.props.ownProps.routeParams.productId){
-      return product
-    }
-  })
+    console.log(this.props, ' in product', stars);
+    {
+      this.props.products ?
+      Oneproduct = this.props.products.all.filter(product => {
+        console.log(product, this.props.ownProps.routeParams.productId)
+        if (product.id == this.props.ownProps.routeParams.productId) {
+          return product
+        }
+      })
 
-  : null }
-  console.log(Oneproduct, '************')
-  let product = Oneproduct[0]
+      : null
+    }
+    console.log(Oneproduct, '************', 'placeholder', placeholder)
+    let product = Oneproduct[0]
     return (
 
       <div className="singleproduct flex">
 
         <form onSubmit={this.handleSubmitItem}>
-         {product ?
-           <div>
-          <p >{product.name}</p>
-          <p>Price: {product.price}</p>
-          <img id="singleproducts" src={product.img} />
-          </div>
-            :null}
+          {product ?
+            <div>
+              <p >{product.name}</p>
+              <p>Price: {product.price}</p>
+              <img id="singleproducts" src={product.img} />
+            </div>
+            : null}
 
           <div className="singleproduct stars">
-          {stars !== 0 ?
-          <ReactStars
-            count={5}
-            size={18}
-            color2={'#ffd700'}
-            value={stars}
-            edit={false}
-          />
-          :
+            {stars !== 0 ?
               <ReactStars
-            count={5}
-            size={18}
-            color2={'#ffd700'}
-            edit={false}
-          />
-        }
-        </div>
+                count={5}
+                size={18}
+                color2={'#ffd700'}
+                value={stars}
+                edit={false}
+              />
+              :
+              <ReactStars
+                count={5}
+                size={18}
+                color2={'#ffd700'}
+                edit={false}
+              />
+            }
+          </div>
           <p> Quantity: <input type="text" onChange={this.handleQuantityChange} /> </p>
           <button className="btn btn-default addproduct" type="submit">Add Product to Cart</button>
         </form>
@@ -149,30 +156,30 @@ class Product extends React.Component {
         </div>
         <br></br>
         <div >
-         {this.props.auth && this.props.auth.id ?
-          <form id="reviewform" action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
-            <div className="form-group">
-
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="textContent">Your Review:</label>
-              <div>
-                  <div id="hash"></div>
-               <div className= "ratestars">
-              <ReactStars
-            onChange={this.ratingChanged.bind(this)}
-            count={5}
-            size={24}
-            color2={'#ffd700'} />
-            </div>
-              <textarea name="textContent" id="" cols="30" rows="10"></textarea>
+          {this.props.auth && this.props.auth.id ?
+            <form id="reviewform" action={`/api/reviews`} method="post" onSubmit={this.onReviewSubmit}>
+              <div className="form-group">
 
               </div>
-            </div>
-            <button className="btn btn-default" type="submit">Add New Review</button>
-          </form>
-          : null }
+
+              <div className="form-group">
+                <label htmlFor="textContent">Your Review:</label>
+                <div>
+                  <div id="hash"></div>
+                  <div className="ratestars">
+                    <ReactStars
+                      onChange={this.ratingChanged.bind(this)}
+                      count={5}
+                      size={24}
+                      color2={'#ffd700'} />
+                  </div>
+                  <textarea  name="textContent" id="" cols="30" rows="10">{placeholder}</textarea>
+
+                </div>
+              </div>
+              <button className="btn btn-default" type="submit">Add New Review</button>
+            </form>
+            : null}
 
         </div>
 
@@ -195,7 +202,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const filterProducts = (products, productId) => {
-  console.log(products,' product -------->s')
+  console.log(products, ' product -------->s')
   let productArr = products.all.filter((product) => product.id === (+productId))
   return productArr[0]
 }
