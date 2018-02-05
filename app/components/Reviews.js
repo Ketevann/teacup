@@ -3,6 +3,7 @@ import { } from 'APP/app/reducers/auth'
 import { connect } from 'react-redux'
 import { fetchReviews, removeReview } from 'APP/app/reducers/reviews'
 import { Link } from 'react-router'
+import ReactStars from 'react-stars'
 
 class Reviews extends Component {
 
@@ -25,23 +26,50 @@ class Reviews extends Component {
     const { userReviews } = this.props.reviews
     return (
       <div id="orders">
-        <table className="table">
+        <table className="table tablefont">
           <thead className="thead-inverse">
             <tr>
-              <th>Review ID</th>
               <th>Date</th>
               <th>Content</th>
+              <th className="reviewstar">Stars</th>
             </tr>
           </thead>
           {userReviews ? userReviews.map((review) => {
+            let content = review.content,
+            date = String(new Date(review.created_at)).slice(0, 28)
+            if (review.content && review.content.length > 200)
+              content = review.content.slice(0, 200) + '...'
             return (
               <tbody>
                 <tr>
-                  <th scope="row">{review.id}</th>
-                  <td >{review.created_at}</td>
-                  <td >{review.content}</td>
-                   <button onClick={() => this.handleOnRemove(review.id)}>Remove </button>
-                  <Link to={{ pathname: `/products/${review.product_id}#hash`, state: { placeholder: `${review.content}`, star: `${review.stars}` } }}> <td >update</td> </Link>
+
+                  <td id="reviewdate">{date}</td>
+                  <td id="reviewcontent" >{content}</td>
+                   <td >
+                     {review.stars  ?
+                <div className="userreviewcontent userstars ">
+              <ReactStars
+                count={5}
+                size={10}
+                color2={'#ffd700'}
+                value={review.stars}
+                edit={false}
+              />
+              </div>
+              :
+              <div className="userreviewcontent userstars">
+              <ReactStars
+                count={5}
+                size={10}
+                color2={'#ffd700'}
+                edit={false}
+              />
+              </div>
+                     }
+
+                   </td>
+                  <td className="reviewedit"> <div onClick={() => this.handleOnRemove(review.id)}>Remove </div>
+                  <Link className="reviewedit" to={{ pathname: `/products/${review.product_id}#hash`, state: { placeholder: `${review.content}`, star: `${review.stars}` } }}> update </Link></td>
 
                 </tr>
               </tbody>)

@@ -4,7 +4,7 @@ var db = require('./index.js');
 
 module.exports = (db) => db.define('reviews', {
     content: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
 
     },
     stars: {

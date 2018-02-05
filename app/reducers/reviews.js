@@ -57,7 +57,7 @@ export const removeReview = (id, dispatch) =>
 
 export const postReviews = (info, dispatch) =>
   dispatch => {
-    console.log(' in fetch reviews~~~~~~')
+    console.log(' in fetch reviews~~~~~~', info)
     axios.get('/api/auth/whoami')
       .then(response => {
         console.log('response', response)
@@ -74,9 +74,14 @@ export const postReviews = (info, dispatch) =>
 
             .then(reviews => {
               console.log('reviews', reviews)
-              dispatch(postReview(reviews.data))
+              let reviewObj = reviews.data.review;
+                reviewObj.user = reviews.data.user
+              dispatch(postReview(reviewObj))
             })
             .catch(console.error)
+        }
+        else {
+          console.log('no user id ', userId)
         }
       })
   }

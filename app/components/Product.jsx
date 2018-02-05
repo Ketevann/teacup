@@ -50,9 +50,11 @@ class Product extends React.Component {
     event.preventDefault()
     let reviewInfo = {
       content: event.target.textContent.value,
-      productId: this.props.routeParams.productId
+      productId: this.props.routeParams.productId,
+      userId: this.props.auth.id
     }
     this.props.postReviews(reviewInfo)
+    event.target.textContent.value = ''
     // fetch("/api/reviews", {
     //   method: "POST",
     //   body: JSON.stringify(reviewInfo),
@@ -69,7 +71,7 @@ class Product extends React.Component {
 
 
   render() {
-    let placeholder = ''
+    let placeholder = ""
     if (this.props.location.state && this.props.location.state.placeholder) {
       placeholder = this.props.location.state.placeholder
     }
@@ -113,9 +115,9 @@ class Product extends React.Component {
 
         <form onSubmit={ (event) => this.handleSubmitItem(event, product)}>
           {product ?
-            <div>
+            <div className="singleproductfont singleproductinfo">
               <p >{product.name}</p>
-              <p>Price: {product.price}</p>
+              <p>Price: ${product.price}</p>
               <img id="singleproducts" src={product.img} />
             </div>
             : null}
@@ -138,17 +140,41 @@ class Product extends React.Component {
               />
             }
           </div>
-          <p> Quantity: <input type="text" onChange={this.handleQuantityChange} /> </p>
+          <p className="singleproductfont"> Quantity: <input type="text" onChange={this.handleQuantityChange} /> </p>
           <button className="btn btn-default addproduct" type="submit">Add Product to Cart</button>
         </form>
         <br></br>
         <div>
 
-          <h2>Customer Review</h2>
+          <h2 className="singleproductfont">Customer Review</h2>
 
           {this.props.reviews.all.map((review, i) => {
             return (
-              <div>{review.content} </div>
+              <div id="userreview">
+              <div className="userreviewcontent">{review.user.name}:</div>
+
+              {review.stars  ?
+                <div className="userreviewcontent userstars">
+              <ReactStars
+                count={5}
+                size={10}
+                color2={'#ffd700'}
+                value={review.stars}
+                edit={false}
+              />
+              </div>
+              :
+              <div className="userreviewcontent userstars">
+              <ReactStars
+                count={5}
+                size={10}
+                color2={'#ffd700'}
+                edit={false}
+              />
+              </div>
+            }
+              <div className="reviewcontent"> {review.content} </div>
+              </div>
             )
           }
           )}
@@ -163,7 +189,7 @@ class Product extends React.Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="textContent">Your Review:</label>
+                <label htmlFor="textContent" className="singleproductfont">Your Review:</label>
                 <div>
                   <div id="hash"></div>
                   <div className="ratestars">
@@ -173,11 +199,11 @@ class Product extends React.Component {
                       size={24}
                       color2={'#ffd700'} />
                   </div>
-                  <textarea  name="textContent" id="" cols="30" rows="10">{placeholder}</textarea>
+                  <textarea id="textarea" name="textContent" id="" cols="30" rows="10">{placeholder}</textarea>
 
                 </div>
               </div>
-              <button className="btn btn-default" type="submit">Add New Review</button>
+              <button className="singleproductfont btn btn-default" type="submit">Add New Review</button>
             </form>
             : null}
 

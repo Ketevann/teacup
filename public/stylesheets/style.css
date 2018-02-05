@@ -55,7 +55,7 @@ font-size: 1.5em;
 margin-left: 100px;
 }*/
 
-.users, table, .singleproduct, #orders, .products, .productsheader{
+.users, table, #orders, .products, .productsheader{
 margin-top:50px;
 }
 .productsheader{
@@ -402,7 +402,15 @@ form.navbar-form{
   }
 .updatebtn, .removebtn{
     margin-top: 10px;
-  margin-left: 30px
+  margin-left: 30px;
+
+
+}
+input.btn.btn-default.updatebtn{
+   border: 0px;
+}
+.removebtn {
+    margin-left: 39px;
 }
 .updateinput{
    margin-top: 10px;
@@ -493,11 +501,73 @@ input.icon.search-bar-submit {
     align-items: center;
 }
 #itemquantity, #itemname, .address {
-  font-family: avenir-book
+  font-family: avenir-book;
+   padding: 1px;
 }
 
 .productdetails2 {
     display: flex;
     flex: 1;
     justify-content: space-around;
+}
+.address{
+  padding-left: 15px
+}
+
+.userreviewcontent{
+  display: inline-block;
+  font-family: avenir-book
+}
+
+span.userreviewcontent {
+    padding-left: 10px;
+}
+
+.userstars {
+    padding-left: 7px;
+    position: relative;
+    top: 2px;
+}
+.reviewcontent{
+  font-family: avenir-book
+}
+.singleproductfont, .tablefont, .cart{
+  font-family: avenir-book
+}
+.singleproductinfo{
+  font-size: 1.4em;
+}
+#textarea{
+  border: 2px #ccc solid
+}
+
+.formgroup {
+    display: inline-block;
+    margin-left: 10px;
+}
+#names {
+ margin-left: 10px;
+
+}
+
+#reviewcontent{
+  width: 300px
+}
+
+.reviewedit{
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+
+#reviewdate{
+  width: 300px;
+}
+
+.nav.navbar.navbar-default{
+  width: 100%;
+}
+
+.total{
+  margin-top: -28px;
 }

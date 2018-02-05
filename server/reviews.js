@@ -40,9 +40,9 @@ module.exports = require('express').Router()
             .catch(next))
 
     .post('/',
-    (req, res, next) =>
-    {console.log(req.body, 'req body reviews')
-        Review.find({
+    (req, res, next) => {
+        console.log(req.body, 'req body reviews')
+        return Review.find({
             where: {
                 user_id: req.body.userId,
                 product_id: req.body.productId
@@ -66,17 +66,17 @@ module.exports = require('express').Router()
                                 .then(() => {
                                     return User.find({
                                         where: {
-                                            id: createdReview.user_id
+                                            id: req.body.userId
                                         }
                                     })
                                         .then(user => {
-                                            createdReview.user = user
 
-                                            res.send(createdReview)
+                                   return res.send({ review: createdReview, user })
                                         })
 
 
-                                })
+                                }).catch(err => console.log(err))
+
                         })
                 }
                 else {
@@ -97,23 +97,24 @@ module.exports = require('express').Router()
 
                             return User.find({
                                 where: {
-                                    id: review.user_id
+                                    id: req.body.userId
                                 }
                             })
                                 .then(user => {
-                                    updated.user = user
 
-                                    res.send(updated)
+                                    return res.send({ review: updated, user })
                                 })
 
 
                         })
+                        .catch(err => console.log(err))
 
 
 
                 }
 
-            })
+            }).catch(err => console.log(err))
+
     })
 
     .delete('/:id', (req, res) => {
