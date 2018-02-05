@@ -19,7 +19,7 @@ var temp = [];
 let accumulate = (acc, cur ) => {
 
   console.log(acc, cur)
-  return acc+ cur
+  return Number(acc)+ Number(cur)
 }
 class NavigationBar extends Component {
 

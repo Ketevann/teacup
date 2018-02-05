@@ -35,7 +35,7 @@ render(){
             <h4>Already a memeber ?</h4><span><Link to="/login">Login </Link></span>
             <hr className="colorgraph" /><br />
             <input type="text" className="form-control" name="name" placeholder="Username" required autofocus />
-            <input type="password" className="form-control" name="email" placeholder="email" required autofocus />
+            <input className="form-control" name="email" placeholder="email" required autofocus />
             <input type="password" className="form-control" name="password" placeholder="Password" required />
             {
               auth && auth.user === 'error' ?
