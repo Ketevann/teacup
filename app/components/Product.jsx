@@ -20,10 +20,10 @@ class Product extends React.Component {
     this.handleQuantityChange = this.handleQuantityChange.bind(this)
   }
 
-  handleSubmitItem = function (event) {
+  handleSubmitItem = function (event, product) {
     event.preventDefault()
     console.log(this.props)
-    const { id, price } = this.props.product
+    const { id, price } = product
     let itemInfo = { quantity: this.state.quantity, productId: id, price, userId: this.props.auth.id }
     //this.props.addToCart(itemInfo)
     this.props.getOrMakeOrder(itemInfo)
@@ -111,7 +111,7 @@ class Product extends React.Component {
 
       <div className="singleproduct flex">
 
-        <form onSubmit={this.handleSubmitItem}>
+        <form onSubmit={ (event) => this.handleSubmitItem(event, product)}>
           {product ?
             <div>
               <p >{product.name}</p>
