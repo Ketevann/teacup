@@ -44,7 +44,6 @@ module.exports = require('express').Router()
     //post a new review. If a reviews already exists update an existing review
     .post('/',
     (req, res, next) => {
-        console.log(req.body, 'req body reviews')
         return Review.find({
             where: {
                 user_id: req.body.userId,
@@ -107,7 +106,6 @@ module.exports = require('express').Router()
 
     //delete a specific review
     .delete('/:id', (req, res) => {
-        console.log(req.params.id)
         return Review.destroy({
             where: {
                 id: req.params.id

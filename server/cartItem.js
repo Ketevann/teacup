@@ -9,7 +9,6 @@ const Promise = require('bluebird')
 module.exports = require('express').Router()
 // add item to cart
 	.post('/', (req, res, next) => {
-		console.log('in cart item', req.body)
 		let price = Number(req.body.price)
 		let product_id = req.body.productId
 		let order_id = req.body.orderId
@@ -110,8 +109,6 @@ module.exports = require('express').Router()
 
 						return Promise.all(promises)
 							.then(function (carts) {
-								console.log(carts, 'carts', carts)
-
 								CartItem.findAll({
 									where: {
 										order_id: orderId
@@ -135,7 +132,6 @@ module.exports = require('express').Router()
 //update order status on checkout
 	.put('/checkout/:orderId', (req, res, next) => {
 		let orderId = req.params.orderId
-		console.log(orderId, 'checkou!!!======>');
 		Order.findById(orderId)
 			.then(order => order.setStatus('sent'))
 			.then(items => res.send(items))
@@ -144,7 +140,6 @@ module.exports = require('express').Router()
 
 	//update cart item
 	 .put('/', (req, res, next) => {
-			console.log(' in update', req.body)
 				CartItem.find({
 			where: {
 				product_id : req.body.productId,
@@ -168,7 +163,6 @@ module.exports = require('express').Router()
 
 	 //delete cart item
 	.delete('/delete/:id/:orderId', (req, res, next) => {
-		console.log(req.body, 'req.body')
 		CartItem.find({
 			where: {
 				product_id : req.params.id,
@@ -176,7 +170,6 @@ module.exports = require('express').Router()
 			}
 		})
 		.then(cart => {
-		//	console.log(cart)
 			return cart.destroy()
 		})
 		.then(() => res.send(204))

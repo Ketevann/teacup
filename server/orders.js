@@ -20,7 +20,10 @@ module.exports = require('express').Router()
   (req, res, next) =>
     Order.findAll({
       where: {
-        user_id: req.params.userId
+        user_id: req.params.userId,
+        status: ['pending', 'on its way', 'sent', 'canceled']
+
+
       }
     })
       .then((orders) => {

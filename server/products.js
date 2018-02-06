@@ -73,7 +73,6 @@ module.exports = require('express').Router()
   (req, res, next) => {
     req.product.update(req.body)
       .then((products) => {
-        console.log('products', products[0])
         res.status(200).json(products)
       })
       .catch(next)
