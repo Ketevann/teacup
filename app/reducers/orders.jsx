@@ -14,7 +14,7 @@ export const userOrders = (orders) => {
 }
 
 export const alluserOrders = orders => {
-  return {type: GET_ALL_ORDERS, orders}
+  return { type: GET_ALL_ORDERS, orders }
 }
 
 const SINGLE_ORDERS = 'SINGLE_ORDERS'
@@ -35,7 +35,7 @@ const orders = (state = initialState, action) => {
     case CANCEL:
       return { listnames: false }
     case GET_ALL_ORDERS:
-      return {...newstate, allOrders: action.orders}
+      return { ...newstate, allOrders: action.orders }
     default:
       return newstate
   }
@@ -54,44 +54,23 @@ export const loadAllOrders = () => dispatch => {
 }
 export const loadOrders = dispatch =>
   dispatch => {
-
-    //dispatch =>
-    console.log('LOAD PRDERS')
     return axios.get('/api/auth/whoami')
       .then(response => {
-        console.log('response', response)
-        // return response.data
-        // })
-        // .then(user => {
         const userId = response.data.id
-        console.log('userID in ordrs =============', userId)
         if (userId) {
           return axios.get(`/api/orders/user/${userId}`)
-
             .then(orders => {
+              console.log(orders.data, '========>')
               var newObj = orders.data.orders;
-              console.log(newObj, '*****');
-              for (var i =0; i < newObj.length; i++ ){
+              for (var i = 0; i < newObj.length; i++) {
                 newObj[i].cart = orders.data.cart[i]
               }
-              // newObj.forEach((elem, index) => {
-              //   elem.cart = newObj[index].cart
-              // })
-              //newObj.carT = orders.data.cart
-              console.log('orders', newObj)
               dispatch(userOrders(newObj))
             })
             .catch(console.error)
         }
       })
-
-    //   Promise.all([gettingId])
-    //     .spread(function (userId) {
-    //       return dispatch(gettingOrders(userId))
-    //     })
-
-
   }
-//}
+
 export default orders
 

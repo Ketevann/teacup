@@ -78,7 +78,7 @@ const onUsersEnter = () => {
 
 const OnProfileEnter = () => {
   console.log('profile enter')
-  store.dispatch(getUserInfo())
+  //store.dispatch(getUserInfo())
 
 }
 
