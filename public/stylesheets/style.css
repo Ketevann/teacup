@@ -396,7 +396,7 @@ form.navbar-form{
 
 .removebtn{
  margin-top: 10px;
-  margin-left: 30px
+  margin-left: 4px
 
   }
 
@@ -406,16 +406,16 @@ form.navbar-form{
   }
 .updatebtn, .removebtn{
     margin-top: 10px;
-  margin-left: 30px;
+  /*margin-left: 30px;*/
 
 
 }
 input.btn.btn-default.updatebtn{
    border: 0px;
 }
-.removebtn {
+/*.removebtn {
     margin-left: 39px;
-}
+}*/
 .updateinput{
    margin-top: 10px;
 }
