@@ -1,5 +1,8 @@
 import axios from 'axios'
 import store from '../store'
+import {fetchReviews} from './reviews'
+import {loadOrders} from './orders'
+
 const initialState = { users: [] }
 /*************ACTIONS **********************/
 const GET_USERS = 'GET_USERS'
@@ -55,3 +58,5 @@ export const updateUser = (userId, status) =>
       })
       .catch(err => console.error)
 export default userReducer
+
+

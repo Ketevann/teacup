@@ -20,14 +20,14 @@ class Orders extends Component {
 
         {userOrders ? userOrders.map((order, index) => {
           console.log(index,' index@@@@', order)
-
+          let date = String(new Date(order.created_at)).slice(0, 28)
             console.log(order, 'index!!!!')
           return (
             <div>
               <div className="orderflex">
                 <div className="orderrow">
                   <div>Order Placed</div>
-                  <div>{order.created_at}</div>
+                  <div>{date}</div>
                 </div>
                 <div className="orderrow">
                   <div>Order ID</div>

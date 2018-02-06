@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { deleteUser, updateUser } from '../reducers/users'
 import { fetchReviews } from '../reducers/reviews'
 import { loadOrders } from '../reducers/orders'
+import { whoami } from '../reducers/auth'
+
 
 
 import Userform from './Userform'
@@ -13,6 +15,8 @@ import _ from 'lodash'
 class Userprofile extends Component {
 
   componentWillMount() {
+    console.log('mounting userprofile')
+    this.props.whoami()
     this.props.loadOrders()
     this.props.fetchReviews();
   }
@@ -37,5 +41,5 @@ const mapState = (state, ownProps) => {
     reviews
   }
 }
-const mapDispatch = { deleteUser, updateUser, loadOrders, fetchReviews }
+const mapDispatch = { deleteUser, updateUser, loadOrders, fetchReviews, whoami}
 export default connect(mapState, mapDispatch)(Userprofile)

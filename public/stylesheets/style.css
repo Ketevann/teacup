@@ -55,8 +55,12 @@ font-size: 1.5em;
 margin-left: 100px;
 }*/
 
-.users, table, #orders, .products, .productsheader{
+.users, table, .products, .productsheader{
 margin-top:50px;
+}
+
+#orders{
+  padding-bottom: 28px;
 }
 .productsheader{
 text-align: center;
@@ -509,6 +513,7 @@ input.icon.search-bar-submit {
     display: flex;
     flex: 1;
     justify-content: space-around;
+    padding-top: 30px;
 }
 .address{
   padding-left: 15px

@@ -10,7 +10,7 @@ import {
 import {
   Nav, Navbar, NavItem, MenuItem, NavDropdown,
   FormGroup, FormControl, ControlLabel,
-  Button
+  Button, Popover
 
 } from 'react-bootstrap';
 import {
@@ -33,9 +33,11 @@ class NavigationBar extends Component {
   }
 
 
-  someFunc = (name) => {
+  someFunc = () => {
     var nameField = document.getElementById('search');
-    nameField.value = name
+    document.getElementById('names').innerHTML = '';
+
+    nameField.value = ''
 
   }
 
@@ -44,7 +46,7 @@ class NavigationBar extends Component {
   }
 
   findWords = (text) => {
-    console.log(text,' text in find words')
+    console.log(text, ' text in find words')
     text = text.toLowerCase()
     if (typeof text[temp.length] === 'string') temp.push(text[temp.length])
     let complete = []
@@ -132,8 +134,8 @@ class NavigationBar extends Component {
           </Nav>
           <Nav pullRight className="right">
             {this.props.products && this.props.products.path === true ?
-
-                <Navbar.Form pullLeft
+              <Navbar.Form pullLeft>
+                <form
                   onSubmit={(evt) => {
                     evt.preventDefault()
                     store.dispatch(search(evt.target.search.value))
@@ -149,47 +151,51 @@ class NavigationBar extends Component {
                     />
                   </FormGroup>{' '}
 
-                        <Button type="submit"><i className="glyphicon glyphicon-search" /></Button>
+                  <Button type="submit"><i className="glyphicon glyphicon-search" /></Button>
 
 
 
                   <div className="autocomplete" >
                     {this.props.searched && this.props.searched.listnames ?
                       this.props.searched.names.map(names => {
-                        return <div onClick={() => this.someFunc(names)} id="names">{names}</div>
+                        return <div onClick={() => {
+                          store.dispatch(search(names))
+                          this.someFunc()
+                        }
+                        } id="names">{names}</div>
                       })
                       : null} </div>
-                </Navbar.Form> : null}
+                </form> </Navbar.Form> : null}
 
             {this.props.authUser && this.props.authUser.name ?
-                  <Nav>
-                    <NavItem className="usernamelogout">
-                      {this.props.authUser && this.props.authUser.name}
-                    </NavItem>
-                    <NavItem>
-                      <button className="usernamelogout" onClick={() => this.clickHandler()}>Logout</button>
-                    </NavItem>
-                  </Nav>
-                  :
-                  <NavItem eventKey={3} href="#">
-                    <Link id="loginlink" to="/login">Login</Link>
-                  </NavItem>
-
-                }
-                <NavItem eventKey={2} href="#">
-                  <Link className="link menu-icon" to='/cart'>Cart({this.props.cart && this.props.cart.items ? this.props.cart.items.map(el => el.quantity).reduce(accumulate, 0) : 0})</Link>
+              <Nav>
+                <NavItem className="usernamelogout">
+                  {this.props.authUser && this.props.authUser.name}
+                </NavItem>
+                <NavItem>
+                  <button className="usernamelogout" onClick={() => this.clickHandler()}>Logout</button>
                 </NavItem>
               </Nav>
+              :
+              <NavItem eventKey={3} href="#">
+                <Link id="loginlink" to="/login">Login</Link>
+              </NavItem>
+
+            }
+            <NavItem eventKey={2} href="#">
+              <Link className="link menu-icon" to='/cart'>Cart({this.props.cart && this.props.cart.items ? this.props.cart.items.map(el => el.quantity).reduce(accumulate, 0) : 0})</Link>
+            </NavItem>
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
 
-          )
+    )
   }
 }
 const mapStateToProps = (state, ownProps) => {
-  return {authUser: state.auth, cart: state.cartItems, searched: state.searchNames, products: state.products }
+  return { authUser: state.auth, cart: state.cartItems, searched: state.searchNames, products: state.products }
 }
-export default connect(mapStateToProps, {login, logout, filterRemove, cancelSearch, search })(NavigationBar)
+export default connect(mapStateToProps, { login, logout, filterRemove, cancelSearch, search })(NavigationBar)
 
 
 

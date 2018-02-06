@@ -16,7 +16,7 @@ import { loadCartItems } from 'APP/app/reducers/cartItems'
 import Users from './components/Users'
 import SingleUser from './components/SingleUser'
 import Cart from './components/Cart'
-import { fetchUsers } from './reducers/users'
+import { fetchUsers, getUserInfo } from './reducers/users'
 import Orders from './components/Orders'
 import AllOrders from './components/AllOrders'
 import AppContainer from './components/AppContainer'
@@ -78,15 +78,14 @@ const onUsersEnter = () => {
 
 const OnProfileEnter = () => {
   console.log('profile enter')
-  store.dispatch(whoami())
-  store.dispatch(loadOrders())
-  store.dispatch(fetchReviews());
+  store.dispatch(getUserInfo())
+
 }
 
 
 const OnHomeEnter = () => {
   //store.dispatch(loadCartItems())
-    store.dispatch(whoami())
+   // store.dispatch(whoami())
 
 }
 

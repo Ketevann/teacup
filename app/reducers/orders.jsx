@@ -2,7 +2,7 @@ import axios from 'axios'
 import Promise from 'bluebird'
 import store from '../store'
 
-const initialState = { userOrders: [], singleOrders: [] }
+const initialState = { userOrders: [], singleOrders: [], allOrders: [] }
 
 /** *********** ACTIONS **********************/
 
@@ -11,6 +11,10 @@ const USER_ORDERS = 'USER_ORDERS'
 export const userOrders = (orders) => {
   console.log(' hereee')
   return { type: USER_ORDERS, orders }
+}
+
+export const alluserOrders = orders => {
+  return {type: GET_ALL_ORDERS, orders}
 }
 
 const SINGLE_ORDERS = 'SINGLE_ORDERS'
@@ -30,18 +34,22 @@ const orders = (state = initialState, action) => {
       return { listnames: true, names: action.names }
     case CANCEL:
       return { listnames: false }
+    case GET_ALL_ORDERS:
+      return {...newstate, allOrders: action.orders}
     default:
       return newstate
   }
 }
 const SEARCH = 'SEARCH'
 const CANCEL = 'CANCEL'
+const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
 export const searchProduct = (names) => ({ type: SEARCH, names })
 export const cancelSearch = () => ({ type: CANCEL })
+
 export const loadAllOrders = () => dispatch => {
   axios.get('/api/orders')
     .then(orders => {
-      dispatch(userOrders(orders.data))
+      dispatch(alluserOrders(orders.data))
     })
 }
 export const loadOrders = dispatch =>

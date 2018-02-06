@@ -21,6 +21,7 @@ const reducer = (state = initialState, action) => {
     case ADD_PRODUCT:
       return [...state, action.product]
     case FIND:
+    console.log('in FIND!!!!!', action.val)
       return {...state,  all: state.all, search: true, val: action.val }
     case REMOVE_FILTER:
       return {...state,  all: state.all, search: false }
@@ -28,11 +29,6 @@ const reducer = (state = initialState, action) => {
 
       return { ...state, path: action.payload }
 
-    // case SEARCH:
-    // console.log('in search', action)
-    //   return {listnames:true, names: action.names}
-    // case CANCEL:
-    // return {listnames:false}
   }
 
   return state

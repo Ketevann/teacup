@@ -35,6 +35,7 @@ class Product extends React.Component {
   }
 
   componentWillMount() {
+    let productId = this.props.routeParams.productId.replace('#hash', '')
     this.props.getProductReviews(this.props.routeParams.productId)
     // axios.get(`/api/reviews/${this.props.routeParams.productId}`)
     //   .then(res => res.data)
@@ -48,9 +49,11 @@ class Product extends React.Component {
 
   onReviewSubmit(event, title) {
     event.preventDefault()
+    let productId = this.props.routeParams.productId.replace('#hash', '')
+
     let reviewInfo = {
       content: event.target.textContent.value,
-      productId: this.props.routeParams.productId,
+      productId: productId,
       userId: this.props.auth.id
     }
     this.props.postReviews(reviewInfo)
@@ -65,7 +68,9 @@ class Product extends React.Component {
   }
   ratingChanged(newRating) {
     console.log(newRating)
-    this.props.postReviews({ stars: newRating, productId: this.props.routeParams.productId })
+   let productId = this.props.routeParams.productId.replace('#hash', '')
+
+    this.props.postReviews({ stars: newRating, productId: productId })
 
   }
 
@@ -94,13 +99,14 @@ class Product extends React.Component {
     //   width: 450,
     //   height: 430
     // }\let Oneproduct
-    let Oneproduct
+    let Oneproduct,
+    productId = this.props.ownProps.routeParams.productId.replace('#hash', '')
     console.log(this.props, ' in product', stars);
     {
       this.props.products ?
       Oneproduct = this.props.products.all.filter(product => {
-        console.log(product, this.props.ownProps.routeParams.productId)
-        if (product.id == this.props.ownProps.routeParams.productId) {
+        console.log(product, productId)
+        if (product.id == productId) {
           return product
         }
       })
