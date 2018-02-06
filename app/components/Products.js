@@ -18,7 +18,7 @@ var temp = [];
 class Products extends React.Component {
   constructor(props) {
     super(props)
-     this.state = {
+    this.state = {
       loading: true
     }
     this.handleClick = this.handleClick.bind(this)
@@ -32,6 +32,9 @@ class Products extends React.Component {
   }
 
 
+  componentWillUnmount() {
+    store.dispatch(this.props.updatePath(false))
+  }
   handleClick = (id, action) => {
     if (action === 'delete')
       this.props.deleteProduct(id)
@@ -47,7 +50,7 @@ class Products extends React.Component {
 
   renderProduct(allproducts) {
     return allproducts.map((product) => {
-      if (product.length === 0){
+      if (product.length === 0) {
         return <div>Your search did not return any results</div>
       }
 
@@ -61,7 +64,7 @@ class Products extends React.Component {
             <button className="rmedit btn btn-default" onClick={() => this.handleClick(product.id, 'delete')}>Remove</button> : null}
           {this.props.auth && this.props.auth.role === 'admin' ?
             <Link to={`/update/${product.id}`}><button className="btn btn-default" >Edit</button></Link> :
-             null}
+            null}
 
 
         </div>
@@ -88,11 +91,11 @@ class Products extends React.Component {
           this.props.products.all ?
             <div>{this.renderProduct(this.props.products.all)}</div>
             : <div className='sweet-loading'>
-        <BarLoader
-          color={'#123abc'}
-          loading={this.state.loading}
-        />
-      </div>
+              <BarLoader
+                color={'#123abc'}
+                loading={this.state.loading}
+              />
+            </div>
         }
       </div>
 
