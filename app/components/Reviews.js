@@ -27,11 +27,12 @@ class Reviews extends Component {
     return (
       <div id="orders">
         <table className="table tablefont">
-          <thead className="thead-inverse">
+          <thead align="right" >
             <tr>
-              <th>Date</th>
-              <th>Content</th>
-              <th className="reviewstar">Stars</th>
+              <th className="text-center">Date</th>
+              <th className="text-center">Product</th>
+              <th className="text-center">Content</th>
+              <th className="reviewstar text-center">Stars</th>
             </tr>
           </thead>
           {userReviews ? userReviews.map((review) => {
@@ -44,6 +45,12 @@ class Reviews extends Component {
                 <tr>
 
                   <td id="reviewdate">{date}</td>
+                  <td id="reviewdate">
+                  <div id="reviewimgname">
+                  <div id="reviewpeoductname">{review.product.name}</div>
+                  <img id="reviewpeoductimg" src={review.product.img} alt=""/>
+                  </div>
+                  </td>
                   <td id="reviewcontent" >{content}</td>
                    <td >
                      {review.stars  ?

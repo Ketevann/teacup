@@ -7,6 +7,7 @@ const Order = db.model('order')
 const Promise = require('bluebird')
 
 module.exports = require('express').Router()
+// add item to cart
 	.post('/', (req, res, next) => {
 		console.log('in cart item', req.body)
 		let price = Number(req.body.price)
@@ -15,9 +16,7 @@ module.exports = require('express').Router()
 		let quantity = req.body.quantity
 
 		let newCartItem = { price: price, product_id: product_id, order_id: order_id, quantity: quantity }
-		// if (req.body.userId === undefined) {
-
-		// }
+		// if cart does not exist, create a new cart
 		CartItem.find({
 			where: {
 				order_id: order_id,
@@ -26,22 +25,14 @@ module.exports = require('express').Router()
 		})
 			.then(cart => {
 				if (!cart) {
-					console.log('does not exist cart')
 					return CartItem.create(newCartItem)
 				}
 				else {
-					console.log('in esle', cart)
-
-
-					console.log('in else', cart)
-					let price = (Number(cart.price) + Number(Number(req.body.price))),
-						quantity = (Number(Number(req.body.quantity)) + Number(cart.quantity))
-					console.log((Number(cart.price) + Number(price)), (Number(quantity) + Number(cart.quantity)), ' CHECKING CART', req.body.price, cart.price, req.body.quantity, cart.quantity, cart)
-
-					return cart.update({ price: price, quantity: quantity },
+					// if product already in a cart, updates quanity of the product
+					let	quantity = (Number(Number(req.body.quantity)) + Number(cart.quantity))
+									return cart.update({ quantity },
 						{
 							where: {
-
 								product_id: product_id,
 								order_id: req.body.orderId
 							}
@@ -49,18 +40,8 @@ module.exports = require('express').Router()
 					)
 
 				}
-			})
-
-			//return CartItem.create(newCartItem)
-			.then(result => {
-				console.log(result, 'result ---->', req.body.orderId)
-				Product.findAll({
-					where: {
-						id: product_id
-					}
-				})
+			})	// return all cart items and associated products
 					.then(product => {
-						console.log(product)
 						return CartItem.findAll({
 							where: {
 								order_id: req.body.orderId
@@ -68,19 +49,17 @@ module.exports = require('express').Router()
 							include: [{ model: Product }]
 						})
 							.then(items => {
-								console.log(items, product, '******s')
-								res.send({ items, product })
+								res.send({ items, product: [] })
 							})
-
 					})
-
-			})
 			.catch(next)
 
 	})
+	// get all items from cart for  a specific order number
 	.get('/all/:orderId', (req, res, next) => {
 		let found, promises = []
 		let orderId = req.params.orderId
+		// get items from logged in cart
 		CartItem.findAll({
 			where: {
 				order_id: orderId
@@ -88,30 +67,29 @@ module.exports = require('express').Router()
 			include: [{ model: Product }]
 		})
 			.then(items => {
-
+				// get items from non logged cart
 				NonLoggedCart.findAll({
 					where: {
 						sessionId: req.session.id
 					}
 				})
 					.then(sessionCartItems => {
-						//	console.log(sessionCartItems, 'ITEMS', items, "IMTEEES" )
-						let found, promises = [] // <----- create empty array
+						let found, promises = []
+						// merge non logged and logged cart items
 						sessionCartItems.forEach(notLoggedIn => {
 							found = false;
 							for (var i = 0; i < items.length; i++) {
-								// console.log('items[i]', items[i],'items[i].instance', items[i].Instance, 'notLoggedIn instance', notLoggedIn.Instance, notLoggedIn, ' notLoggedIn');
+								// when product ids match -
 								if (items[i].dataValues.product_id ===
 									notLoggedIn.dataValues.product_id
 								) {
 									found = true;
-									let price = Number(items[i].dataValues.price) +
-										Number(notLoggedIn.dataValues.price);
+									// let price = Number(items[i].dataValues.price) +
+									// 	Number(notLoggedIn.dataValues.price);
 									let quantity = Number(items[i].dataValues.quantity) +
 										Number(notLoggedIn.dataValues.quantity);
-									console.log(price, 'PRICEEEEEEE', items[i].dataValues.quantity, items[i].dataValues.product_id)
 
-									var newPromise = items[i].update({ price: price, quantity: quantity },
+									var newPromise = items[i].update({quantity },
 										{
 											where: {
 												product_id: items[i].dataValues.product_id

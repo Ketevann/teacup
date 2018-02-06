@@ -8,7 +8,7 @@ const Promise = require('bluebird')
 
 
 module.exports = require('express').Router()
-
+  // delete a non logged cart for a specic session
   .delete('/', (req, res) => {
     NonLoggedCart.destroy({
       where: {
@@ -21,9 +21,8 @@ module.exports = require('express').Router()
       .catch(err => console.log(err))
   })
 
-
+  //delete a cart item
   .delete('/delete/:id', (req, res, next) => {
-    console.log(req.body, 'req.body')
     NonLoggedCart.find({
       where: {
         product_id: req.params.id,
@@ -31,15 +30,13 @@ module.exports = require('express').Router()
       }
     })
       .then(cart => {
-        //	console.log(cart)
         return cart.destroy()
       })
       .then(() => res.send(204))
       .catch(err => console.log(err))
   })
-
+  //update a cart item
   .put('/', (req, res, next) => {
-    console.log(' in update', req.body)
     NonLoggedCart.find({
       where: {
         product_id: req.body.productId,
@@ -57,12 +54,10 @@ module.exports = require('express').Router()
         }
       })
 
-
   })
 
-
+  // add to cart
   	.post('/', (req, res) => {
-		console.log(' in not logged in', req.session.id, req.body)
 		NonLoggedCart.find({
 			where: {
 				sessionId: req.session.id,
@@ -70,8 +65,8 @@ module.exports = require('express').Router()
 			}
 		})
 			.then(session => {
+        //if cart does not exist, create a new cart
 				if (!session) {
-					console.log('session does not exist')
 					return NonLoggedCart.create({
 
 						quantity: req.body.quantity,
@@ -80,48 +75,38 @@ module.exports = require('express').Router()
 						product_id: req.body.productId
 
 					})
-					// .then(cart => {
-					// 	res.send(cart)
-					// })
+
 				} else {
-					console.log(session, 'SESSION')
+          // update quantity if the product is already in cart
+				let quantity = (Number(Number(req.body.quantity)) + Number(session.quantity))
 
-
-					let price = (Number(session.price) + Number(Number(req.body.price))),
-						quantity = (Number(Number(req.body.quantity)) + Number(session.quantity))
-					console.log((Number(session.price) + Number(price)), (Number(quantity) + Number(session.quantity)), ' CHECKING session', req.body.price, session.price, req.body.quantity, session.quantity, session)
-
-					return session.update({ price: price, quantity: quantity },
+					return session.update({ quantity },
 						{
 							where: {
-
 								product_id: req.body.productId,
 								sessionId: req.session.id
 							}
 						}
 					)
 						.then(updated => {
-							console.log(updated, 'UPDATED')
-							//	res.send(updated)
-
+							console.log('UPDATED')
 						})
 				}
 
 			})
 			.then(() => {
+        // return all cart items
 				return NonLoggedCart.findAll({
 					where: {
 						sessionId: req.session.id,
-
 					},
 					include: [Product]
 				})
 					.then(cart => res.send({ items: cart, product: [] }))
 			})
 	})
-
+  // get all cart items
   	.get('/', (req, res) => {
-		console.log(' in not logged in', req.session.id, req.body)
 		NonLoggedCart.findAll({
 			where: {
 				sessionId: req.session.id

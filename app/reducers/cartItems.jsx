@@ -175,71 +175,44 @@ export const getOrMakeOrder = (itemInfo, dispatch) =>
 
 export const loadCartItems = () =>
   dispatch => {
-    console.log('load car titem')
     axios.get('/api/auth/whoami')
       .then(user => {
-
-
-        console.log(user, 'user ===============>')
-        if (user.data !== '' || user.data.length > 0) {
-          console.log(user, 'user =============^^^^^')
-          let userId = user.data.id
-          console.log(user, ' USER ID IN LOADCART')
-          return axios.get(`/api/notlogged`)
-            .then(notLoggedOrders => {
-
-              console.log('not logged int ordes', notLoggedOrders);
-
+        return axios.get(`/api/notlogged`)
+          .then(notLoggedOrders => {
+            if (user.data !== '' || user.data.length > 0) {
+              let userId = user.data.id
               return axios.get(`/api/order/users/${userId}`)
-
-
                 .then((order) => {
-                  console.log('items!!!', order)
                   let orderId = order.data.id
-                  console.log('items333!!!', orderId, notLoggedOrders.data, '****', !orderId, notLoggedOrders.data.length < 1)
+                  console.log(orderId, 'ORDER IDDDDDD')
                   if (!orderId && notLoggedOrders.data.length > 0) {
-                    console.log(' no orders ')
                     return axios.post(`/api/order/${userId}`)
                       .then(createdOrder => {
-                        console.log(createdOrder, 'CREATED ORDER')
                         let orderId = createdOrder.data.id
-                        return axios.get(`/api/cartitem/all/${orderId}`)
-
-                          .then(cartItems => {
-                            console.log(cartItems, '!!!!!!!!!!!')
-                            return dispatch(getCart(cartItems.data))
-                          })
+                                          console.log(orderId, 'ORDER IDDDDDD2222')
 
                       })
-
                   }
-
-
-                  else {
-                    console.log('in elesee CARTTT')
+                  else{
                     let orderId = order.data.id
-                    return axios.get(`/api/cartitem/all/${orderId}`)
-
-                      .then(cartItems => {
-                        console.log(cartItems, 'cartItems')
-                        return dispatch(getCart(cartItems.data))
-                      })
                   }
-                  //  return items.data
+                  return axios.get(`/api/cartitem/all/${orderId}`)
+                    .then(cartItems => {
+                      return dispatch(getCart(cartItems.data))
+                    })
                 })
-            })
-            .catch(console.error)
+                .then(() => {
+                  return axios.delete(`/api/notlogged`)
+                    .then(() => console.log('deleted'))
+                })
 
-        }
-        else {
-          //if user is not logged in cart shows zero items
-          return axios.get(`/api/notlogged`, user)
-            .then(cartitems => {
-              console.log(cartitems, 'NOOOOOOOOT');
-              return dispatch(getCart(cartitems.data))
-            })
+            }
+            else {              //if user is not logged in cart shows zero items
+              return dispatch(getCart(notLoggedOrders.data))
 
-        }
+            }
+
+          })
 
       })
   }

@@ -576,3 +576,18 @@ span.userreviewcontent {
 .total{
   margin-top: -28px;
 }
+
+
+
+#reviewpeoductname{
+  text-align: center;
+}
+
+#reviewpeoductimg{
+  width: 200px;
+  height: auto;
+}
+
+tr {
+    text-align: center;
+}

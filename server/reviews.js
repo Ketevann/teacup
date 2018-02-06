@@ -9,13 +9,14 @@ const Review = db.model('reviews')
 const { mustBeLoggedIn, forbidden } = require('./auth.filters')
 
 module.exports = require('express').Router()
+    // get user reviews and associate products
     .get('/user/:userId',
     (req, res, next) => {
-        console.log('in reviews *************************', typeof req.params.userId)
         Review.findAll({
             where: {
                 user_id: req.params.userId
-            }
+            },
+            include: [Product]
         })
             .then(reviews => {
                 console.log(reviews, req.params.userId)
@@ -23,11 +24,13 @@ module.exports = require('express').Router()
             })
             .catch(next)
     })
+    // get all reviews
     .get('/',
     (req, res, next) =>
         Review.findAll({})
             .then(reviews => res.send(reviews))
             .catch(next))
+    // get reviews for specific products and associated users
     .get('/:productId',
     (req, res, next) =>
         Review.findAll({
@@ -39,6 +42,7 @@ module.exports = require('express').Router()
             .then(reviews => res.send(reviews))
             .catch(next))
 
+    //post a new review. If a reviews already exists update an existing review
     .post('/',
     (req, res, next) => {
         console.log(req.body, 'req body reviews')
@@ -49,18 +53,14 @@ module.exports = require('express').Router()
             }
         })
             .then(review => {
-
+                //if review does not already exist, create a new review
                 if (!review) {
-
                     return Review.create({
                         content: req.body.content,
                         stars: req.body.stars,
                         product_id: req.body.productId,
 
-                    })
-                        .then(createdReview => {
-
-                            console.log(req.body.userId, 'user ID')
+                    }).then(createdReview => {
                             return createdReview.setUser(req.body.userId)
 
                                 .then(() => {
@@ -69,14 +69,11 @@ module.exports = require('express').Router()
                                             id: req.body.userId
                                         }
                                     })
-                                        .then(user => {
-
-                                   return res.send({ review: createdReview, user })
+                                     .then(user => {
+                                            return res.send({ review: createdReview, user })
                                         })
 
-
                                 }).catch(err => console.log(err))
-
                         })
                 }
                 else {
@@ -94,29 +91,22 @@ module.exports = require('express').Router()
                             }
                         })
                         .then(updated => {
-
                             return User.find({
                                 where: {
                                     id: req.body.userId
                                 }
                             })
                                 .then(user => {
-
                                     return res.send({ review: updated, user })
                                 })
-
-
                         })
                         .catch(err => console.log(err))
-
-
-
                 }
 
             }).catch(err => console.log(err))
-
     })
 
+    //delete a specific review
     .delete('/:id', (req, res) => {
         console.log(req.params.id)
         return Review.destroy({
@@ -124,10 +114,6 @@ module.exports = require('express').Router()
                 id: req.params.id
             }
         })
-            // .then(review => {
-            //     console.log(review)
-            //     return review.destory()
-            // })
             .then(() => res.send(204))
             .catch(err => console.log(err))
     })

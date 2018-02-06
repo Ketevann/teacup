@@ -35,6 +35,7 @@ class Product extends React.Component {
   }
 
   componentWillMount() {
+    console.log('gettin product reviews ')
     let productId = this.props.routeParams.productId.replace('#hash', '')
     this.props.getProductReviews(this.props.routeParams.productId)
     // axios.get(`/api/reviews/${this.props.routeParams.productId}`)
