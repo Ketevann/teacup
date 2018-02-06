@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
-import {deleteUser, updateUser} from '../reducers/users'
-import {Link} from 'react-router';
+import { connect } from 'react-redux'
+import { deleteUser, updateUser } from '../reducers/users'
+import { Link } from 'react-router';
 import _ from 'lodash'
 
 
@@ -11,13 +11,11 @@ class Userform extends Component {
     this.ClickHandler = this.ClickHandler.bind(this)
     this.SubmitHandler = this.SubmitHandler.bind(this)
   }
-  render(){
-    console.log('this.props', this.props)
+  render() {
     if (!this.props) return <div />
     return (
       <div className="container">
         <div className="row">
-
           <div className="col-md-7 ">
             <div className="panel panel-default">
               <div className="panel-heading">  <h4>User Profile</h4></div>
@@ -27,18 +25,18 @@ class Userform extends Component {
                     <div className="col-sm-6">
                       <div > <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" className="img-circle img-responsive" />
                         <input id="profile-image-upload" className="hidden" type="file" />
-                        <div style={{color: '#999'}}>click here to change profile image</div>
+                        <div style={{ color: '#999' }}>click here to change profile image</div>
                         {/*Upload Image Js And Css*/}
                       </div>
                       <br />
                       {/* /input-group */}
                     </div>
                     <div className="col-sm-6">
-                      <h4 style={{color: '#00b1b1'}}>{this.props.name} </h4>
+                      <h4 style={{ color: '#00b1b1' }}>{this.props.name} </h4>
                       <span><p>{this.props.role}</p></span>
                     </div>
                     <div className="clearfix" />
-                    <hr style={{margin: '5px 0 5px 0'}} />
+                    <hr style={{ margin: '5px 0 5px 0' }} />
                     <div className="col-sm-5 col-xs-6 tital ">First Name</div><div className="col-sm-7 col-xs-6 ">{this.props.name}</div>
                     <div className="clearfix" />
                     <div className="bot-border" />
@@ -47,15 +45,13 @@ class Userform extends Component {
                     <div className="col-sm-5 col-xs-6 tital ">Email:</div><div className="col-sm-7">{this.props.email}</div>
                     <div className="clearfix" />
                     <div className="bot-border" />
-
                     <div className="col-sm-5 col-xs-6 tital ">
-                    Orders</div>
-
+                      Orders</div>
                     <div className="col-sm-7">
-                    {this.props.orders ?
-                    <Link className="link" to='/allOrders'>
-                    {this.props.orders.length}</Link>
-                    : 0}
+                      {this.props.orders ?
+                        <Link className="link" to='/allOrders'>
+                          {this.props.orders.length}</Link>
+                        : 0}
                     </div>
                     <div className="clearfix" />
                     <div className="bot-border" />
@@ -64,30 +60,28 @@ class Userform extends Component {
                     <div className="bot-border" />
                     <div className="col-sm-5 col-xs-6 tital ">Reviews</div>
                     <div className="col-sm-7">
-                    <Link to='/currentReviews'
-                    params={{reviews: `${this.props.reviews}`}}>
-                    {this.props.reviews.length}</Link></div>
+                      <Link to='/currentReviews'
+                        params={{ reviews: `${this.props.reviews}` }}>
+                        {this.props.reviews.length}</Link></div>
                     <div className="clearfix" />
                     <div className="bot-border" />
                     <div className="col-sm-5 col-xs-6 tital ">
-                    {this.props.auth.role === 'admin' ?
-                    <div>
-                    <button onClick={()=>this.ClickHandler
-                      (this.props.id)} type="button" className="btn">Delete</button>
+                      {this.props.auth.role === 'admin' ?
+                        <div>
+                          <button onClick={() => this.ClickHandler
+                            (this.props.id)} type="button" className="btn">Delete</button>
 
-                    <div className="clearfix" />
-                    <div className="bot-border" />
-                    <br/>
-                    <form onSubmit={(event) => this.SubmitHandler(event, this.props.id)}>
-              <select name="role">
-              <option >admin</option>
-              <option>user</option>
-              </select>
-              <button  type="submit" className="btn">Submit</button>
-              </form>  </div>: null} </div>
-
+                          <div className="clearfix" />
+                          <div className="bot-border" />
+                          <br />
+                          <form onSubmit={(event) => this.SubmitHandler(event, this.props.id)}>
+                            <select name="role">
+                              <option >admin</option>
+                              <option>user</option>
+                            </select>
+                            <button type="submit" className="btn">Submit</button>
+                          </form>  </div> : null} </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -102,7 +96,7 @@ class Userform extends Component {
   SubmitHandler(evt, userId) {
     evt.preventDefault()
 
-    let status = {role: evt.target.role.value}
+    let status = { role: evt.target.role.value }
     this.props.updateUser(userId, status)
   }
 }

@@ -5,11 +5,6 @@ import { browserHistory, Link } from 'react-router'
 export class SignUp extends React.Component {
 
 
-
-
-
-
-
   errorMessage() {
   return (
     <div id="errormessage">Please Try Again</div>
@@ -23,13 +18,10 @@ render(){
         <div className="wrapper">
           <form action method="post" name="Login_Form" className="form-signin" onSubmit={evt => {
             evt.preventDefault()
-
             signup(evt.target.email.value, evt.target.password.value, evt.target.name.value)
             evt.target.email.value = ""
             evt.target.name.value = ""
             evt.target.password.value = ""
-
-
           }}>
             <h3 className="form-signin-heading">Welcome Back! Please Sign In</h3>
             <h4>Already a memeber ?</h4><span><Link to="/login">Login </Link></span>
@@ -48,8 +40,6 @@ render(){
           </form>
         </div>
       </div>
-
-
     </div>
 
   )

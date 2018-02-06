@@ -6,6 +6,7 @@ const Orders = db.model('order')
 const Promise = require('bluebird')
 
 module.exports = require('express').Router()
+ // get orders of all users
  .get('/',
  (req, res, next) =>
   Orders.findAll({})
@@ -18,6 +19,7 @@ module.exports = require('express').Router()
       res.send(orders)
     })
    .catch(next))
+   //get specific order
  .get('/:orderId',
     (req, res, next) => {
       Orders.findAll({
@@ -35,6 +37,7 @@ module.exports = require('express').Router()
  })
  .catch(next)
     })
+     //get specific user order
  .get('/users/:userId',
   (req, res, next) =>{
   Orders.find({
@@ -44,20 +47,14 @@ module.exports = require('express').Router()
     }
   })
  .then((orders) => {
-   console.log(req.params.userId, ' params')
    if (!orders) {
-     console.log('empty orders')
-    //  var error = new Error()
-    //  error.status = 404
-    //  throw error
      res.send(null)
    }
-   console.log('=============', orders)
    res.send(orders)
  })
  .catch(next)
   })
-
+// get order status
  .get('/:status',
   (req, res, next) =>
    Orders.findAll({
@@ -73,6 +70,7 @@ module.exports = require('express').Router()
    }
  })
  .catch(next))
+ // update order status
   .put('/:status',
   (req, res, next) =>
    Orders.update({

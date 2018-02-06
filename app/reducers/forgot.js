@@ -4,8 +4,6 @@ const EMAILSENT = 'EMAILSENT';
 const RESET = 'RESET';
 
 
-
-
 export const forgotPasswordBool = () => ({type: 'FORGOT'})
 export const forgotPasswordBoolFalse = () => ({type: EMAILSENT})
 export const confirmReset = (status) => ({type: RESET, status})

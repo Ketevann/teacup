@@ -11,17 +11,11 @@ class Orders extends Component {
 
   render() {
     const { userOrders } = this.props.orders
-        console.log(this.props, ' props in orders', userOrders)
-
     return (
       <div id="orders">
-
-
-
         {userOrders ? userOrders.map((order, index) => {
-          console.log(index,' index@@@@', order)
+          //convert to date format
           let date = String(new Date(order.created_at)).slice(0, 28)
-            console.log(order, 'index!!!!')
           return (
             <div>
               <div className="orderflex">
@@ -53,20 +47,13 @@ class Orders extends Component {
                   <div className="address">
                     <div id="itemname">Address</div>
                     <div>{order.Street}, {order.Apartment} </div>
-
                     <div>{order.City}, {order.State} {order.zipCode}</div>
-
                   </div>
                 </div>
               </div>
-
             </div>
-
           )
-
            })
-
-
           : null}
       </div>
 
@@ -76,7 +63,6 @@ class Orders extends Component {
 
 
 const mapStateToProps = (state) => {
-  console.log(state, 'state', state.orders.userOrders, state.orders)
   return {
     orders: state.orders
   }

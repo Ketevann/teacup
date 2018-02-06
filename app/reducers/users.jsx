@@ -4,18 +4,7 @@ import {fetchReviews} from './reviews'
 import {loadOrders} from './orders'
 
 const initialState = { users: [] }
-/*************ACTIONS **********************/
-const GET_USERS = 'GET_USERS'
-const DEL_USERS = 'DEL_USERS'
-const UPDATE = 'UPDATE'
-/*************ACTION CREATORS **********************/
-const getAllUsers = (users) => ({ type: GET_USERS, users })
-const removeUser = (id) => ({ type: DEL_USERS, id })
-const update = (user) => {
 
-
-  return { type: UPDATE, user }
-}
 /*************REDUCER **********************/
 
 const userReducer = (users = initialState, action) => {
@@ -34,6 +23,25 @@ const userReducer = (users = initialState, action) => {
   return users
 }
 /************* DISPATCHER ************** *********/
+
+
+/*************ACTIONS **********************/
+//get all users
+const GET_USERS = 'GET_USERS'
+const getAllUsers = (users) => ({ type: GET_USERS, users })
+
+//delete user
+const DEL_USERS = 'DEL_USERS'
+const removeUser = (id) => ({ type: DEL_USERS, id })
+
+//update user
+const UPDATE = 'UPDATE'
+const update = (user) => {
+
+  return { type: UPDATE, user }
+}
+
+
 // dispatch did not work.  only store.dispatch works
 export const fetchUsers = () =>
   dispatch =>

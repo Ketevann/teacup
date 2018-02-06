@@ -10,12 +10,11 @@ import { loadCartItems } from '../reducers/cartItems'
 class Front extends Component {
 
   componentWillMount(){
+    //loads user cart items on enter
     this.props.loadCartItems()
   }
   render() {
-    return (<div className="homepage">
-    </div>)
-
+    return (<div className="homepage"></div>)
   }
 }
 

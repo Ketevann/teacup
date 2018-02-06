@@ -11,18 +11,18 @@ class Reviews extends Component {
     super()
     this.handleOnRemove.bind(this)
   }
+  //gets user reviews
   componentWillMount() {
     this.props.fetchReviews()
   }
 
+  //removes reviews
   handleOnRemove = function(id) {
-    console.log('removed')
     this.props.removeReview(id)
   }
 
 
   render() {
-    console.log(this.props, ' props in orders')
     const { userReviews } = this.props.reviews
     return (
       <div id="orders">
@@ -37,13 +37,14 @@ class Reviews extends Component {
           </thead>
           {userReviews ? userReviews.map((review) => {
             let content = review.content,
+            //converts to date
             date = String(new Date(review.created_at)).slice(0, 28)
+            //truncates long reviews
             if (review.content && review.content.length > 200)
               content = review.content.slice(0, 200) + '...'
             return (
               <tbody>
                 <tr>
-
                   <td id="reviewdate">{date}</td>
                   <td id="reviewdate">
                   <div id="reviewimgname">
@@ -76,8 +77,8 @@ class Reviews extends Component {
 
                    </td>
                   <td className="reviewedit"> <div onClick={() => this.handleOnRemove(review.id)}>Remove </div>
+                  {/*redirects to review page on update*/}
                   <Link className="reviewedit" to={{ pathname: `/products/${review.product_id}#hash`, state: { placeholder: `${review.content}`, star: `${review.stars}` } }}> update </Link></td>
-
                 </tr>
               </tbody>)
           })
@@ -90,7 +91,6 @@ class Reviews extends Component {
 
 
 const mapStateToProps = ({ reviews }) => {
-  console.log(reviews, 'state')
   return {
     reviews: reviews
   }

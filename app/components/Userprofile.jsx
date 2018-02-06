@@ -11,28 +11,34 @@ import Userform from './Userform'
 import _ from 'lodash'
 
 
-
 class Userprofile extends Component {
 
-  componentWillMount() {
-    console.log('mounting userprofile')
+  componentDidMount() {
     this.props.whoami()
     this.props.loadOrders()
     this.props.fetchReviews();
   }
+  renderForm() {
+    const { id, name, email, role } = this.props.auth
+    const { userOrders } = this.props.orders
+    const { userReviews } = this.props.reviews
+    if (userOrders && userReviews) {
+      return (
+        <Userform id={this.props.auth.id} name={this.props.auth.name} email={this.props.auth.email} orders={this.props.orders.userOrders} reviews={this.props.reviews.userReviews} payment={null}
+          role={this.props.auth.role} auth={this.props.auth} />
+      )
+    }
+  }
   render() {
-
-    { console.log(this.props, 'this.props', this.props.auth) }
     if (!this.props.auth) return null
     return (
       <div className="users">
-        <Userform id={this.props.auth.id} name={this.props.auth.name} email={this.props.auth.email} orders={this.props.orders.userOrders} reviews={this.props.reviews.userReviews} payment={null}
-          role={this.props.auth.role} auth={this.props.auth} />
-      </div>)
+        {this.renderForm()}
+      </div>
+    )
   }
 }
 const mapState = (state, ownProps) => {
-  console.log(state)
   const { auth, users, orders, reviews } = state
   return {
     user: _.find(users, user => user.id === auth.id),
@@ -41,5 +47,5 @@ const mapState = (state, ownProps) => {
     reviews
   }
 }
-const mapDispatch = { deleteUser, updateUser, loadOrders, fetchReviews, whoami}
+const mapDispatch = { deleteUser, updateUser, loadOrders, fetchReviews, whoami }
 export default connect(mapState, mapDispatch)(Userprofile)

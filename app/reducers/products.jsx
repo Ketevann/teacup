@@ -21,7 +21,6 @@ const reducer = (state = initialState, action) => {
     case ADD_PRODUCT:
       return [...state, action.product]
     case FIND:
-    console.log('in FIND!!!!!', action.val)
       return {...state,  all: state.all, search: true, val: action.val }
     case REMOVE_FILTER:
       return {...state,  all: state.all, search: false }
@@ -34,36 +33,46 @@ const reducer = (state = initialState, action) => {
   return state
 
 }
-const SEARCH = 'SEARCH'
-const CANCEL = 'CANCEL'
 
 const UPDATE_PATH = 'UPDATE_PATH'
+export const updatePath = (bool) => ({ type: UPDATE_PATH, payload: bool })
+
+//get all prodcuts
 const GET_PRODUCTS = 'GET_PRODUCTS'
+export const getAllProducts = products => ({ type: GET_PRODUCTS, products })
+
+//delete a specific product
 const DEL_PRODUCTS = 'DEL_PRODUCTS'
+const removeProduct = (id) => ({ type: DEL_PRODUCTS, id })
+
+//update  a specific product
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+const update = (product) => ({ type: UPDATE_PRODUCT, product })
+
+//add a new product
 const ADD_PRODUCT = 'ADD_PRODUCT'
+const add = (product) => ({ type: ADD_PRODUCT, product })
+
+//search a product
 const FIND = 'FIND'
+
+//remove search filter and get all prdoducts
+export const search = (val) => ({ type: 'FIND', val })
+
 const REMOVE_FILTER = ' REMOVE_FILTER'
 
 export const filterRemove = () => ({ type: REMOVE_FILTER })
-// export const searchProduct = (names) => ({ type: SEARCH, names})
-// export const cancelSearch = () => ({ type: CANCEL})
 
 
-export const search = (val) => ({ type: 'FIND', val })
-export const getAllProducts = products => ({ type: GET_PRODUCTS, products })
-const removeProduct = (id) => ({ type: DEL_PRODUCTS, id })
-const update = (product) => ({ type: UPDATE_PRODUCT, product })
-const add = (product) => ({ type: ADD_PRODUCT, product })
-
-
-
+//load all products
 export const loadProducts = () => {
   return dispatch =>
     axios.get('/api/products')
       .then((products) => dispatch(getAllProducts(products.data)))
       .catch(console.err)
 }
+
+//add products
 export const addProducts = (data) =>
   dispatch =>
     axios.post('/api/products', data)
@@ -71,7 +80,7 @@ export const addProducts = (data) =>
       .catch(console.err)
 
 
-
+//delete a specific product
 export const deleteProduct = (productId) =>
   dispatch =>
     axios.delete(`/api/products/${productId}`)
@@ -79,7 +88,7 @@ export const deleteProduct = (productId) =>
       .catch(console.error())
 
 
-
+//update a specific product
 export const updateProduct = (id, data) =>
   dispatch =>
     axios.put(`/api/products/${id}`, data)
@@ -87,5 +96,4 @@ export const updateProduct = (id, data) =>
       .catch(console.error())
 
 
-export const updatePath = (bool) => ({ type: UPDATE_PATH, payload: bool })
 export default reducer

@@ -15,15 +15,13 @@ import {
 } from 'react-bootstrap';
 import {
   search
-
 } from '../reducers/products'
 import { connect } from 'react-redux'
+
+//available products
 const products = ['jasmine', 'earl gray', 'black', 'peppermint', 'apple tea', 'rose tea'];
-var temp = [];
 
 let accumulate = (acc, cur) => {
-
-  console.log(acc, cur)
   return Number(acc) + Number(cur)
 }
 class NavigationBar extends Component {
@@ -32,68 +30,54 @@ class NavigationBar extends Component {
     this.props.logout()
   }
 
-
-  someFunc = () => {
+  // clear search input
+  clearInput = () => {
     var nameField = document.getElementById('search');
     document.getElementById('names').innerHTML = '';
-
     nameField.value = ''
-
   }
-
+  //clears search
   componentDidMount() {
     store.dispatch(cancelSearch())
   }
 
+  //creates suggestions based on input
   findWords = (text) => {
-    console.log(text, ' text in find words')
     text = text.toLowerCase()
-    if (typeof text[temp.length] === 'string') temp.push(text[temp.length])
     let complete = []
-    //for (let i = 0; i < temp.length; i++) {
-
+    //if the search keyword matches a product name push to an array
     for (var j = 0; j < products.length; j++) {
       if (text[0] === products[j][0]) {
-        // products[j], j ,'jjjj', complete.indexOf(products[j]))
-        if (complete.indexOf(products[j] === -1)) complete.push(products[j])
-        //compare(temp.join(''), products[j], temp[i],j ,'jjjj')
-        //}
+        if (complete.indexOf(products[j]) === -1) complete.push(products[j])
+
       }
     }
-    var news = []
+    var suggestion = []
+    //if the input stops matching returns an empty array
     for (var m = 0; m < complete.length; m++) {
       if (complete[m].slice(0, text.length) === text) {
-        news.push(complete[m])
+        suggestion.push(complete[m])
       }
     }
-
-    return news
-
-
+    return suggestion
   }
 
   checkSearchState = (text) => {
     if (text === '') {
+      // if keyword is empty clear search
       store.dispatch(cancelSearch())
     }
     else {
-      console.log(text, ' IN CHECKSEARCHSTATE')
+      //search for searched product
       const productsArray = this.findWords(text)
       store.dispatch(searchProduct(productsArray))
 
     }
   }
 
-  call() {
-    store.dispatch(search(evt.target.search.value))
-  }
-
   render() {
     let cart = this.props.cart
     return (
-
-
-
       <Navbar>
         <Navbar.Header>
           <Navbar.Brand>
@@ -103,19 +87,14 @@ class NavigationBar extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-
-
             <NavDropdown eventKey={3} title="Menu" id="basic-nav-dropdown">
-
               <MenuItem eventKey={3.1}>
                 <Link className="link" to='/products' onClick={() => store.dispatch(filterRemove())}>Products</Link>
               </MenuItem>
-
               {this.props.authUser && this.props.authUser.name ?
                 <MenuItem eventKey={3.1}>
                   <Link className="link" to={`users/${this.props.authUser.id}`}>My Profile</Link>
                 </MenuItem> : null}
-
               {this.props.authUser && this.props.authUser.role === 'admin' ?
                 <MenuItem>
                   <MenuItem eventKey={3.2}>
@@ -138,29 +117,26 @@ class NavigationBar extends Component {
                 <form
                   onSubmit={(evt) => {
                     evt.preventDefault()
+                    if(evt.target.search.value !== '')
                     store.dispatch(search(evt.target.search.value))
                   }
                   }
                 >
                   <FormGroup className="formgroup">
                     <FormControl className="formgroup" type="text" placeholder="Search"
-                      onChange={(evt) => console.log(this.checkSearchState(evt.target.value))
+                      onChange={(evt) => this.checkSearchState(evt.target.value)
                       } id="search" type="text" name="searching" placeholder="Search"
                       type="text" className="form-control" placeholder="Search"
 
                     />
                   </FormGroup>{' '}
-
                   <Button type="submit"><i className="glyphicon glyphicon-search" /></Button>
-
-
-
                   <div className="autocomplete" >
                     {this.props.searched && this.props.searched.listnames ?
                       this.props.searched.names.map(names => {
                         return <div onClick={() => {
                           store.dispatch(search(names))
-                          this.someFunc()
+                          this.clearInput()
                         }
                         } id="names">{names}</div>
                       })
@@ -180,7 +156,6 @@ class NavigationBar extends Component {
               <NavItem eventKey={3} href="#">
                 <Link id="loginlink" to="/login">Login</Link>
               </NavItem>
-
             }
             <NavItem eventKey={2} href="#">
               <Link className="link menu-icon" to='/cart'>Cart({this.props.cart && this.props.cart.items ? this.props.cart.items.map(el => el.quantity).reduce(accumulate, 0) : 0})</Link>
@@ -196,47 +171,3 @@ const mapStateToProps = (state, ownProps) => {
   return { authUser: state.auth, cart: state.cartItems, searched: state.searchNames, products: state.products }
 }
 export default connect(mapStateToProps, { login, logout, filterRemove, cancelSearch, search })(NavigationBar)
-
-
-
-
-
-
-
-
-
-
-//       <nav className="navbar-more-overlay">
-//         <div className="navbar navbar navbar-fixed-top animate">
-//           <div className="navbar-header ">
-//             <a className="navbar-brand" href="#"><span id="teacup">TeaCup</span></a>
-//           </div>
-//           <div className="container navbar-more visible-xs">
-//           </div>
-//           <div className="navbar-header">
-//             <ul className="nav navbar-nav">
-//               <li className="active"><Link className="link" to="/">Home</Link></li>
-//               <li><Link className="link menu-icon" to='/cart'>Cart ({cart.length})</Link></li>
-//               <li><Link className="link" to='/products'>Products</Link></li>
-//               {this.props.authUser && this.props.authUser.role === 'admin' ?
-//                <ul className="nav navbar-nav">
-//                 <li><Link className="link" to='/allOrders'>All Orders</Link></li>
-
-//                 <li><Link className="link" to='admin/users'>All Users</Link></li></ul>
-//                : null}
-//               <li><Link className="link" to='/currentUserOrders'>My Orders</Link></li>
-
-//               {this.props.authUser ?
-//                 <ul className="nav navbar-nav">
-//  <li><Link className="link" to={`users/${this.props.authUser.id}`}>My Profile</Link></li>
-//     <li className="whoami-user-name">{this.props.authUser && this.props.authUser.name} </li>
-//     <button className="logout, btn-danger" onClick={() => this.clickHandler()}>Logout</button></ul>
-//              :  <li> <Link to="/login">Login</Link></li>}
-//               <li>
-//                 <br />
-//               </li>
-
-//             </ul>
-//           </div>
-//         </div>
-//       </nav>

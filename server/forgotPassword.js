@@ -10,8 +10,6 @@ const bcrypt = require('bcryptjs')
 
 module.exports = require('express').Router()
   .post('/', (req, res, next) => {
-    //res.redirect('/bla/123')
-    console.log(req.body, 'reached the routes!!')
     return User.findOne({
       where: {
         email: req.body.email

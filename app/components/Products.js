@@ -21,94 +21,32 @@ class Products extends React.Component {
      this.state = {
       loading: true
     }
-    this.clickHandler = this.clickHandler.bind(this)
     this.handleClick = this.handleClick.bind(this)
-
-
-
-    //   this.state = {search: false, val:null}
   }
 
 
-  clickHandler = (evt) => {
-    // if(this.props.filtered.indexOf(evt.target.value)===-1||this.props.filtered.length===8)
-    //   store.dispatch(addFilter(evt.target.value))
-    // else store.dispatch(removeFilter(evt.target.value))
-  }
-  handleChange(value) {
-  }
+
 
   componentDidMount() {
-    store.dispatch(cancelSearch())
     store.dispatch(this.props.updatePath(true))
-
   }
 
-  // componentDidMount() {
 
-  // }
-  componentWillUnmount() {
-    store.dispatch(this.props.updatePath(false))
-
-  }
-  findWords = (text) => {
-    if (typeof text[temp.length] === 'string') temp.push(text[temp.length])
-    let complete = []
-
-    for (var j = 0; j < products.length; j++) {
-      if (text[0] === products[j][0]) {
-      }
-    }
-    var news = []
-    for (var m = 0; m < complete.length; m++) {
-      if (complete[m].slice(0, text.length) === text) {
-        news.push(complete[m])
-      }
-    }
-
-    return news
-
-
-  }
-
-  checkSearchState = (text) => {
-    if (text === '') {
-      store.dispatch(cancelSearch())
-    }
-    else {
-      const productsArray = this.findWords(text)
-      store.dispatch(searchProduct(productsArray))
-
-    }
-  }
-
-  someFunc = (name) => {
-    var nameField = document.getElementById('search');
-    nameField.value = name
-
-  }
   handleClick = (id, action) => {
     if (action === 'delete')
       this.props.deleteProduct(id)
     else this.props.somefunc
   }
   filter = (products) => {
-
     var filteredProducts = this.props.products.all.filter(product => {
-
       return product.categories.toLowerCase() === products.toLowerCase()
-
     })
     return filteredProducts;
 
   }
-  // search = (product) => {
-  //   this.setState({search: true, val: product})
-  // }
-  renderProduct(allproducts) {
 
+  renderProduct(allproducts) {
     return allproducts.map((product) => {
-      console.log(products, ' in all ro')
       if (product.length === 0){
         return <div>Your search did not return any results</div>
       }
@@ -132,8 +70,7 @@ class Products extends React.Component {
   }
 
   render() {
-
-    console.log(this.props, 'products')
+    console.log(this.props)
     const divStyle = {
       width: 250,
       height: 230

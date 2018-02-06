@@ -4,9 +4,6 @@ import {updateProduct, addProducts} from '../reducers/products'
 import _ from 'lodash'
 
 
-
-
-
 class Update extends React.Component {
   constructor(props) {
     super(props)

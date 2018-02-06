@@ -86,7 +86,6 @@ module.exports = db => {
     }
 
     debug('initializing provider:%s', provider)
-    console.log("KDKDKDKDKDKDKDKDK")
     passport.use(new strategy(config, oauth))
   }
 

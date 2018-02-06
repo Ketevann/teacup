@@ -13,7 +13,6 @@ module.exports = require('express').Router()
     })
       .then((products) => {
         if (!products.length) {
-          console.log(products, 'err')
           const error = new Error()
           error.status = 404
           throw error
@@ -34,7 +33,6 @@ module.exports = require('express').Router()
         req.product = product
 
         req.product.dataValues.avgReview = product.reviews.reduce((total, val) => {
-          console.log('in reducer', total, val.stars)
           return total + val.stars
         }, 0) / product.reviews.length
         next()

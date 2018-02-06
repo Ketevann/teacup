@@ -4,23 +4,7 @@ import store from '../store'
 
 const initialState = { userOrders: [], singleOrders: [], allOrders: [] }
 
-/** *********** ACTIONS **********************/
 
-const USER_ORDERS = 'USER_ORDERS'
-
-export const userOrders = (orders) => {
-  console.log(' hereee')
-  return { type: USER_ORDERS, orders }
-}
-
-export const alluserOrders = orders => {
-  return { type: GET_ALL_ORDERS, orders }
-}
-
-const SINGLE_ORDERS = 'SINGLE_ORDERS'
-export const singleOrder = singleOrders => ({
-  type: SINGLE_ORDERS, singleOrders
-})
 
 /**  *********** REDUCER **********************/
 const orders = (state = initialState, action) => {
@@ -40,11 +24,33 @@ const orders = (state = initialState, action) => {
       return newstate
   }
 }
+
+
+
+/** *********** ACTIONS **********************/
+
+const USER_ORDERS = 'USER_ORDERS'
+
+export const userOrders = (orders) => {
+  return { type: USER_ORDERS, orders }
+}
+
+const SINGLE_ORDERS = 'SINGLE_ORDERS'
+export const singleOrder = singleOrders => ({
+  type: SINGLE_ORDERS, singleOrders
+})
 const SEARCH = 'SEARCH'
-const CANCEL = 'CANCEL'
-const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
+
 export const searchProduct = (names) => ({ type: SEARCH, names })
+
+const CANCEL = 'CANCEL'
 export const cancelSearch = () => ({ type: CANCEL })
+
+const GET_ALL_ORDERS = 'GET_ALL_ORDERS'
+
+export const alluserOrders = orders => {
+  return { type: GET_ALL_ORDERS, orders }
+}
 
 export const loadAllOrders = () => dispatch => {
   axios.get('/api/orders')

@@ -19,7 +19,6 @@ import Cart from './components/Cart'
 import { fetchUsers, getUserInfo } from './reducers/users'
 import Orders from './components/Orders'
 import AllOrders from './components/AllOrders'
-import AppContainer from './components/AppContainer'
 import { loadOrders, loadAllOrders } from './reducers/orders'
 import Userprofile from './components/Userprofile'
 import Front from './components/Front'
@@ -77,7 +76,6 @@ const onUsersEnter = () => {
 }
 
 const OnProfileEnter = () => {
-  console.log('profile enter')
   //store.dispatch(getUserInfo())
 
 }
@@ -114,7 +112,6 @@ render(
         <Route path='/home' component={Front} onEnter={OnHomeEnter} />
         <Route path='/update/:productId' component={Update} />
         <Route path='/add' component={Update} />
-        <Route path="/foobar" component={AppContainer} onEnter={onCartEnter} onEnter={onUsersEnter} >
           <Route path="/products" component={Products} onEnter={onProductsEnter} />
           <Route path="/products/:productId" component={Product} onEnter={onProductsEnter} />
           <Route path="/admin/users" component={Users} onEnter={onUsersEnter} />
@@ -127,7 +124,6 @@ render(
            <Route path="/currentReviews" component={Reviews} />
           <Route path="/allOrders" component={Orders} onEnter={onAllOrdersEnter} />
           <Route path='/forgotpassword' component={ForgotPassword} />
-        </Route>
         <Route path="/" />
       </Route>
       <Route path='*' component={NotFound} />

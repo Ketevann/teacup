@@ -19,9 +19,13 @@ const searchNames = (state=initialState, action) => {
     return state
   }
 }
+
+//add search filter to prodcuts
 const SEARCH = 'SEARCH'
-const CANCEL = 'CANCEL'
 export const searchProduct = (names) => ({ type: SEARCH, names})
+
+//remove search filter
+const CANCEL = 'CANCEL'
 export const cancelSearch = () => ({ type: CANCEL})
 
 

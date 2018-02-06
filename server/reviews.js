@@ -19,7 +19,6 @@ module.exports = require('express').Router()
             include: [Product]
         })
             .then(reviews => {
-                console.log(reviews, req.params.userId)
                 res.send(reviews)
             })
             .catch(next)
