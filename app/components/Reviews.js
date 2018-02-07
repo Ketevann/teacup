@@ -30,13 +30,19 @@ class Reviews extends Component {
           <thead align="right" >
             <tr>
               <th className="text-center">Date</th>
-              <th className="text-center">Product</th>
+              <th className="text-center">Product Name</th>
+              <th className="text-center">Product </th>
               <th className="text-center">Content</th>
               <th className="reviewstar text-center">Stars</th>
+              <th className="text-center">Edit</th>
             </tr>
           </thead>
           {userReviews ? userReviews.map((review) => {
-            let content = review.content,
+            let content, date
+            if (!review.content)
+             content = 'No content'
+            else content = review.content
+
             //converts to date
             date = String(new Date(review.created_at)).slice(0, 28)
             //truncates long reviews
@@ -46,12 +52,9 @@ class Reviews extends Component {
               <tbody>
                 <tr>
                   <td id="reviewdate">{date}</td>
-                  <td id="reviewdate">
-                  <div id="reviewimgname">
-                  <div id="reviewpeoductname">{review.product.name}</div>
-                  <img id="reviewpeoductimg" src={review.product.img} alt=""/>
-                  </div>
-                  </td>
+                  <td id="reviewpeoductname">{review.product.name}</td>
+                  <td>
+                  <img id="reviewpeoductimg" src={review.product.img} alt=""/></td>
                   <td id="reviewcontent" >{content}</td>
                    <td >
                      {review.stars  ?

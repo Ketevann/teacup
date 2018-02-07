@@ -14,7 +14,7 @@ const searchNames = (state=initialState, action) => {
    case SEARCH:
         return {listnames: true, names: action.names}
       case CANCEL:
-      return {listnames: false}
+      return {listnames: false,  names: ''}
   default:
     return state
   }

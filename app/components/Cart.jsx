@@ -44,15 +44,14 @@ class Cart extends React.Component {
           <div className="col-md-9">
             <h1 className="header">Your Cart:</h1>
             <table className="table">
-              <thead className="thead-inverse">
-                <tr>
-                  <th>Item Number</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Update</th>
-                  <th>Total Per Item</th>
-                  <th>Item</th>
+              <thead className="thead-inverse thead">
+                <tr className="tr">
+                  <th className="th">Item Number</th>
+                  <th className="th">>Name</th>
+                  <th className="th">>Price</th>
+                  <th className="th">>Quantity</th>
+                  <th className="th">>Total Per Item</th>
+                  <th className="th">>Item</th>
                 </tr>
               </thead>
               {
@@ -62,14 +61,15 @@ class Cart extends React.Component {
 
                   return (
                     <tbody
+                       className="tbody"
                       key={item.id}
                     >
-                      <tr>
-                        <th scope="row">{index + 1}</th>
-                        <td> {item.product.name} </td>
-                        <td> {item.product.price} </td>
-                        <td> {item.quantity} </td>
-                        <div>
+                      <tr className="tr">
+                        <td className="td">{index + 1}</td>
+                        <td className="td"> {item.product.name} </td>
+                        <td className="td"> {item.product.price} </td>
+                        <td className="td"> {item.quantity} </td>
+                        <td className="td">
                           <form action="" onSubmit={(evt) => this.onUpdate(evt, item)}>
                             <input className="updateinput" name="quantity" type="text" />
                             <input className="btn btn-default updatebtn" type="text" type='submit' value="Update" />
@@ -77,9 +77,9 @@ class Cart extends React.Component {
                           <div className="removebtn">
                             <div onClick={() => this.handleRemove(item)}>Remove </div>
                           </div>
-                        </div>
-                        <td> ${item.price * item.quantity}</td>
-                        <td> <img id="cartproducts" src={image} /></td>
+                        </td>
+                        <td className="td"> ${item.price * item.quantity}</td>
+                        <td className="td"> <img id="cartproducts" src={image} /></td>
                       </tr>
                     </tbody>
                   )

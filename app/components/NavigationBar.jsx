@@ -32,9 +32,11 @@ class NavigationBar extends Component {
 
   // clear search input
   clearInput = () => {
+    console.log()
     var nameField = document.getElementById('search');
     document.getElementById('names').innerHTML = '';
     nameField.value = ''
+    store.dispatch(cancelSearch())
   }
   //clears search
   componentDidMount() {
