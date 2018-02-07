@@ -125,7 +125,7 @@ max-width: 50px;
 }
 @media screen and (max-width: 420px) {
 .row{
-margin-top:-50%
+margin-top:-50
 
 }
 }
@@ -590,4 +590,7 @@ span.userreviewcontent {
 
 tr {
     text-align: center;
+}
+#main, #status, body{
+  width: 100%
 }

@@ -12,8 +12,6 @@ import {
   cancelSearch, searchProduct
 } from '../reducers/search'
 
-const products = ['jasmine', 'apple', 'jam'];
-var temp = [];
 
 class Products extends React.Component {
   constructor(props) {
@@ -65,8 +63,6 @@ class Products extends React.Component {
           {this.props.auth && this.props.auth.role === 'admin' ?
             <Link to={`/update/${product.id}`}><button className="btn btn-default" >Edit</button></Link> :
             null}
-
-
         </div>
       )
     })
