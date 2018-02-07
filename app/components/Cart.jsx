@@ -15,7 +15,7 @@ class Cart extends React.Component {
   handleCheckout = function (evt) {
     evt.preventDefault()
     const { id } = this.props.user
-   // if user is logged in, checks out
+    // if user is logged in, checks out
     if (id) this.props.checkOut(id)
     else this.setState({ clicked: true })
   }
@@ -25,7 +25,7 @@ class Cart extends React.Component {
     this.props.removeProduct(item.product_id, item.order_id)
   }
 
-//updates products
+  //updates products
   onUpdate = function (evt, item) {
     evt.preventDefault()
     console.log('update', item)
@@ -48,13 +48,13 @@ class Cart extends React.Component {
             <table className="table">
               <thead className="thead-inverse thead">
                 <tr className="tr">
-                  <th className="th">Item Number</th>
-                  <th className="th">Name</th>
-                  <th className="th">Price</th>
-                  <th className="th">Quantity</th>
-                  <th className="th">Total Per Item</th>
-                  <th className="th">Update</th>
-                  <th className="th">Item</th>
+                  <th className="th text-center ">Item Number</th>
+                  <th className="th text-center ">Name</th>
+                  <th className="th text-center ">Price</th>
+                  <th className="th text-center ">Quantity</th>
+                  <th className="th text-center ">Total Per Item</th>
+                  <th className="th text-center ">Update</th>
+                  <th className="th text-center ">Item</th>
                 </tr>
               </thead>
               {
@@ -64,7 +64,7 @@ class Cart extends React.Component {
 
                   return (
                     <tbody
-                       className="tbody"
+                      className="tbody"
                       key={item.id}
                     >
                       <tr className="tr">
@@ -72,6 +72,8 @@ class Cart extends React.Component {
                         <td className="td"> {item.product.name} </td>
                         <td className="td"> {item.product.price} </td>
                         <td className="td"> {item.quantity} </td>
+                        <td className="td"> ${item.price * item.quantity}</td>
+
                         <td className="td">
                           <form className="updateform" action="" onSubmit={(evt) => this.onUpdate(evt, item)}>
                             <input className="updateinput cartupdate" name="quantity" type="text" />
@@ -82,7 +84,6 @@ class Cart extends React.Component {
                             <div onClick={() => this.handleRemove(item)}>Remove </div>
                           </div>
                         </td>
-                        <td className="td"> ${item.price * item.quantity}</td>
                         <td className="td"> <img id="cartproducts" src={image} /></td>
                       </tr>
                     </tbody>
@@ -92,7 +93,7 @@ class Cart extends React.Component {
             </table>
           </div>
           <div className="col-md-3">
-          {/* calculate the total items in a cart  */}
+            {/* calculate the total items in a cart  */}
             <h1 id="total">Total: ${
               this.props.cart.items && this.props.cart.items.length > 0 ? cartItems.items.map((item) => item.price * item.quantity)
                 .reduce((a, b) => a + b)

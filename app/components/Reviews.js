@@ -26,7 +26,7 @@ class Reviews extends Component {
     const { userReviews } = this.props.reviews
     return (
       <div id="orders">
-        <table className="table tablefont">
+        <table className="table tablefont reviewtable">
           <thead align="right" >
             <tr>
               <th className="text-center">Date</th>

@@ -709,3 +709,10 @@ input.btn.btn-default.updatebtn {
     left: 26px;
 }
 }
+.reviewtable {
+    width: 90% !important;
+    max-width: 100%;
+    margin-bottom: 20px;
+    margin: center;
+    margin: auto !important;
+}
