@@ -51,7 +51,7 @@ class Reviews extends Component {
             return (
               <tbody>
                 <tr>
-                  <td id="reviewdate">{date}</td>
+                  <td id="date">{date}</td>
                   <td id="reviewpeoductname">{review.product.name}</td>
                   <td>
                   <img id="reviewpeoductimg" src={review.product.img} alt=""/></td>

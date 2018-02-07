@@ -97,7 +97,7 @@ export const updateProduct = (quantity, productId, orderId, dispatch) =>
         .catch(err => console.log(err))
     }
     else {
-       //if  logged in update an item in cart
+      //if  logged in update an item in cart
       return axios.put('/api/cartitem', { quantity, productId, orderId })
         .then(res => dispatch(update(productId, quantity)))
         .catch(err => console.log(err))
@@ -181,15 +181,14 @@ export const loadCartItems = () =>
                   }
                   return axios.get(`/api/cartitem/all/${orderId}`)
                     .then(cartItems => {
+                      if (notLoggedOrders.data.items.length > 0) {
+                        return axios.delete(`/api/notlogged`)
+                          .then(() => console.log('deleted'))
+                      }
                       return dispatch(getCart(cartItems.data))
                     })
                 })
-                .then(() => {
-                  if (notLoggedOrders.data.items.length > 0) {
-                    return axios.delete(`/api/notlogged`)
-                      .then(() => console.log('deleted'))
-                  }
-                })
+
             }
             else { //if user is not logged in cart shows zero items
               return dispatch(getCart(notLoggedOrders.data))

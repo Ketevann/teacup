@@ -21,12 +21,14 @@ class Cart extends React.Component {
   }
   //removes items from cart
   handleRemove(item) {
+    console.log('temove', item)
     this.props.removeProduct(item.product_id, item.order_id)
   }
 
 //updates products
   onUpdate = function (evt, item) {
     evt.preventDefault()
+    console.log('update', item)
     let quantity = evt.target.quantity.value
     this.props.updateProduct(evt.target.quantity.value, item.product_id, item.order_id)
   }
@@ -47,11 +49,12 @@ class Cart extends React.Component {
               <thead className="thead-inverse thead">
                 <tr className="tr">
                   <th className="th">Item Number</th>
-                  <th className="th">>Name</th>
-                  <th className="th">>Price</th>
-                  <th className="th">>Quantity</th>
-                  <th className="th">>Total Per Item</th>
-                  <th className="th">>Item</th>
+                  <th className="th">Name</th>
+                  <th className="th">Price</th>
+                  <th className="th">Quantity</th>
+                  <th className="th">Total Per Item</th>
+                  <th className="th">Update</th>
+                  <th className="th">Item</th>
                 </tr>
               </thead>
               {
@@ -70,9 +73,10 @@ class Cart extends React.Component {
                         <td className="td"> {item.product.price} </td>
                         <td className="td"> {item.quantity} </td>
                         <td className="td">
-                          <form action="" onSubmit={(evt) => this.onUpdate(evt, item)}>
-                            <input className="updateinput" name="quantity" type="text" />
+                          <form className="updateform" action="" onSubmit={(evt) => this.onUpdate(evt, item)}>
+                            <input className="updateinput cartupdate" name="quantity" type="text" />
                             <input className="btn btn-default updatebtn" type="text" type='submit' value="Update" />
+
                           </form>
                           <div className="removebtn">
                             <div onClick={() => this.handleRemove(item)}>Remove </div>
@@ -101,7 +105,7 @@ class Cart extends React.Component {
         </div>
         {/* Popup for login/sign up  */}
         {this.state.clicked && !this.props.user.userId ?
-          <div style={{ height: 120 }}>
+          <div className="popover" style={{ height: 120 }}>
             <Popover
               id="popover-basic"
               placement="right"

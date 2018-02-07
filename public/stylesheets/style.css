@@ -646,11 +646,14 @@ tr {
     position: relative;
     top: 38px;
     right: 52px;
+    border: 0px;
 }
 .removebtn{
    position: relative;
 
     left: -35px;
+    top: -10px;
+    display: inline-block;
 }
 	.td:nth-of-type(1):before { content: "Item Number "; }
 	.td:nth-of-type(2):before { content: "Name"; }
@@ -672,6 +675,37 @@ tr {
 	td:nth-of-type(5):before { content: "Star"; }
     td:nth-of-type(6):before { content: "Edit"; }
 
-
-
+input.updateinput.cartupdate{
+  width: 50px;
+  position: relative;
+  left: 40px
+}
+button.btn.btn-default.updatebtn{
+  border:0px;
+  position: relative;
+  top: 36px
+}
+form.updateform{
+  position: relative;
+  top: -10px;
+}
+.popover{
+  position: absolute;
+  top:0;
+  left:0;
+}
+td#date {
+    padding-left: 91px;
+}
+textarea {
+  border: 2px #ccc solid;
+  outline: none;
+}
+input.btn.btn-default.updatebtn {
+    position: relative;
+    top: 38px;
+    /* right: 52px; */
+    border: 0px;
+    left: 26px;
+}
 }
