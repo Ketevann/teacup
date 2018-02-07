@@ -21,14 +21,12 @@ class Cart extends React.Component {
   }
   //removes items from cart
   handleRemove(item) {
-    console.log('temove', item)
     this.props.removeProduct(item.product_id, item.order_id)
   }
 
   //updates products
   onUpdate = function (evt, item) {
     evt.preventDefault()
-    console.log('update', item)
     let quantity = evt.target.quantity.value
     this.props.updateProduct(evt.target.quantity.value, item.product_id, item.order_id)
   }

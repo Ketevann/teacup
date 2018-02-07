@@ -147,8 +147,8 @@ module.exports = require('express').Router()
 			}
 		})
 		.then(cart =>{
-			if (req.body.quantity === String(0)){
-				cart.destroy()
+			if (!Number.isInteger(Number(req.body.quantity))){
+				return cart.destroy()
 				.then(() => res.send(204))
 			}
 			else

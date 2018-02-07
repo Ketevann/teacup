@@ -66,7 +66,6 @@ export const loadOrders = dispatch =>
         if (userId) {
           return axios.get(`/api/orders/user/${userId}`)
             .then(orders => {
-              console.log(orders.data, '========>')
               var newObj = orders.data.orders;
               for (var i = 0; i < newObj.length; i++) {
                 newObj[i].cart = orders.data.cart[i]

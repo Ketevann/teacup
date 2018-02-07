@@ -67,13 +67,13 @@ export const removeProduct = (id, orderId, dispatch) =>
   dispatch => {
     if (!orderId) {
       //if not logged in remove an item from not logged cart
-      return axios.delete(`/api/notlogged/delete/${id}`, { id })
+      return axios.delete(`/api/notlogged/delete/${id}`)
         .then(res => dispatch(remove(id)))
         .catch(err => console.log(err))
     }
     else {
       //if logged in remove an item from cart
-      return axios.delete(`/api/cartitem/delete/${id}/${orderId}`, { id })
+      return axios.delete(`/api/cartitem/delete/${id}/${orderId}`)
         .then(res => dispatch(remove(id)))
         .catch(err => console.log(err))
     }
@@ -90,6 +90,7 @@ export const update = (id, quantity) => ({
 
 export const updateProduct = (quantity, productId, orderId, dispatch) =>
   dispatch => {
+    if (!Number.isInteger(Number(quantity))) return null
     if (!orderId) {
       //if not logged in update an item in not logged cart
       return axios.put('/api/notlogged', { quantity, productId })
@@ -103,55 +104,33 @@ export const updateProduct = (quantity, productId, orderId, dispatch) =>
         .catch(err => console.log(err))
     }
   }
-//add to cart
-export const addToCart = (itemInfo, dispatch) =>
-  dispatch => {
-    return axios.post('/api/cartitem/', itemInfo)
-      .then(item => {
-        console.log(item, 'got back')
-        return dispatch(newCartItem(item.data))
-          .catch(console.error)
-      })
-  }
+
 
 export const getOrMakeOrder = (itemInfo, dispatch) =>
   dispatch => {
-    let userId = itemInfo.userId
+    const { quantity } = itemInfo
+    if (!Number.isInteger(Number(quantity))) return null
+    const userId = itemInfo.userId
     if (userId !== undefined) {
       axios.get(`/api/order/users/${userId}`)
         .then(order => {
-          console.log('returned order', order)
           if (!order.data) {
             axios.post(`/api/order/${userId}`, itemInfo)
               .then(savedOrder => {
-                console.log(savedOrder, 'saved Order')
                 itemInfo.orderId = savedOrder.data.id
-                return axios.post('/api/cartitem/', itemInfo)
-                  .then(item => {
-                    console.log(item, 'got back')
-                    return dispatch(newCartItem(item.data))
-                  })
-                  .catch(console.error)
-
-              });
-          }
-
-          else {
-            itemInfo.orderId = order.data.id
-            console.log(itemInfo, ' OGOGOGOGOOG', order)
-            return axios.post('/api/cartitem/', itemInfo)
-              .then(item => {
-                console.log(item, 'got back')
-                return dispatch(newCartItem(item.data))
               })
-              .catch(console.error)
+          } else {
+            itemInfo.orderId = order.data.id
           }
+          return axios.post('/api/cartitem/', itemInfo)
+            .then(item => {
+              return dispatch(newCartItem(item.data))
+            })
+            .catch(console.error)
         })
-
     } else {
       return axios.post('/api/notlogged', itemInfo)
         .then(res => {
-          console.log(res, 'not logged in data');
           return dispatch(newCartItem(res.data))
         })
         .catch(err => console.log(err))
@@ -181,11 +160,13 @@ export const loadCartItems = () =>
                   }
                   return axios.get(`/api/cartitem/all/${orderId}`)
                     .then(cartItems => {
-                      if (notLoggedOrders.data.items.length > 0) {
-                        return axios.delete(`/api/notlogged`)
-                          .then(() => console.log('deleted'))
-                      }
                       return dispatch(getCart(cartItems.data))
+                        .then(() => {
+                          if (notLoggedOrders.data.items.length > 0) {
+                            return axios.delete(`/api/notlogged`)
+                              .then(() => console.log('deleted'))
+                          }
+                        })
                     })
                 })
 

@@ -7,7 +7,6 @@ import { connect, Provider } from 'react-redux'
 import store from './store'
 import NavigationBar from './components/NavigationBar'
 import Login from './components/Login'
-import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Products from './components/Products'
 import Product from './components/Product'
@@ -40,10 +39,8 @@ const ExampleApp = connect(
 )(
   ({ user, children }) =>
     <div>
-
       <nav>
         <NavigationBar />
-
       </nav>
       {children}
     </div>
@@ -52,40 +49,27 @@ const ExampleApp = connect(
 const onProductsEnter = () => {
   store.dispatch(loadProducts())
   store.dispatch(cancelSearch)
-
 }
 
 const onCartEnter = () => {
   store.dispatch(loadCartItems())
 }
-// const onOrdersEnter = () => {
-//   console.log('main orders !!!')
-//   store.dispatch(loadOrders())
-// }
+
 
 
 
 const onAllOrdersEnter = () => {
-
   store.dispatch(loadAllOrders())
-
 }
 
 const onUsersEnter = () => {
   store.dispatch(fetchUsers())
 }
 
-const OnProfileEnter = () => {
-  //store.dispatch(getUserInfo())
-
-}
 
 
-const OnHomeEnter = () => {
-  //store.dispatch(loadCartItems())
-   // store.dispatch(whoami())
 
-}
+
 
 function hashLinkScroll() {
   const { hash } = window.location;
@@ -109,7 +93,7 @@ render(
       <Route path="/reset/:token" component={ResetPassword} />
       <Route path="/" component={ExampleApp}  >
         <IndexRedirect to="/home" />
-        <Route path='/home' component={Front} onEnter={OnHomeEnter} />
+        <Route path='/home' component={Front} />
         <Route path='/update/:productId' component={Update} />
         <Route path='/add' component={Update} />
           <Route path="/products" component={Products} onEnter={onProductsEnter} />
@@ -118,7 +102,7 @@ render(
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
           <Route path="/admin/users/:userId" component={SingleUser}  />
-          <Route path="/users/:userId" component={Userprofile} onEnter={OnProfileEnter} />
+          <Route path="/users/:userId" component={Userprofile} />
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
           <Route path="/currentUserOrders" component={Orders} />
            <Route path="/currentReviews" component={Reviews} />

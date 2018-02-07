@@ -36,7 +36,6 @@ module.exports = require('express').Router()
           include: [Product]
         })
           .then(cart => {
-            console.log(cart, 'RES RES')
             if (!cart) res.status(404).send('page Not Found')
             else {
               res.send({ orders, cart })
