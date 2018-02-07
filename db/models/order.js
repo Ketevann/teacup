@@ -41,7 +41,5 @@ module.exports = (db) => db.define('order', {
 module.exports.associations = (Order, {User, CartItem, Payment, Product}) => {
   Order.belongsTo(User)
   Order.hasMany(CartItem)
-  Order.belongsToMany(Product, {through: 'Cart'})
-
 }
 

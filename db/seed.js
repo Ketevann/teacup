@@ -33,7 +33,7 @@ const products = seed(Product, {
 
   two:  {name: 'Black', price: 2.75, img:'http://demandware.edgesuite.net/sits_pod26/dw/image/v2/AAFV_PRD/on/demandware.static/-/Sites-Teavana_Master_Catalog/default/dw58701317/images/Product%20Images/Tea/32258_earlgreytea_Hol16.jpg?sw=1000&sh=1000', categories: 'black'},
 
-  three:  {name: 'Earl Gray', price: 3.00, img:'http://us.palaisdesthes.com/media/catalog/product/cache/4/image/450x450/9df78eab33525d08d6e5fb8d27136e95/8/0/803_blue-of-london-earl-grey-du-yunnan_3.jpg', categories: 'earl gray'},
+  three:  {name: 'Earl Gray', price: 3.00, img:'http://silkroadteastore.com/shop/images/product/i/imperial-earl-grey-black-tea-512px-512px.jpg', categories: 'earl gray'},
 
   four: {name: 'Peppermint', price: 2.25, img:'http://www.teapeople.co.uk/media/catalog/product/cache/1/image/aca7c15394bfd51561ecb1df063b923e/p/e/peppermint.jpg', categories: 'peppermint'},
 
@@ -44,9 +44,9 @@ const products = seed(Product, {
 
 const orders = seed(Order, {
   one: {status:'pending', Name: 'Linus', Street: '123 Grace Hopper Lane', Apartment: '5B',
-  State:'Alaska', City:'Hopperville', zipCode: 10021},
+  State:'Alaska', City:'Hopperville', zipCode: 10021, userId: 1},
   two: {status:'pending', Name: 'Liz', Street: '246 Grace Hopper Lane', Apartment: '8G',
-  State:'Alaska', City:'Hopperville', zipCode: 10021}
+  State:'Alaska', City:'Hopperville', zipCode: 10021, userId: 1}
 })
 
 const payment = seed(Payment, {
@@ -57,8 +57,8 @@ const payment = seed(Payment, {
 })
 
 const review = seed(Review, {
-    good: {content: 'this tes rules!', stars: 4, userId: 1},
-    bad: {content: 'this tea SUCKS', stars: 1, userId: 1},
+    good: {content: 'this tea is great!', stars: 4, userId: 1},
+    bad: {content: 'mmmm', stars: 5, userId: 1},
 })
 
 const cartItem = seed(CartItem, {
@@ -66,38 +66,7 @@ const cartItem = seed(CartItem, {
     two: {name: 'Apple Tea', price: '2.25', product_id: 2, order_id: 2, quantity: 9},
 })
 
-const favorites = seed(Favorite,
-  // We're specifying a function here, rather than just a rows object.
-  // Using a function lets us receive the previously-seeded rows (the seed
-  // function does this wiring for us).
-  //
-  // This lets us reference previously-created rows in order to create the join
-  // rows. We can reference them by the names we used above (which is why we used
-  // Objects above, rather than just arrays).
-  ({users, things}) => ({
-    // The easiest way to seed associations seems to be to just create rows
-    // in the join table.
-    'obama loves surfing': {
-      user_id: users.barack.id,    // users.barack is an instance of the User model
-                                   // that we created in the user seed above.
-                                   // The seed function wires the promises so that it'll
-                                   // have been created already.
-      thing_id: things.surfing.id  // Same thing for things.
-    },
-    'god is into smiting': {
-      user_id: users.god.id,
-      thing_id: things.smiting.id
-    },
-    'obama loves puppies': {
-      user_id: users.barack.id,
-      thing_id: things.puppies.id
-    },
-    'god loves puppies': {
-      user_id: users.god.id,
-      thing_id: things.puppies.id
-    },
-  })
-)
+
 
 if (module === require.main) {
   db.didSync
