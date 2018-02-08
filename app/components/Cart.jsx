@@ -66,7 +66,7 @@ class Cart extends React.Component {
                 this.props.cart.items ? cartItems.items.map((item, index) => {
                   var image = ""
                   image = item.product.img
-
+                  let totalprice = (item.price * item.quantity).toFixed(2)
                   return (
                     <tbody
                       className="tbody"
@@ -77,7 +77,7 @@ class Cart extends React.Component {
                         <td className="td"> {item.product.name} </td>
                         <td className="td"> {item.product.price} </td>
                         <td className="td"> {item.quantity} </td>
-                        <td className="td"> ${item.price * item.quantity}</td>
+                        <td className="td">{totalprice}</td>
 
                         <td className="td">
                           <form className="updateform" action="" onSubmit={(evt) => this.onUpdate(evt, item)}>
