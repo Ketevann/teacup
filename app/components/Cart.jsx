@@ -4,6 +4,13 @@ import { checkOut, removeProduct, updateProduct } from '../reducers/cartItems'
 import { connect } from 'react-redux'
 import { Popover } from 'react-bootstrap';
 
+
+const total = (items) => {
+  let totalNumber = items.map((item) => item.price * item.quantity)
+    .reduce((a, b) => a + b).toFixed(2)
+
+    return totalNumber
+}
 class Cart extends React.Component {
   constructor(props) {
     super(props)
@@ -93,8 +100,8 @@ class Cart extends React.Component {
           <div className="col-md-3">
             {/* calculate the total items in a cart  */}
             <h1 id="total">Total: ${
-              this.props.cart.items && this.props.cart.items.length > 0 ? cartItems.items.map((item) => item.price * item.quantity)
-                .reduce((a, b) => a + b)
+              this.props.cart.items && this.props.cart.items.length > 0 ?
+                total(this.props.cart.items)
                 : null} </h1>
             <form onSubmit={this.handleCheckout}>
               <button className="btn btn-default" type="submit"> check out</button>

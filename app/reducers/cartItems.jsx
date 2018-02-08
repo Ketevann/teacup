@@ -230,6 +230,7 @@ export const checkOut = (userId, items, dispatch) =>
       })
       .then(() => {
         let promise = []
+        //update product inventory
         items.forEach(elem => {
           promise.push(axios.put(`/api/products/quantity/${elem.product.id}`, { quantity: elem.quantity }))
         })
