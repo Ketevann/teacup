@@ -1,9 +1,9 @@
-#Teacup
+# Teacup
 Check out the LIVE DEMO https://tea-cup.herokuapp.com/
 
-#E-commerce website 
+# E-commerce website 
 
-##Teacup
+## Teacup
 allows users(logged in and logged out) to choose product items and add them to cart, edit(update, remove) cart items,
 post product reviews, view/delete/update reviews,
 view orders.
@@ -13,7 +13,7 @@ view all users,
 change users from user to admin.
 
 
-#Stack
+# Stack
 
 Node
 PostgreSQL
