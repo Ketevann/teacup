@@ -22,7 +22,7 @@ module.exports = (db) => db.define('products', {
         allowNull: false
     },
     categories: {
-        type: Sequelize.ENUM('green', 'black', 'white tea', 'herbal tea', 'earl gray', 'jasmine', 'apple tea', 'rose tea', 'peppermint')
+        type: Sequelize.ENUM('green tea', 'black tea', 'white tea', 'herbal tea', 'earl gray tea', 'jasmine tea', 'apple tea', 'rose tea', 'peppermint tea')
 
     },
     img: {

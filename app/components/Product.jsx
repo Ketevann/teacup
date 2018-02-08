@@ -220,8 +220,9 @@ class Product extends React.Component {
 
               <Modal.Body>
                   <div className="cartitemsmodal">
-                   <div><strong>{this.state.quantity}</strong> {product.name} have been added to your cart</div>
-                   <div>Price: ${product.price}</div>
+                   <div> {product.name} was added to your cart</div>
+                   <div>Quantity: <strong>{this.state.quantity}</strong></div>
+                   <div>Price: <strong>${product.price}</strong></div>
                    <img id="cartimg" src={product.img} alt=""/>
                     </div>
 

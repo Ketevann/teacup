@@ -19,7 +19,7 @@ import {
 import { connect } from 'react-redux'
 
 //available products
-const products = ['jasmine', 'earl gray', 'black', 'peppermint', 'apple tea', 'rose tea'];
+const products = ['jasmine tea', 'earl gray tea', 'black tea', 'peppermint tea', 'apple tea', 'rose tea'];
 
 let accumulate = (acc, cur) => {
   return Number(acc) + Number(cur)

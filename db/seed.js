@@ -29,13 +29,13 @@ const users = seed(User, {
 })
 
 const products = seed(Product, {
-  one: {name: 'Jasmine', price: 2.25, img:'https://www.organicfacts.net/wp-content/uploads/2013/06/Jasmine-tea.jpg', categories: 'jasmine'},
+  one: {name: 'Jasmine Tea', price: 2.25, img:'https://www.organicfacts.net/wp-content/uploads/2013/06/Jasmine-tea.jpg', categories: 'jasmine tea'},
 
-  two:  {name: 'Black', price: 2.75, img:'http://demandware.edgesuite.net/sits_pod26/dw/image/v2/AAFV_PRD/on/demandware.static/-/Sites-Teavana_Master_Catalog/default/dw58701317/images/Product%20Images/Tea/32258_earlgreytea_Hol16.jpg?sw=1000&sh=1000', categories: 'black'},
+  two:  {name: 'Black Tea', price: 2.75, img:'http://demandware.edgesuite.net/sits_pod26/dw/image/v2/AAFV_PRD/on/demandware.static/-/Sites-Teavana_Master_Catalog/default/dw58701317/images/Product%20Images/Tea/32258_earlgreytea_Hol16.jpg?sw=1000&sh=1000', categories: 'black tea'},
 
-  three:  {name: 'Earl Gray', price: 3.00, img:'http://silkroadteastore.com/shop/images/product/i/imperial-earl-grey-black-tea-512px-512px.jpg', categories: 'earl gray'},
+  three:  {name: 'Earl Gray Tea', price: 3.00, img:'http://silkroadteastore.com/shop/images/product/i/imperial-earl-grey-black-tea-512px-512px.jpg', categories: 'earl gray tea'},
 
-  four: {name: 'Peppermint', price: 2.25, img:'http://www.teapeople.co.uk/media/catalog/product/cache/1/image/aca7c15394bfd51561ecb1df063b923e/p/e/peppermint.jpg', categories: 'peppermint'},
+  four: {name: 'Peppermint Tea', price: 2.25, img:'http://www.teapeople.co.uk/media/catalog/product/cache/1/image/aca7c15394bfd51561ecb1df063b923e/p/e/peppermint.jpg', categories: 'peppermint tea'},
 
   five:  {name: 'Apple Tea', price: 2.75, img:'https://bluebirdteaco.com/media/catalog/product/cache/1//a/n/ankara-apple_1_2.png/9df78eab33525d08d6e5fb8d27136e95/a/n/ankara_apple.png', categories: 'apple tea'},
 
