@@ -28,7 +28,7 @@ class Product extends React.Component {
   handleSubmitItem = function (event, product) {
     event.preventDefault()
     const { id, price } = product
-     this.state.quantity === 0 )
+
     if (Number.isInteger(this.state.quantity) === false || this.state.quantity == 0){
        this.setState({ error: `Invalid value` })
     }
