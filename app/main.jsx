@@ -106,7 +106,7 @@ render(
           <Route path="/cart" component={Cart} onEnter={onCartEnter} />
           <Route path="/currentUserOrders" component={Orders} />
            <Route path="/currentReviews" component={Reviews} />
-          <Route path="/allOrders" component={Orders} onEnter={onAllOrdersEnter} />
+          <Route path="/allOrders" component={AllOrders} onEnter={onAllOrdersEnter} />
           <Route path='/forgotpassword' component={ForgotPassword} />
         <Route path="/" />
       </Route>

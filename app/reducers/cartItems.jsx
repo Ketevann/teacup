@@ -150,14 +150,20 @@ export const loadCartItems = () =>
                 .then((order) => {
                   let orderId = order.data.id
                   if (!orderId && notLoggedOrders.data.items.length > 0) {
+                    console.log('no order Id')
                     return axios.post(`/api/order/${userId}`)
                       .then(createdOrder => {
                         let orderId = createdOrder.data.id
                       })
                   }
-                  else {
-                    let orderId = order.data.id
+                  else if (!orderId && notLoggedOrders.data.items.length === 0) {
+                    return dispatch(getCart({ items: [] }))
                   }
+                  else {
+                    console.log(orderId, notLoggedOrders)
+                    orderId = order.data.id
+                  }
+                  console.log(orderId, 'order id')
                   return axios.get(`/api/cartitem/all/${orderId}`)
                     .then(cartItems => {
                       return dispatch(getCart(cartItems.data))

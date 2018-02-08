@@ -10,7 +10,8 @@ const reducer = (state = initialState, action) => {
     case GET_PRODUCTS:
       return {...state, all: action.products, search: false }
     case DEL_PRODUCTS:
-      var arr = state.procuts.filter(product => product.id !== action.id)
+    console.log(state, 'state')
+      var arr = state.all.filter(product => product.id !== action.id)
 
       return arr
 
