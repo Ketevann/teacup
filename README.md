@@ -1,7 +1,8 @@
 # Teacup
+## E-commerce website 
 Check out the LIVE  <a href="https://tea-cup.herokuapp.com/">DEMO</a>
 
-# E-commerce website 
+
 
 ## Teacup
 Allows users(logged in and logged out) to choose product items and add them to cart, edit(update, remove) cart items,
