@@ -1,5 +1,5 @@
 # Teacup
-Check out the LIVE DEMO https://tea-cup.herokuapp.com/
+Check out the LIVE  <a href="https://tea-cup.herokuapp.com/">DEMO</a>
 
 # E-commerce website 
 
