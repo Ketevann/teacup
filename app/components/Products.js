@@ -59,9 +59,14 @@ class Products extends React.Component {
             <p className="productinfo" data-price="{product.price}">{product.name} $ {product.price}</p>
           </Link>
           {this.props.auth && this.props.auth.role === 'admin' ?
-            <button className="rmedit btn btn-default" onClick={() => this.handleClick(product.id, 'delete')}>Remove</button> : null}
-          {this.props.auth && this.props.auth.role === 'admin' ?
-            <Link to={`/update/${product.id}`}><button className="btn btn-default" >Edit</button></Link> :
+            <div className="productedit">
+              <button className="btn btn-default" onClick={() => this.handleClick(product.id, 'delete')}>Remove</button>
+              <Link to={`/update/${product.id}`}><button className="btn btn-default" >Edit</button></Link>
+              <div className="productstockinfo">
+              <div>Inventory: {product.inventory}</div>
+              <div>In Stock: {product.inStock}</div>
+              </div>
+            </div> :
             null}
         </div>
       )
@@ -69,7 +74,6 @@ class Products extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const divStyle = {
       width: 250,
       height: 230

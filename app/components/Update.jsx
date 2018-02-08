@@ -81,7 +81,6 @@ class Update extends React.Component {
   }
 }
 const mapState = (state, ownProps) => {
-  console.log(state,' state')
   const paramId = Number(ownProps.params.productId)
   return {
     product: _.find(state.products.all, product => product.id === paramId),

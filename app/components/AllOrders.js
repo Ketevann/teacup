@@ -10,7 +10,6 @@ class AllOrders extends Component {
   }
 
   render() {
-    console.log(this.props, 'all orders')
     const { allOrders } = this.props.orders
     return (
       <div id="orders">

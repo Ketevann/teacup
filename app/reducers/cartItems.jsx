@@ -105,30 +105,52 @@ export const updateProduct = (quantity, productId, orderId, dispatch) =>
     }
   }
 
+const postToCart = (itemInfo, dispatch) => {
+  console.log('post to cart')
+  return axios.post('/api/cartitem', itemInfo)
+    .then(item => {
+      console.log(item, ' in post cart')
+      if (item.data.items.length > 0)
+        return dispatch(newCartItem(item.data))
+      else {
+        return axios.put('/api/cartitem/update', itemInfo)
+          .then(updateditem => {
+            console.log(updateditem, ' in post update cart')
+            return dispatch(newCartItem(updateditem.data))
+          })
+      }
+    })
+    .catch(console.error)
+}
 
 export const getOrMakeOrder = (itemInfo, dispatch) =>
   dispatch => {
     const { quantity } = itemInfo
+    // if item quantity not a number return null
     if (!Number.isInteger(Number(quantity))) return null
     const userId = itemInfo.userId
+    //if user logged in get user's order number
     if (userId !== undefined) {
       axios.get(`/api/order/users/${userId}`)
         .then(order => {
           if (!order.data) {
+            //if order number does not exist create a new order number
             axios.post(`/api/order/${userId}`, itemInfo)
               .then(savedOrder => {
                 itemInfo.orderId = savedOrder.data.id
+                //post items to cart
+                postToCart(itemInfo, dispatch)
+
               })
           } else {
+            //if order number exists, post to cart
             itemInfo.orderId = order.data.id
+            postToCart(itemInfo, dispatch)
           }
-          return axios.post('/api/cartitem/', itemInfo)
-            .then(item => {
-              return dispatch(newCartItem(item.data))
-            })
-            .catch(console.error)
+
         })
     } else {
+      // if user is not logged in post to non logged cart
       return axios.post('/api/notlogged', itemInfo)
         .then(res => {
           return dispatch(newCartItem(res.data))
@@ -137,47 +159,59 @@ export const getOrMakeOrder = (itemInfo, dispatch) =>
     }
   }
 
+//get items from cart
+const getCartItems = (orderId, dispatch) => {
+  return axios.get(`/api/cartitem/all/${orderId}`)
+    .then(cartItems => {
+      console.log('getti cart items', cartItems)
+      return dispatch(getCart(cartItems.data))
+    })
+}
 
+//load cart items
 export const loadCartItems = () =>
   dispatch => {
+    //get user
     axios.get('/api/auth/whoami')
       .then(user => {
+        //get non logged cart items
         return axios.get(`/api/notlogged`)
           .then(notLoggedOrders => {
+            //if user is logged in and non logged cart not empty, get user's order numeber
             if (user.data !== '' || user.data.length > 0) {
               let userId = user.data.id
               return axios.get(`/api/order/users/${userId}`)
                 .then((order) => {
                   let orderId = order.data.id
+                  //delete items in non loggged cart
+                  if (notLoggedOrders.data.items.length > 0) {
+                    axios.delete(`/api/notlogged`)
+                      .then(() => console.log('deleted'))
+                  }
+                  //if order does not exist and non logged cart not empty, create a new order number
                   if (!orderId && notLoggedOrders.data.items.length > 0) {
-                    console.log('no order Id')
                     return axios.post(`/api/order/${userId}`)
                       .then(createdOrder => {
                         let orderId = createdOrder.data.id
+                        //get cart items
+                        getCartItems(orderId, dispatch)
                       })
                   }
                   else if (!orderId && notLoggedOrders.data.items.length === 0) {
+                    //if order does not exist and non logged cart empty, return an empty cart
                     return dispatch(getCart({ items: [] }))
                   }
                   else {
+                    //if order exists loads cart items
                     console.log(orderId, notLoggedOrders)
                     orderId = order.data.id
+                    getCartItems(orderId, dispatch)
                   }
-                  console.log(orderId, 'order id')
-                  return axios.get(`/api/cartitem/all/${orderId}`)
-                    .then(cartItems => {
-                      return dispatch(getCart(cartItems.data))
-                        .then(() => {
-                          if (notLoggedOrders.data.items.length > 0) {
-                            return axios.delete(`/api/notlogged`)
-                              .then(() => console.log('deleted'))
-                          }
-                        })
-                    })
+
                 })
 
             }
-            else { //if user is not logged in cart shows zero items
+            else { //if user is not logged in cart items
               return dispatch(getCart(notLoggedOrders.data))
             }
           })
@@ -185,7 +219,7 @@ export const loadCartItems = () =>
   }
 
 //checkout
-export const checkOut = (userId, dispatch) =>
+export const checkOut = (userId, items, dispatch) =>
   dispatch => {
     //get user orderid
     axios.get(`/api/order/users/${userId}`)
@@ -194,8 +228,16 @@ export const checkOut = (userId, dispatch) =>
         //update order status
         axios.put(`/api/cartitem/checkout/${orderId}`)
       })
-      .then(() => dispatch(checkoutCart()))
-      .catch(console.error)
+      .then(() => {
+        let promise = []
+        items.forEach(elem => {
+          promise.push(axios.put(`/api/products/quantity/${elem.product.id}`, { quantity: elem.quantity }))
+        })
+        axios.all([promise])
+          .then(() => dispatch(checkoutCart()))
+          .catch(console.error)
+      })
+
   }
 
 export default reducer

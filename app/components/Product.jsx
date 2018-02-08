@@ -5,7 +5,7 @@ import { getOrMakeOrder, addToCart } from '../reducers/cartItems'
 import { postReviews, getProductReviews } from '../reducers/reviews'
 import { connect } from 'react-redux'
 import ReactStars from 'react-stars'
-
+import { Modal, Button } from 'react-bootstrap'
 const removeHash = (keyword) => {
   return keyword.replace('#hash', '')
 }
@@ -16,7 +16,9 @@ class Product extends React.Component {
     this.state = {
       quantity: 1,
       productId: 1,
-      reviews: []
+      reviews: [],
+      error: null,
+      addedtocart: null
     }
     this.onReviewSubmit = this.onReviewSubmit.bind(this)
     this.handleSubmitItem = this.handleSubmitItem.bind(this)
@@ -26,9 +28,16 @@ class Product extends React.Component {
   handleSubmitItem = function (event, product) {
     event.preventDefault()
     const { id, price } = product
-    let itemInfo = { quantity: this.state.quantity, productId: id, price, userId: this.props.auth.id }
-    //this.props.addToCart(itemInfo)
-    this.props.getOrMakeOrder(itemInfo)
+    if (this.state.quantity > product.inventory) {
+      this.setState({ error: `Quantity exceeds the available stock on hand max(${product.inventory})` })
+    }
+    else {
+      this.setState({ error: null, addedtocart: true })
+
+      let itemInfo = { quantity: this.state.quantity, productId: id, price, userId: this.props.auth.id }
+      //this.props.addToCart(itemInfo)
+      this.props.getOrMakeOrder(itemInfo)
+    }
   }
 
 
@@ -61,8 +70,9 @@ class Product extends React.Component {
   // post a new star rating
   ratingChanged(newRating) {
     let productId = removeHash(this.props.routeParams.productId)
-    this.props.postReviews({ stars: newRating, productId: productId, userId: this.props.auth.id
- })
+    this.props.postReviews({
+      stars: newRating, productId: productId, userId: this.props.auth.id
+    })
   }
 
 
@@ -135,6 +145,9 @@ class Product extends React.Component {
           <p className="singleproductfont"> Quantity: <input type="text" onChange={this.handleQuantityChange} /> </p>
           <button className="btn btn-default addproduct" type="submit">Add Product to Cart</button>
         </form>
+        {this.state.error ?
+          <div className="outofstock">{this.state.error}</div>
+          : null}
         <br></br>
         <div>
           <h2 className="singleproductfont">Customer Review</h2>
@@ -193,6 +206,28 @@ class Product extends React.Component {
             </form>
             : null}
         </div>
+        {this.state.addedtocart ?
+          <div className="static-modal">
+            <Modal.Dialog>
+              <Modal.Header>
+                <Modal.Title><strong>Cart</strong></Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+                  <div className="cartitemsmodal">
+                   <div><strong>{this.state.quantity}</strong> {product.name} have been added to your cart</div>
+                   <div>Price: ${product.price}</div>
+                   <img id="cartimg" src={product.img} alt=""/>
+                    </div>
+
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button onClick={() => this.setState({addedtocart: null})}>Close</Button>
+                <Link to="/cart"><Button bsStyle="primary">go to cart</Button></Link>
+              </Modal.Footer>
+            </Modal.Dialog>
+          </div> : null}
       </div>
     )
   }
@@ -203,7 +238,8 @@ const mapStateToProps = (state, ownProps) => {
     products: state.products,
     auth: state.auth,
     reviews: state.reviews,
-    ownProps
+    ownProps,
+    cart: state.cartItems
   }
 }
 

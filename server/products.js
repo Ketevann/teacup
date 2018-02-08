@@ -20,6 +20,20 @@ module.exports = require('express').Router()
       })
       .catch(next)
   })
+     .put('/quantity/:id',
+  (req, res, next) => {
+    Products.find({where: {
+      id: req.params.id
+    }})
+    .then(product =>{
+      return product.update({inventory: Number(product.inventory) - Number(req.body.quantity)})
+      .then((updatedproduct) => {
+        return res.status(200).json(updatedproduct)
+      })
+    })
+
+      .catch(next)
+  })
   //get product by id
   .param('id',
   (req, res, next, productId) => {
@@ -77,6 +91,7 @@ module.exports = require('express').Router()
       })
       .catch(next)
   })
+
   //delete a specific product
   .delete('/:id',
   (req, res, next) => {

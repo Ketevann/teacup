@@ -7,13 +7,12 @@ const Order = db.model('order')
 const Promise = require('bluebird')
 
 module.exports = require('express').Router()
-// add item to cart
+	// add item to cart
 	.post('/', (req, res, next) => {
 		let price = Number(req.body.price)
 		let product_id = req.body.productId
 		let order_id = req.body.orderId
 		let quantity = req.body.quantity
-
 		let newCartItem = { price: price, product_id: product_id, order_id: order_id, quantity: quantity }
 		// if cart does not exist, create a new cart
 		CartItem.find({
@@ -25,32 +24,47 @@ module.exports = require('express').Router()
 			.then(cart => {
 				if (!cart) {
 					return CartItem.create(newCartItem)
-				}
-				else {
-					// if product already in a cart, updates quanity of the product
-					let	quantity = (Number(Number(req.body.quantity)) + Number(cart.quantity))
-									return cart.update({ quantity },
-						{
-							where: {
-								product_id: product_id,
-								order_id: req.body.orderId
-							}
-						}
-					)
-
-				}
-			})	// return all cart items and associated products
-					.then(product => {
-						return CartItem.findAll({
-							where: {
-								order_id: req.body.orderId
-							},
-							include: [{ model: Product }]
+						.then((createdCart) => {
+							return createdCart.setOrder(order_id)
 						})
-							.then(items => {
-								res.send({ items, product: [] })
+						// return all cart items and associated products
+						.then(product => {
+							return CartItem.findAll({
+								where: {
+									order_id: req.body.orderId
+								},
+								include: [{ model: Product }]
 							})
-					})
+								.then(items => {
+									return res.send({ items, product: [] })
+								})
+						})
+				}
+				else 	return res.send({ items: [], product: [] })
+				// else {
+				// 	// if product already in a cart, updates quanity of the product
+				// 	let	quantity = (Number(Number(req.body.quantity)) + Number(cart.quantity))
+				// 					return cart.update({ quantity },
+				// 		{
+				// 			where: {
+				// 				product_id: product_id,
+				// 				order_id: req.body.orderId
+				// 			}
+				// 		}
+				// 	)
+				// 	.then(product => {
+				// 		return CartItem.findAll({
+				// 			where: {
+				// 				order_id: req.body.orderId
+				// 			},
+				// 			include: [{ model: Product }]
+				// 		})
+				// 			.then(items => {
+				// 				return res.send({ items, product: [] })
+				// 			})
+				// 	})
+				// }
+			})
 			.catch(next)
 
 	})
@@ -86,7 +100,7 @@ module.exports = require('express').Router()
 									let quantity = Number(items[i].dataValues.quantity) +
 										Number(notLoggedIn.dataValues.quantity);
 
-									var newPromise = items[i].update({quantity },
+									var newPromise = items[i].update({ quantity },
 										{
 											where: {
 												product_id: items[i].dataValues.product_id
@@ -121,15 +135,15 @@ module.exports = require('express').Router()
 										res.send({ items: cartItems, product: [] })
 									})
 
+							})
+
 					})
 
+
+
 			})
-
-
-
 	})
-	})
-//update order status on checkout
+	//update order status on checkout
 	.put('/checkout/:orderId', (req, res, next) => {
 		let orderId = req.params.orderId
 		Order.findById(orderId)
@@ -138,41 +152,82 @@ module.exports = require('express').Router()
 			.catch(next)
 	})
 
-	//update cart item
-	 .put('/', (req, res, next) => {
-				CartItem.find({
+
+	.put('/update', (req, res) => {
+		let price = Number(req.body.price)
+		let product_id = req.body.productId
+		let order_id = req.body.orderId
+		let quantity = req.body.quantity
+		let newCartItem = { price: price, product_id: product_id, order_id: order_id, quantity: quantity }
+		// if cart does not exist, create a new cart
+		CartItem.find({
 			where: {
-				product_id : req.body.productId,
+				order_id: order_id,
+				product_id: product_id
+			}
+		})
+			.then(cart => {
+
+			if (cart) {
+					// if product already in a cart, updates quanity of the product
+					let quantity = (Number(Number(req.body.quantity)) + Number(cart.quantity))
+					return cart.update({ quantity },
+						{
+							where: {
+								product_id: product_id,
+								order_id: req.body.orderId
+							}
+						}
+					)
+						.then(product => {
+							return CartItem.findAll({
+								where: {
+									order_id: req.body.orderId
+								},
+								include: [{ model: Product }]
+							})
+								.then(items => {
+									return res.send({ items, product: [] })
+								})
+						})
+				}
+			})
+	})
+	//update cart item
+	.put('/', (req, res, next) => {
+		CartItem.find({
+			where: {
+				product_id: req.body.productId,
 				order_id: req.body.orderId
 			}
 		})
-		.then(cart =>{
-			if (!Number.isInteger(Number(req.body.quantity))){
-				return cart.destroy()
-				.then(() => res.send(204))
-			}
-			else
-			{
-				cart.update({quantity: req.body.quantity})
-				.then(() => res.send(202))
-			}
+			.then(cart => {
+
+				if (!Number.isInteger(Number(req.body.quantity))) {
+					return cart.destroy()
+						.then(() => res.send(204))
+				}
+				else {
+					cart.update({ quantity: req.body.quantity })
+						.then(() => res.send(202))
+				}
 			})
 
 
-	 })
+	})
 
-	 //delete cart item
+	//delete cart item
 	.delete('/delete/:id/:orderId', (req, res, next) => {
 		CartItem.find({
 			where: {
-				product_id : req.params.id,
+				product_id: req.params.id,
 				order_id: req.params.orderId
 			}
 		})
-		.then(cart => {
-			return cart.destroy()
-		})
-		.then(() => res.send(204))
-		.catch(err => console.log(err))
+			.then(cart => {
+				return cart.destroy()
+			})
+			.then(() => res.send(204))
+			.catch(err => console.log(err))
 	})
 

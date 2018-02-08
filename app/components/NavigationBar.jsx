@@ -104,6 +104,9 @@ class NavigationBar extends Component {
                   <MenuItem eventKey={3.3}>
                     <Link className="link" to='admin/users'>All Users</Link>
                   </MenuItem>
+                  <MenuItem eventKey={3.3}>
+                    <Link className="link" to='/allproducts'>All Users</Link>
+                  </MenuItem>
                 </MenuItem>
                 : null}
               {this.props.authUser && this.props.authUser.name ?

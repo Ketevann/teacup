@@ -16,7 +16,7 @@ class Cart extends React.Component {
     evt.preventDefault()
     const { id } = this.props.user
     // if user is logged in, checks out
-    if (id) this.props.checkOut(id)
+    if (id) this.props.checkOut(id, this.props.cart.items)
     else this.setState({ clicked: true })
   }
   //removes items from cart

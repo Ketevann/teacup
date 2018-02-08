@@ -504,7 +504,7 @@ input.icon.search-bar-submit {
 
     align-items: center;
 }
-#itemquantity, #itemname, .address {
+#itemquantity, #itemname, .address, .modal-dialog, .outofstock {
   font-family: avenir-book;
    padding: 1px;
 }
@@ -763,10 +763,11 @@ input.btn.btn-default.updatebtn {
     margin-left: 19px;
 }
 .productdetails2 {
-     display: block;
+     display: flex;
     /* flex: 1; */
     /* justify-content: space-around; */
     padding-top: 30px;
+    flex-direction: column;
 }
 .address {
      padding-left: 0px;
@@ -779,6 +780,23 @@ input.btn.btn-default.updatebtn {
     margin: center;
     margin: auto !important;
 }
-#userdetails{
+#userdetails, .productstockinfo{
   font-family: avenir-book;
+}
+
+.outofstock {
+    font-family: avenir-book;
+    margin-top: 14px;
+    text-align: center;
+    color: crimson;
+    font-size: 18px;
+}
+@media (min-width: 768px) {
+.modal-dialog {
+    width: 279px !important;
+    margin: 30px auto;
+}
+}
+#cartimg{
+  width:200px;
 }

@@ -55,7 +55,6 @@ export const alluserOrders = orders => {
 export const loadAllOrders = () => dispatch => {
   axios.get('/api/orders')
     .then(orders => {
-      console.log(orders,' orders')
       dispatch(alluserOrders(orders.data))
     })
 }
