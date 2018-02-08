@@ -49,7 +49,7 @@ class Userform extends Component {
                       Orders</div>
                     <div className="col-sm-7">
                       {this.props.orders ?
-                        <Link className="link" to='/allOrders'>
+                        <Link className="link" to='/currentUserOrders'>
                           {this.props.orders.length}</Link>
                         : 0}
                     </div>
