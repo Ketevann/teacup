@@ -127,7 +127,7 @@ export const getOrMakeOrder = (itemInfo, dispatch) =>
   dispatch => {
     const { quantity } = itemInfo
     // if item quantity not a number return null
-    if (!Number.isInteger(Number(quantity))) return null
+    if (!Number.isInteger(Number(quantity)) || quantity == 0) return null
     const userId = itemInfo.userId
     //if user logged in get user's order number
     if (userId !== undefined) {
