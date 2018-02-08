@@ -4,7 +4,7 @@ Check out the LIVE  <a href="https://tea-cup.herokuapp.com/">DEMO</a>
 
 
 
-## Teacup
+### functionality
 Allows users(logged in and logged out) to choose product items and add them to cart, edit(update, remove) cart items,
 post product reviews, view/delete/update reviews,
 view orders.
