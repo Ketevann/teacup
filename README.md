@@ -17,12 +17,13 @@ Check out the LIVE  <a href="https://tea-cup.herokuapp.com/">DEMO</a>
 
 # Stack
 
-Node,
-PostgreSQL,
-React-Redux, 
-Auth, 
-Passport, 
-Express, 
-Sequelize.
+* Node
+* PostgreSQL
+* React-Redux
+* Auth
+* Passport
+* Express
+* Sequelize
+* Axios
 
 
