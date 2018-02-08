@@ -21,19 +21,19 @@ class Orders extends Component {
               <div className="orderflex">
                 <div className="orderrow">
                   <div>Order Placed</div>
-                  <div>{date}</div>
+                  <div className="orderinfo">{date}</div>
                 </div>
                 <div className="orderrow">
                   <div>Order ID</div>
-                  <div>{order.id}</div>
+                  <div className="orderinfo">{order.id}</div>
                 </div>
                 <div className="orderrow">
                   <div>Status</div>
-                  <div>{order.status}</div>
+                  <div className="orderinfo">{order.status}</div>
                 </div>
                 <div className="orderrow">
                   <div>Total</div>
-                  <div>{Number(order.cart.quantity) * Number(order.cart.price)}</div>
+                  <div className="orderinfo">{Number(order.cart.quantity) * Number(order.cart.price)}</div>
                 </div>
               </div>
               <div className='productdetails'>

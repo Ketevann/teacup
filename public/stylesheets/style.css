@@ -708,6 +708,69 @@ input.btn.btn-default.updatebtn {
     border: 0px;
     left: 26px;
 }
+/*#orderimage{
+  display: none;
+}*/
+.orderrow {
+    display: flex;
+
+    margin-left: 6px;
+
+}
+.orderrow.allorders {
+    display: flex;
+    margin-left: 2px;
+}
+.orderflex {
+    display: block;
+    /* justify-content: space-around; */
+    background-color: #2d2d2d;
+    color: ghostwhite;
+    font-family: avenir-book;
+    height: 97px;
+   padding: 10px;
+    /* align-items: center; */
+}
+.productdetails {
+    display: flex;
+    padding-left: 11px;
+    margin-top: 11px;
+    margin-bottom: 33px;
+}
+.productdetails2 {
+
+    padding-top: 30px;
+    margin-left: 34px
+}
+#userdetails {
+    font-family: avenir-book;
+}
+.orderinfo {
+    margin-left: 10px;
+}
+.orderrow.allorders {
+    display: flex;
+     margin-left: 19px;
+    /* justify-content: center; */
+}
+.productdetails {
+    display: flex;
+    /* align-self: center; */
+    /* align-items: center; */
+    /* padding-left: 11px; */
+    /* margin-top: 11px; */
+    margin-bottom: 33px;
+    margin-left: 19px;
+}
+.productdetails2 {
+     display: block;
+    /* flex: 1; */
+    /* justify-content: space-around; */
+    padding-top: 30px;
+}
+.address {
+     padding-left: 0px;
+}
 }
 .reviewtable {
     width: 90% !important;
@@ -715,4 +778,7 @@ input.btn.btn-default.updatebtn {
     margin-bottom: 20px;
     margin: center;
     margin: auto !important;
+}
+#userdetails{
+  font-family: avenir-book;
 }

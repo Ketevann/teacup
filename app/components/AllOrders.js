@@ -14,41 +14,47 @@ class AllOrders extends Component {
     const { allOrders } = this.props.orders
     return (
       <div id="orders">
-        {allOrders ? allOrders.map((order, index) => {
+        {allOrders ? allOrders.map((elem, index) => {
           //convert to date format
-          let date = String(new Date(order.created_at)).slice(0, 28)
+          let date = String(new Date(elem.order.created_at)).slice(0, 28)
           return (
             <div>
               <div className="orderflex">
-                <div className="orderrow">
+                <div className="orderrow allorders">
                   <div>Order Placed</div>
-                  <div>{date}</div>
+                  <div className="orderinfo">{date}</div>
                 </div>
-                <div className="orderrow">
+                <div className="orderrow allorders">
                   <div>Order ID</div>
-                  <div>{order.id}</div>
+                  <div className="orderinfo">{elem.order.id}</div>
                 </div>
-                <div className="orderrow">
+                <div className="orderrow allorders">
                   <div>Status</div>
-                  <div>{order.status}</div>
+                  <div className="orderinfo">{elem.order.status}</div>
                 </div>
-                <div className="orderrow">
+                <div className="orderrow allorders">
                   <div>Total</div>
-                  <div>{Number(order.cart.quantity) * Number(order.cart.price)}</div>
+                  <div className="orderinfo">{Number(elem.quantity) * Number(elem.price)}</div>
                 </div>
               </div>
               <div className='productdetails'>
-                <img id="orderimage" src={order.cart.product.img} alt="" />
+                <img id="orderimage" src={elem.product.img} alt="" />
                 <div className='productdetails2'>
                   <div id="orderitems">
-                    <div id="itemname">Name: {order.cart.product.name}</div>
-                    <div id="itemquantity">Quantity: {order.cart.quantity}</div>
-                    <div id="itemquantity">Price: {order.cart.price}</div>
+                    <div id="itemname">Name: {elem.product.name}</div>
+                    <div id="itemquantity">Quantity: {elem.quantity}</div>
+                    <div id="itemquantity">Price: {elem.price}</div>
+                  </div>
+                    <div id="userdetails">
+                    <div id="userheader">User</div>
+                    <div id="userid">id: {elem.order.user.id}</div>
+                    <div id="username">name: {elem.order.user.name}</div>
+                    <div id="useremail">email: {elem.order.user.email}</div>
                   </div>
                   <div className="address">
                     <div id="itemname">Address</div>
-                    <div>{order.Street}, {order.Apartment} </div>
-                    <div>{order.City}, {order.State} {order.zipCode}</div>
+                    <div>{elem.order.Street}, {elem.order.Apartment} </div>
+                    <div>{elem.order.City}, {elem.order.State} {elem.order.zipCode}</div>
                   </div>
                 </div>
               </div>

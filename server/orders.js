@@ -4,12 +4,19 @@ const db = require('APP/db')
 const Order = db.model('order')
 const CartItem = db.model('cartItem')
 const Product = db.model('products')
+const User = db.model('users')
 
 module.exports = require('express').Router()
   //get all orders
   .get('/',
   (req, res, next) =>
-    Order.findAll({})
+    CartItem.findAll({
+      include: [{model: Order, include: [User]}, {model: Product}]
+    })
+
+      // Order.findAll({
+      //   inclide: [CartItem, Product]
+      // })
       .then((orders) => {
         if (!orders.length) res.status(404).send('page Not Found')
         else res.send(orders)
@@ -44,7 +51,7 @@ module.exports = require('express').Router()
 
       })
       .catch(next))
-// gets a specific order
+  // gets a specific order
   .get('/:id',
   (req, res, next) =>
     Order.findById(req.params.id)
@@ -53,7 +60,7 @@ module.exports = require('express').Router()
         else res.send(order)
       })
       .catch(console.error()))
-// creates an order for a specific user
+  // creates an order for a specific user
   .post('/:userId',
   (req, res, next) => {
     Order.create({
