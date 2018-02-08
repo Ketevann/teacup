@@ -15,7 +15,7 @@ Check out the LIVE  <a href="https://tea-cup.herokuapp.com/">DEMO</a>
 * change users from user to admin
 
 
-# Stack
+### Stack
 
 * Node
 * PostgreSQL
