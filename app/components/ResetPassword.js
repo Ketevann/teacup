@@ -4,6 +4,11 @@ import { connect } from 'react-redux'
 import { resetPassword } from '../reducers/forgot'
 
 class ResetPassword extends React.Component {
+  constructor(){
+    super()
+    this.state = {error: null}
+  }
+
   render() {
     const { forgot } = this.props
     return (
@@ -18,14 +23,22 @@ class ResetPassword extends React.Component {
                 <div className="wrapper">
                   <form action method="post" name="Login_Form" className="form-signin" onSubmit={(evt) => {
                     evt.preventDefault()
-                    this.props.resetPassword({ password: evt.target.password.value, token: this.props.token })
-                    evt.target.password.value = ''
+                    if ((evt.target.password.value.length) < 6) {
+                      this.setState({ error: 'The password needs to be at least 6 characters long' })
+                    }
+                    else {
+                      this.props.resetPassword({ password: evt.target.password.value, token: this.props.token })
+                      evt.target.password.value = ''
+                    }
                   }}>
-                    <h3 className="form-signin-heading">Please Enter Your Email New Password</h3>
+                    <h3 className="form-signin-heading">Please Enter Your New Password</h3>
                     <hr className="colorgraph" /> <br />
-                    <input type="password" className="form-control" name="password" placeholder="Password" required />
+                    <input onChange={() => this.setState({error: null})} type="password" className="form-control" name="password" placeholder="Password" required />
                     {forgot.reset && !forgot.reset.changed ?
                       <h4>Password Could not be reset</h4> : null}
+                      {this.state.error?
+                    <div style={{'margin-top': '10px', 'margin-bottom': '10px'}}>{this.state.error}</div>
+                    : null}
                     <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Submit</button>
                   </form>
                 </div>

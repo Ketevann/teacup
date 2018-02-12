@@ -33,7 +33,7 @@ class Orders extends Component {
                 </div>
                 <div className="orderrow">
                   <div>Total</div>
-                  <div className="orderinfo">{Number(order.cart.quantity) * Number(order.cart.price)}</div>
+                  <div className="orderinfo">{(Number(order.cart.quantity) * Number(order.cart.price)).toFixed(2)}</div>
                 </div>
               </div>
               <div className='productdetails'>

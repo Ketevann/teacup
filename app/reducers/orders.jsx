@@ -53,7 +53,7 @@ export const alluserOrders = orders => {
 }
 
 export const loadAllOrders = () => dispatch => {
-  axios.get('/api/orders')
+  axios.get('/api/order')
     .then(orders => {
       dispatch(alluserOrders(orders.data))
     })
@@ -64,7 +64,7 @@ export const loadOrders = dispatch =>
       .then(response => {
         const userId = response.data.id
         if (userId) {
-          return axios.get(`/api/orders/user/${userId}`)
+          return axios.get(`/api/order/complete/user/${userId}`)
             .then(orders => {
               var newObj = orders.data.orders;
               for (var i = 0; i < newObj.length; i++) {

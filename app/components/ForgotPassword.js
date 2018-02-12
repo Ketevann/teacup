@@ -52,8 +52,8 @@ class ForgotPassword extends React.Component {
             }}>
               <h3 className="form-signin-heading">Please Enter Your Email</h3>
               <hr className="colorgraph" /> <br />
-              <input type="text" className="form-control" name="username" placeholder="Username" required autofocus />
-              <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
+              <input type="text" className="form-control" name="username" placeholder="Email" required autofocus />
+              <button className="btn btn-lg btn-primary btn-block" name="Submit" value="Submit" type="Submit" text="Submit">Submit</button>
               <Modal
                 isOpen={this.state.modalIsOpen}
                 onAfterOpen={this.afterOpenModal}
@@ -61,7 +61,7 @@ class ForgotPassword extends React.Component {
                 style={customStyles}
                 contentLabel="Example Modal"
               >
-                <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+                <h2 ref={subtitle => this.subtitle = subtitle}></h2>
                 <div id="emailnotify">The Password Reset Link Has Been Sent To Your Email!</div>
                 <button className="btn" onClick={this.closeModal}>close</button>
               </Modal>

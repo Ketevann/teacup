@@ -801,3 +801,6 @@ input.btn.btn-default.updatebtn {
 #cartimg{
   width:200px;
 }
+div#password-error {
+    margin-bottom: 20px;
+}

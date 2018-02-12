@@ -10,6 +10,7 @@ class AllOrders extends Component {
   }
 
   render() {
+    console.log(this.props)
     const { allOrders } = this.props.orders
     return (
       <div id="orders">
@@ -33,7 +34,7 @@ class AllOrders extends Component {
                 </div>
                 <div className="orderrow allorders">
                   <div>Total</div>
-                  <div className="orderinfo">{Number(elem.quantity) * Number(elem.price)}</div>
+                  <div className="orderinfo">{(Number(elem.quantity) * Number(elem.price)).toFixed(2)}</div>
                 </div>
               </div>
               <div className='productdetails'>

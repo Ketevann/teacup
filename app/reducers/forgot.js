@@ -2,6 +2,7 @@ import axios from 'axios';
 const FORGOT = 'FORGOT'
 const EMAILSENT = 'EMAILSENT';
 const RESET = 'RESET';
+import { browserHistory, Link } from 'react-router'
 
 
 export const forgotPasswordBool = () => ({type: 'FORGOT'})
@@ -32,7 +33,12 @@ export const forgotPassword = (email) => {
 export const resetPassword = (credentials) => {
   return dispatch =>
     axios.post('/forgotPassword/reset', credentials)
-      .then((res) => dispatch(confirmReset(res.data)))
+      .then((res) => {
+
+        dispatch(confirmReset(res.data))
+        browserHistory.push('/')
+
+    })
       .catch(err => console.log(err))
 }
 

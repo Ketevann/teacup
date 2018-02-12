@@ -47,7 +47,7 @@ module.exports = require('express').Router()
                 to: 'katie.tsin@gmail.com', // list of receivers
                 subject: 'Hello ✔', // Subject line
                 text: `Hello world ?${token}`, // plain text body
-                html: '<p>Click <a href="http://localhost:8080/reset/' + tokenCode + '">here</a> to reset your password</p>' // html body
+                html: '<p>Click <a href="https://tea-cup.herokuapp.com/reset/' + tokenCode + '">here</a> to reset your password</p>' // html body
               };
 
               transporter.sendMail(mailOptions, (error, info) => {

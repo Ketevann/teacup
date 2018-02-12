@@ -149,7 +149,7 @@ auth.post('/signup', (req, res, next) => {
     .then((user) => {
 
       if (user !== null) {
-        res.status(404).send({user:'error'})
+        res.status(404).send({message: 'user already exists' })
       } else {
          User.create({
             name: req.body.name,
@@ -189,3 +189,8 @@ auth.post('/logout', (req, res) => {
 })
 
 module.exports = auth
+
+
+
+
+//  https://github.com/login/oauth/authorize?response_type=code&redirect_uri=http/localhost/github/callback&client_id=dabdee6741176f220c1f

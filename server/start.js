@@ -40,7 +40,7 @@ app.use(require('express-session')({
   secret: 'crackalackin',
   resave: true,
   saveUninitialized: true,
-  cookie: { secure: false, maxAge: (4 * 60 * 60 * 1000) }, // 4 hours
+  cookie: { secure: false, maxAge: (20000) }, // 4 hours
 }))
   // Body parsing middleware
   //.use(bodyParser.urlencoded({ extended: true }))
